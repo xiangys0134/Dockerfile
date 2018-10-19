@@ -1,0 +1,4 @@
+FROM fluent/fluentd:latest
+RUN mkdir -p /var/log/td-agent 
+RUN ["gem", "install", "fluent-plugin-td", "--no-rdoc", "--no-ri", "--version", "1.0.0"]
+RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "1.9.2"]
