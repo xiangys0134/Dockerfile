@@ -57,7 +57,7 @@ services:
     environment:
       - "ELASTICSEARCH_URL=http://elasticsearch-central:9200"
       - "ELASTICSEARCH_USERNAME=elastic"
-      - "ELASTICSEARCH_PASSWORD=Tkds4uQx2gjXjJ7Q7X8Y"
+      - "ELASTICSEARCH_PASSWORD=6zSxU7Qd94ShYPW54Trx"
       - "XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED=true"
     ports:
       - "5601:5601"
