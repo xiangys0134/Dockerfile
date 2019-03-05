@@ -12,11 +12,8 @@
 
 ## 3.docker 仓库
 
-https://hub.docker.com 
-
-docker login
+https://hub.docker.com 	仓库地址：xiangys0134/nginx
 
 docker tag nginx:v1 xiangys0134/nginx:v1
 
 docker push xiangys0134/nginx:v1
-
