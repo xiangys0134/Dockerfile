@@ -7,10 +7,10 @@
   @type copy
   <store>
     @type elasticsearch
-    host 192.168.5.9 
+    host elasticsearch-central 
     port 9200
     user "elastic"
-    password "Tkds4uQx2gjXjJ7Q7X8Y"
+    password "6zSxU7Qd94ShYPW54Trx"
     include_tag_key true
     tag_key @log_name
     logstash_format true 
