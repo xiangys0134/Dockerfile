@@ -1,6 +1,6 @@
 FROM centos
 MAINTAINER www.g6p.cn
-COPY resource /resource
+#COPY resource /resource
 #RUN yum install -y gcc-c++ gd-devel openssl-devel \
 #    libjpeg-devel libpng-devel freetype-devel \
 #    libxml2-devel curl-devel zlib-devel make \
