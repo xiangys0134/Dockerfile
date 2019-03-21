@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    #image: nginx
+    build: ./nginx
+    container_name: web
+    ports:
+      - "85:80"
+    volumes:
+      - /data/logs/nginx:/usr/local/nginx/logs
+    networks:
+      - esnet 
+
+networks:
+  esnet:
+    driver: bridge
+
