@@ -26,3 +26,9 @@ d69483a6face: Mounted from library/centos
 v1.0.1: digest: sha256:f8ed3700d8ed87647481927ce624ee463a90080d4e7e1bd06ddb8e335472bd9f size: 952
 ```
 
+#### ```三、启动容器```
+
+```cmd
+docker run -v /data/nginx/logs:/usr/local/nginx/logs -itd -p 887:80 --network lnmp --name my_web04  xiangys0134/nginx:v1.0.1
+```
+
