@@ -17,4 +17,4 @@ RUN yum install -y gcc gcc-c++ wget tcl make && \
 ENV PATH $PATH:/usr/local/redis/bin
 WORKDIR /usr/local/redis
 EXPOSE 6379
-CMD ["redis-server /usr/local/redis/redis.conf"]
+CMD ["redis-server","/usr/local/redis/redis.conf"]
