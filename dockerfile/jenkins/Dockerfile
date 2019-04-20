@@ -29,7 +29,6 @@ RUN yum install -y epel-release && \
     NODE_PATH=$NODE_HOME/lib/node_modules:$PATH && \
     cd /resource/node-v8.10.0-linux-x64 && mv ./* /usr/local/node && \
     /usr/local/node/bin/npm install cnpm -g --registry=https://registry.npm.taobao.org && \
-    mv /resource/jenkins.sh /usr/bin/jenkins.sh && \
     cd / && rm -rf /resource && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
