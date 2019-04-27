@@ -1,0 +1,26 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    #ulimits:
+    #  nproc: 65535
+    #  nofile:
+    #    soft: 65535
+    #    hard: 65535 
+    #privileged: true
+    ports:
+      - "6379:6379"
+    volumes:
+      - /data/compose/redis/data:/data
+    
+    networks:
+      - esnet
+networks:
+  esnet:
+  
