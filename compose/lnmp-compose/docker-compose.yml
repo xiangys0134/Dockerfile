@@ -1,0 +1,59 @@
+version: '3'
+services:
+  nginx:
+    hostname: nginx
+    container_name: nginx
+    depends_on:
+      - php
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    links:
+      - php
+    volumes:
+      - ./lnmp/nginx/html:/usr/local/nginx/html
+    networks:
+      - esnet
+  php:
+    hostname: php
+    container_name: php
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    links:
+      - mysql
+    networks:
+      - esnet
+  mysql:
+    hostname: mysql
+    container_name: mysql
+    image: mysql:5.6.43
+    environment:
+      - MYSQL_DATABASE=tu
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=123456
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./lnmp/mysql/mysql-data:/var/lib/mysql
+      - ./lnmp/mysql/mysql-conf:/etc/mysql/conf.d
+      - ./lnmp/mysql/mysql-logs:/var/log   
+    networks:
+      - esnet
+    ports:
+      - "3306:3306"
+networks:
+  esnet:
+    driver: bridge     

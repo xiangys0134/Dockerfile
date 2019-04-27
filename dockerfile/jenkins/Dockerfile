@@ -1,7 +1,8 @@
-FROM centos:7
+FROM centos:7.6.1810
 MAINTAINER www.g6p.cn
 COPY resource /resource
-RUN yum install -y wget git curl && \
+RUN yum install -y epel-release && \
+    yum install -y wget git && \
     yum clean all && \
     rm -rf /var/cache/yum/* && \
     cd /resource &&  \
@@ -29,9 +30,9 @@ RUN yum install -y wget git curl && \
     cd /resource/node-v8.10.0-linux-x64 && mv ./* /usr/local/node && \
     /usr/local/node/bin/npm install cnpm -g --registry=https://registry.npm.taobao.org && \
     cd / && rm -rf /resource && \
-    sed -i 's/www.google.com/www.baidu.com/' /data/jenkins/jenkins-data/updates/default.json && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
+ARG JENKINS_SHA=2d71b8f87c8417f9303a73d52901a59678ee6c0eefcf7325efed6035ff39372a
 ENV JAVA_HOME /usr/local/java/jdk
 ENV JRE_HOME /usr/local/java/jdk/jre
 ENV CLASSPATH /usr/local/java/jdk/lib:/usr/local/java/jdk/jre/lib
