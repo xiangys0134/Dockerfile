@@ -1,0 +1,7 @@
+version: "3"
+services:
+  python37:
+    image: centos:python37-1.0.1
+    restart: always
+    container_name: python37
+    privileged: true
