@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - web-logs:/usr/share/nginx/html
+    networks:
+      - esnet
+    deploy:
+      replicas: 1
+volumes:
+  web-logs:
+networks:
+  esnet:      
