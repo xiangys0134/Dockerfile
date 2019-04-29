@@ -17,7 +17,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&\
     yum -y install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm &&\
 	yum -y install http://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-1.el7.noarch.rpm && \
-    yum install -y ntp yum-plugin-fastestmirror vim-enhanced  ntp wget bash-completion elinks lrzsz unix2dos dos2unix zabbix-agent &&\
+    yum install -y ntp yum-plugin-fastestmirror vim-enhanced  ntp wget bash-completion elinks lrzsz unix2dos dos2unix zabbix-agent\
     git unzip python python-devel python-pip net-tools cronie gcc mysql-devel nginx &&\
     yum -y localinstall /tmp/Resources/python37/*.rpm &&ln -s /usr/bin/python37 /usr/bin/python3 &&\
     curl https://bootstrap.pypa.io/get-pip.py -o /tmp/Resources/get-pip.py && python3 /tmp/Resources/get-pip.py &&\
