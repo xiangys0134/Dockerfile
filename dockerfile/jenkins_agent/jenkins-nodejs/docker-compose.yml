@@ -1,0 +1,11 @@
+version: "3"
+services:
+  agent-nodejs:
+    image: agent:v0.1 
+    container_name: agent-nodejs
+    restart: always
+    privileged: true
+    environment:
+      - JENKINS_URL=http://jenkins-nodejs:8080/computer/node01/slave-agent.jnlp
+      - JENKINS_SECRET=b2a759cf4b1bfdff65a9c090e26bdf874d79ce2f5bec04810706c779b430bc49
+      - JENKINS_AGENT_WORKDIR=/data/jenkins
