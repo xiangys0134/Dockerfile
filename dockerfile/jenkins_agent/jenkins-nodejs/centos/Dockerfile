@@ -20,7 +20,7 @@ RUN ln -nfs  /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar && \
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh && \
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh && \
-    mkdir /data && mkdir -p /data/jenkins_backup && yum clean all && rm -fr /tmp/Resources 
+    mkdir /data && yum clean all && rm -fr /tmp/Resources 
 
 
 WORKDIR /data/jenkins
