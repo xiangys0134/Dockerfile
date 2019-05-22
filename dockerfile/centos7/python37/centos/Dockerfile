@@ -22,13 +22,10 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     yum -y localinstall /tmp/Resources/python37/*.rpm &&ln -s /usr/bin/python37 /usr/bin/python3 &&\
     curl https://bootstrap.pypa.io/get-pip.py -o /tmp/Resources/get-pip.py && python3 /tmp/Resources/get-pip.py &&\
     pip3 install virtualenv && virtualenv --no-site-packages /root/env && \
-<<<<<<< HEAD
     cp -r /tmp/Resources/monitor/zabbix_agentd.d/* /etc/zabbix/zabbix_agentd.d/ && \
     cp -r /tmp/Resources/monitor/monitor_sh /etc/zabbix/monitor_sh && \
     chmod 775 /etc/sudoers && echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers && \
     chmod 440 /etc/sudoers && \
-=======
->>>>>>> 65b52d66527992ff4b797d593d04bc04c6a91c3f
     systemctl enable zabbix-agent.service && yum clean all &&  rm -fr /tmp/Resources
 
 EXPOSE 10050
