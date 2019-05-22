@@ -1,0 +1,12 @@
+version: "3"
+services:
+  jenkins-nodejs:
+    image:  xiangys0134/jenkins:nodejs-v1.0.0
+    container_name: jenkins-nodejs
+    restart: always
+    privileged: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./jenkins_data:/data/jenkins
+      - ./jenkins_backup:/data/jenkins_backup
