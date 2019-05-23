@@ -34,12 +34,19 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar && \
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh && \
     cd /tmp/resource/3if_dps && yum localinstall -y *.rpm &&\
+    cd /tmp/resource && \
+    tar zxf apache-maven-3.6.1-bin.tar.gz && \
+    mkdir -p /usr/local/maven && \
+    cd apache-maven-3.6.1 && \
+    cp -r ./* /usr/local/maven/ && \
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh && \
     mkdir -p ${JENKINS_HOME}/{build,zipbuild} && \
     mkdir -p ${JENKINS_HOME}/rpmbuld/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
     chown -R ${user}.${group} ${JENKINS_HOME} &&\ 
     yum clean all && rm -fr /tmp/Resources
 
+ENV MAVEN_HOME /usr/local/maven
+ENV PATH $PATH:/usr/local/maven/bin
 
 WORKDIR ${JENKINS_HOME}
 
