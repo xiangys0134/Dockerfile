@@ -2,6 +2,10 @@ FROM centos:centos7.6.1810
 # 镜像的作者 
 LABEL maintainer="<250919938@qq.com>" 
 
+ARG user=jenkins
+ARG group=jenkins
+ARG uid=1000
+ARG gid=1000
 
 COPY resource /tmp/resource
 ### SET ENVIRONNEMENT
@@ -22,9 +26,12 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     yum install -y devtoolset-7-make &&\
     yum install -y rpm-build.x86_64 lua-devel libuv-devel sqlite-devel &&\
     scl enable devtoolset-7 bash && \
+    groupadd -g ${gid} ${group} &&\
+    useradd -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar && \
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh && \
     cd /tmp/resource/3if_dps && yum localinstall -y *.rpm &&\
+    dos2unix /tmp/resource/*sh &&\
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh && \
     mkdir -p ${JENKINS_HOME}/{build,zipbuild} && \
     mkdir -p ${JENKINS_HOME}/rpmbuld/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
@@ -33,6 +40,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
 
 
 WORKDIR ${JENKINS_HOME}
+USER ${user}
 
 
 ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
