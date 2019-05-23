@@ -1,10 +1,12 @@
 version: "3"
 services:
   agent-xone:
-    image: agent:xone1.0.0
+    image: agent:xone1.0.2
     container_name: agent-xone
     restart: always
     privileged: true
+    volumes:
+      - ./jenkins_data:/var/lib/jenkins
     environment:
       - JENKINS_USER=jenkins
       - JENKINS_URL=http://192.168.10.83:8080/computer/node01/slave-agent.jnlp
