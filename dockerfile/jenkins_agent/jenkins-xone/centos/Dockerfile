@@ -32,8 +32,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     scl enable devtoolset-7 bash && \
     curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn &&\
-    curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static-amd64 -o /bin/tini && chmod +x /bin/tini \
-    && echo "$TINI_SHA  /bin/tini" | sha256sum -c - && \
+    curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static-amd64 -o /bin/tini && chmod +x /bin/tini &&\
     npm install -g cnpm --registry=https://registry.npm.taobao.org &&\
     groupadd -g ${gid} ${group} &&\
     useradd -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} &&\

@@ -12,7 +12,10 @@ COPY resource /tmp/resource
 ENV LANG=zh_CN.UTF-8 \
     LANGUAGE=zh_CN.UTF-8 \
     TIME_ZONE=Asia/Shanghai \
-    JENKINS_HOME=/var/lib/jenkins
+    JENKINS_HOME=/var/lib/jenkins \
+    TINI_VERSION=0.14.0 \
+    INI_SHA=6c41ec7d33e857d4779f14d9c74924cab0c7973485d2972419a3b7c7620ff5fd \
+    PATH=$PATH:${MAVEN_HOME}/bin
 
 # Install language pack
 RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
@@ -26,6 +29,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     yum install -y devtoolset-7-make &&\
     yum install -y rpm-build.x86_64 lua-devel libuv-devel sqlite-devel &&\
     scl enable devtoolset-7 bash && \
+    curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static-amd64 -o /bin/tini && chmod +x /bin/tini &&\
     groupadd -g ${gid} ${group} &&\
     useradd -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar && \
@@ -43,4 +47,4 @@ WORKDIR ${JENKINS_HOME}
 USER ${user}
 
 
-ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
+ENTRYPOINT ["/bin/tini", "--","/usr/local/bin/jenkins.sh"]
