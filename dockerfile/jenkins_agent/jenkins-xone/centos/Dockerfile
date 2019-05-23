@@ -2,19 +2,19 @@ FROM centos:centos7.6.1810
 # 镜像的作者 
 LABEL maintainer="<250919938@qq.com>" 
 
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=1000
-ARG gid=1000
+ARG user=root
+ARG group=root
+ARG uid=0
+ARG gid=0
 
 COPY resource /tmp/resource
 ### SET ENVIRONNEMENT
 ENV LANG=zh_CN.UTF-8 \
     LANGUAGE=zh_CN.UTF-8 \
     TIME_ZONE=Asia/Shanghai \
-    JENKINS_HOME=/var/lib/jenkins \
     MAVEN_HOME=/usr/local/maven \
     TINI_VERSION=0.14.0 \
+    JENKINS_HOME=/var/lib/jenkins \
     INI_SHA=6c41ec7d33e857d4779f14d9c74924cab0c7973485d2972419a3b7c7620ff5fd \
     PATH=$PATH:${MAVEN_HOME}/bin
 
@@ -34,30 +34,27 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn &&\
     curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static-amd64 -o /bin/tini && chmod +x /bin/tini &&\
     npm install -g cnpm --registry=https://registry.npm.taobao.org &&\
-    groupadd -g ${gid} ${group} &&\
-    useradd -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} &&\
+    #groupadd -g ${gid} ${group} &&\
+    #useradd -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar && \
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh && \
     cd /tmp/resource/3if_dps && yum localinstall -y *.rpm &&\
+    echo "source /opt/rh/devtoolset-7/enable" >> /etc/profile &&\
+    dos2unix /tmp/resource/*sh && \
     cd /tmp/resource && \
-    dos2unix *sh &&\
     tar zxf apache-maven-3.6.1-bin.tar.gz && \
     mkdir -p /usr/local/maven && \
     cd apache-maven-3.6.1 && \
     cp -r ./* /usr/local/maven/ && \
     /bin/cp -rf /tmp/resource/settings.xml /usr/local/maven/conf && \
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh && \
-    mkdir -p ${JENKINS_HOME}/{build,zipbuild} && \
-    mkdir -p ${JENKINS_HOME}/rpmbuld/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
-    chown -R ${user}.${group} ${JENKINS_HOME} &&\ 
+    mkdir -p /root/{build,zipbuild} && \
+    mkdir -p /root/rpmbuld/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} && \
+    #chown -R ${user}.${group} ${JENKINS_HOME} &&\ 
     yum clean all && rm -fr /tmp/Resources
 
-ENV JENKINS_HOME /var/lib/jenkins
-ENV JENKINS_HOME /var/lib/jenkins
-ENV JENKINS_HOME /var/lib/jenkins
-ENV JENKINS_HOME /var/lib/jenkins
 
 WORKDIR ${JENKINS_HOME}
-USER ${user}
+#USER ${user}
 
-ENTRYPOINT ["/bin/tini", "--","/usr/local/bin/jenkins.sh"]
+ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
