@@ -6,6 +6,11 @@ services:
     restart: always
     privileged: true
     volumes:
+      - ./jenkins_data/build:/var/lib/jenkins/build
+      - ./jenkins_data/rpmbuild/BUILD:/var/lib/jenkins/rpmbuild/BUILD
+      - ./jenkins_data/rpmbuild/SOURCES:/var/lib/jenkins/rpmbuild/SOURCES
+      - ./jenkins_data/rpmbuild/RPMS:/var/lib/jenkins/rpmbuild/RPMS
+      - ./jenkins_data/rpmbuild/BUILDROOT:/var/lib/jenkins/rpmbuild/BUILDROOT
       - ./jenkins_data:/var/lib/jenkins
     environment:
       - JENKINS_USER=jenkins
