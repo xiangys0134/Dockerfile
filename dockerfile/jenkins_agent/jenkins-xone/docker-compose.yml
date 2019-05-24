@@ -11,7 +11,7 @@ services:
       - ./jenkins_data/rpmbuild/SOURCES:/data/jenkins/rpmbuild/SOURCES
       - ./jenkins_data/rpmbuild/RPMS:/data/jenkins/rpmbuild/RPMS
       - ./jenkins_data/rpmbuild/BUILDROOT:/data/jenkins/rpmbuild/BUILDROOT
-      - ./jenkins_data:/data/jenkins/jenkins
+      - ./jenkins_data:/data/jenkins
     environment:
       - JENKINS_USER=jenkins
       - JENKINS_URL=http://192.168.10.83:8080/computer/xone/slave-agent.jnlp
