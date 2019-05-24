@@ -25,7 +25,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     ln -nfs  /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     grep -q 'zh_CN.utf8' /etc/locale.conf || sed -i -E 's/^LANG=.*/LANG="zh_CN.UTF-8"/' /etc/locale.conf &&\
     yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&\
-    yum install -y ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git unzip net-tools cronie lua-devel &&\
+    yum install -y ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git unzip net-tools cronie lua-devel cmake &&\
     yum install -y gcc-c++ make python python-devel python-pip python36 python36-devel python36-setuptools java-1.8.0-openjdk java-1.8.0-openjdk-devel sudo &&\
     yum install -y centos-release-scl &&\
     yum install -y devtoolset-7-gcc* &&\
