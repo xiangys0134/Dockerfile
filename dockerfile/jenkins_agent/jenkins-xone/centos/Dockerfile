@@ -43,6 +43,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     #cd /tmp/resource/3if_dps && yum localinstall -y *.rpm &&\
     #echo "source /opt/rh/devtoolset-7/enable" >> /etc/profile &&\
     dos2unix /tmp/resource/*sh && \
+    cd /tmp/resource/dev && yum localinstall -y *.rpm &&\
     cd /tmp/resource && \
     tar zxf apache-maven-3.6.1-bin.tar.gz && \
     mkdir -p /usr/local/maven && \
