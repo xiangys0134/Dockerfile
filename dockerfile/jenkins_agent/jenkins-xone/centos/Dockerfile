@@ -17,7 +17,7 @@ ENV LANG=zh_CN.UTF-8 \
     TINI_VERSION=0.14.0 \
     JENKINS_HOME=${jenkins_home} \
     INI_SHA=6c41ec7d33e857d4779f14d9c74924cab0c7973485d2972419a3b7c7620ff5fd \
-    PATH=$PATH:${MAVEN_HOME}/bin \
+    PATH=/usr/local/maven/bin:$PATH \
     RPM_TOP_DIR=${jenkins_home}
 
 # Install language pack
