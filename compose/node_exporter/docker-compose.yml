@@ -2,6 +2,7 @@ version: '3.1'
 services:
   node-exporter:
     image: quay.io/prometheus/node-exporter
+    container_name: node-exporter
     volumes:
       - /:/rootfs:ro,rslave
       #- /data/textfile_collector:/usr
@@ -20,4 +21,4 @@ services:
       #- --collector.systemd.unit-whitelist=^ceph.*$$
     ports:
       - 9100:9100
-    #restart: always
+    restart: always
