@@ -30,7 +30,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     #yum install -y centos-release-scl &&\
     #yum install -y devtoolset-7-gcc* &&\
     #yum install -y devtoolset-7-make &&\
-    yum install -y rpm-build.x86_64 lua-devel libuv-devel sqlite-devel &&\
+    yum install -y rpm-build.x86_64 &&\
     #scl enable devtoolset-7 bash && \
     curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn &&\
