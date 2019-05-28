@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CWD="`dirname "$0"`"
+PLUGIN_DIR="$CWD/../plugins/`ls -tr "$CWD/../plugins" | grep com.zend.guard.core.resources | tail -1`/resources"
+LD_LIBRARY_PATH="$PLUGIN_DIR:$LD_LIBRARY_PATH" "$PLUGIN_DIR/zendid" $*

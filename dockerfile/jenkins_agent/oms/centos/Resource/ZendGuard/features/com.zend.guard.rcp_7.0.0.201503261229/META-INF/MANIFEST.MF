@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.7.0_72
+Built-By: jenkins
+Created-By: Apache Maven 3.1.1
+Archiver-Version: Plexus Archiver
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.rcp/pom.properties
+SHA-256-Digest: GurS9kpuPhP5FrlkbjJADd13f7nzuQcko4tb2Vg6ntk=
+
+Name: license.html
+SHA-256-Digest: hEBPgtzPBZmRInkKLifQZ/5J5cCP0RuzJh1co8Og9K0=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.rcp/pom.xml
+SHA-256-Digest: WWh2GI+iWl4HjeyZieeeo/Cf7YwJEF5OC//5MiFr+Mg=
+
+Name: feature.xml
+SHA-256-Digest: jL4RGjqnxX5HLiUPKGEVVl41QnctPBjpXcMUUKmqQrI=
+
+Name: feature.properties
+SHA-256-Digest: l3UtWbbXUjNnNhbBR5wF5UvdRii2moDjMoFtf1xXFGI=
+

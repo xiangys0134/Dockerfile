@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.zend.guard.rcp"
+      label="Zend Guard Feature"
+      version="7.0.0.201503261229"
+      provider-name="Zend Technologies Ltd."
+      plugin="com.zend.guard.ui.rcp">
+
+   <description>
+      %description
+   </description>
+
+   <copyright url="http://www.zend.com">
+      Copyright (c) 1998-2007 Zend Technologies. All rights reserved.
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <plugin
+         id="com.zend.guard.core"
+         download-size="111"
+         install-size="229"
+         version="7.0.0.201503261229"/>
+
+   <plugin
+         id="com.zend.guard.core.resources.linux"
+         os="linux"
+         download-size="5753"
+         install-size="14511"
+         version="7.0.0.201503261229"
+         fragment="true"/>
+
+   <plugin
+         id="com.zend.guard.core.resources.macosx"
+         os="macosx"
+         download-size="5856"
+         install-size="16801"
+         version="7.0.0.201503261229"
+         fragment="true"/>
+
+   <plugin
+         id="com.zend.guard.core.resources.win32"
+         os="win32"
+         download-size="6564"
+         install-size="18779"
+         version="7.0.0.201503261229"
+         fragment="true"/>
+
+   <plugin
+         id="com.zend.guard.help"
+         download-size="8"
+         install-size="15"
+         version="7.0.0.201503261229"/>
+
+   <plugin
+         id="com.zend.guard.ui.common"
+         download-size="675"
+         install-size="1323"
+         version="7.0.0.201503261229"
+         unpack="false"/>
+
+   <plugin
+         id="com.zend.guard.ui.rcp"
+         download-size="200"
+         install-size="558"
+         version="7.0.0.201503261229"/>
+
+</feature>

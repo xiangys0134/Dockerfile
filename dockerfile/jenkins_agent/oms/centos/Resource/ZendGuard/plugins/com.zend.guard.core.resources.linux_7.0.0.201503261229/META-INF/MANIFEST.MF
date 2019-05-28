@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Bundle-Vendor: Zend Technologies Ltd.
+Fragment-Host: com.zend.guard.core
+Build-Jdk: 1.7.0_72
+Built-By: jenkins
+Bundle-Version: 7.0.0.201503261229
+Eclipse-BundleShape: dir
+Eclipse-PlatformFilter: (osgi.os=linux)
+Bundle-Name: Guard Resources for Linux (Fragment)
+Created-By: Apache Maven 3.1.1
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.zend.guard.core.resources.linux
+Archiver-Version: Plexus Archiver
+
+Name: resources/zendenc56
+SHA-256-Digest: VJYLQwR5YaFc06cY3BFOSj88kSnEm6lL9zIhPZCyw6c=
+
+Name: resources/GuardEngine
+SHA-256-Digest: 1WEoFwGH48/o28asxvAB0a9/ww12V4pqXg7dxzqRLA4=
+
+Name: resources/ZendEncoder56.so
+SHA-256-Digest: XixVCMInZcusDwFAAbsGEy0FcTtCiN4wZBai5hA5RPQ=
+
+Name: resources/zendenc_sign
+SHA-256-Digest: 4O4mKc0FLdGNt/HR6ydGhm1f1IcNR9aNDYiQNCDmjz8=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.core.resources.linu
+ x/pom.properties
+SHA-256-Digest: kfyBy47CR+qsuX/p1dkwgwRog03hKzyPVWEPSXxZYNE=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.core.resources.linu
+ x/pom.xml
+SHA-256-Digest: g8NZXGsPpGef8j/YvVqj/GCSF4Xvch1veIRjQ/GMoZ8=
+
+Name: META-INF/p2.inf
+SHA-256-Digest: mkyTwK76jLSLBHs+IjZsoCdtgwWOzjRQQPufXfmkHXw=
+
+Name: resources/ZendEncoder55.so
+SHA-256-Digest: us9TXTuNKH00WDPwWxUUGKwRETyfRgUAvg2cYpltQuU=
+
+Name: resources/zendid
+SHA-256-Digest: /iGz/z9PkUOZhqN2BVYRu9dH4H5hxfO19MxalESnDuw=
+
+Name: resources/zendenc55
+SHA-256-Digest: 2iYHS0tVuWbFgzT2WYtj/OVbs1596HludZ894LVir+Q=
+

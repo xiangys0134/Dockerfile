@@ -1,0 +1,187 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: 51zZZqxHo2mQ0khMBas9MzRPzk10h
+ mHGwq5Ok+8B7qY=
+SHA-256-Digest-Manifest: 2Bvu9Wi0Qid0VBT+r/wfzGVGoFSOho/ksYhnEsWDsfs=
+Created-By: 1.7.0_72 (Oracle Corporation)
+
+Name: com/zend/guard/core/project/ProjectOptions$ResourceOption.class
+SHA-256-Digest: GVb+FIvwnVHr7Lkc8u+GvvcuwfGiz1pSz9cXW/vo1RU=
+
+Name: com/zend/guard/core/GuardCorePlugin.class
+SHA-256-Digest: TxCC8ln4Bek4tJRU6zOZbK9P3EfnISMx0NX4tN0PtKs=
+
+Name: com/zend/guard/core/utilities/ZendID.class
+SHA-256-Digest: b57XOL8STbDai1LraBthnTrpCr7NeE6hsRJqC9GRSgw=
+
+Name: com/zend/guard/core/utilities/ILicenseListener.class
+SHA-256-Digest: 2XH3fp6sfwm6PlCUy9/ERB1qCPMTecMRSq+iHE55xjQ=
+
+Name: com/zend/guard/core/project/model/IEncodingConstants.class
+SHA-256-Digest: VvhPpVcRtXNxHZpuWdDlEfoIewPAOzoNgEhyfBjY9mY=
+
+Name: com/zend/guard/core/project/model/ExcludeEntry.class
+SHA-256-Digest: j5L8caB25ShiLV7ZSks2rsRi/vpPoxNzBLHdptzylUI=
+
+Name: com/zend/guard/core/utilities/ZendEncoder.class
+SHA-256-Digest: wMRTCWSIWr52s+S5EdR2f8qcrAMO/xnrC20x59AjoE8=
+
+Name: com/zend/guard/core/project/model/ExcludeEntryType.class
+SHA-256-Digest: fX87q3BwdA3umrUWNgUUQqcaRRB+ImIjWK02gEvg+78=
+
+Name: com/zend/guard/core/project/model/ExcludeList.class
+SHA-256-Digest: ogMxNqHCJHHsXRVa69zvwQPaGPR6Qp4RJ6mc+w0cmOs=
+
+Name: com/zend/guard/core/project/parser/ParseError.class
+SHA-256-Digest: GW+pJfHXk6rpRRhft5NdPKUNPd/YnhutIdv3GQEGf7o=
+
+Name: permissions.properties
+SHA-256-Digest: 3JzRYd35qXGNet6LJsrmIpOsech47h0rhH8YkldLv2c=
+
+Name: com/zend/guard/core/project/parser/LicenseFileWriter.class
+SHA-256-Digest: m04Bq3XNRx7m69fqyqsuV9gk6CSLGCELc5KXEcUII/A=
+
+Name: com/zend/guard/core/GuardCoreMessages.class
+SHA-256-Digest: VVuKe07bJjG5NoHdLzmjUdS+9kZ6nN2bRY241bO4BfE=
+
+Name: com/zend/guard/core/project/model/GlobalVariables.class
+SHA-256-Digest: JhzxfxE1IwB/UG0rV250m7bZ2hbaRjPzOxzoMr1+/OY=
+
+Name: com/zend/guard/core/project/model/ExcludedEntry.class
+SHA-256-Digest: iGsHGzsbJB4GCkybatd2And8VD0xipcoB8FCDC8XC4c=
+
+Name: com/zend/guard/core/project/parser/LicenseFileParser.class
+SHA-256-Digest: CdwcvJtuSFnU9Y7sHzSpybBhenno9736fyZPjvskk0w=
+
+Name: com/zend/guard/core/project/ProjectOptions.class
+SHA-256-Digest: Vj1Y4JyoJ/d7Xl7Wog7cxK9CJ/NlRbCFEiAt2/uxTHk=
+
+Name: com/zend/guard/core/utilities/ZendUtility.class
+SHA-256-Digest: DaqnVacIjDuCkNyLxmurQ3Y8Mbra5H+Z/JP//jAvUHA=
+
+Name: com/zend/guard/core/utilities/ZendUtility$1.class
+SHA-256-Digest: nKI8c8c0Eb669QXJJ1OOSYtxssQ0LvWyBYPnMsKnMCE=
+
+Name: com/zend/guard/core/project/parser/ParametersFileParser.class
+SHA-256-Digest: uvRqvQLHef0BPSkobvu9vkAN+2/BFUWC2wXt0iClwN0=
+
+Name: com/zend/guard/core/project/model/Expiration.class
+SHA-256-Digest: MTeBDDjwVcjRv6FPk4e/Vh0fjYfG6cc9PCLh5mIvgcg=
+
+Name: com/zend/guard/core/project/model/HeaderInformation.class
+SHA-256-Digest: 9SmHJKTkpjrpuvBz1P28BsiWNoBQwBp/8Ntd0Q/pAwY=
+
+Name: plugin.properties
+SHA-256-Digest: gALXB/OURTC1wmw2lE57kKLzRDfq1PN9cUP+8qSqtfM=
+
+Name: com/zend/guard/core/project/GuardIncrementalProjectBuilder.class
+SHA-256-Digest: 90Pa93vDH54BUXlSA4u8/lnNG0huSs4wCqad5B96Rc4=
+
+Name: com/zend/guard/core/project/model/EncodingOptions.class
+SHA-256-Digest: gkDh1NAH/5MBG+sGJj2HsConncYZvMHI4VIhSr4lbd8=
+
+Name: com/zend/guard/core/project/model/SourceEntry.class
+SHA-256-Digest: xfBS1XTEbiadKH5RVfEI1awJ7vfuBK0qplkEQwl44FE=
+
+Name: com/zend/guard/core/project/ProjectOptions$1.class
+SHA-256-Digest: 4K6qKTli9TU2q0O9BN3PbVtRgtwZ0TDL5a3eipdVjVE=
+
+Name: com/zend/guard/core/project/ParametersFilesModelsManager$1.class
+SHA-256-Digest: R3eR89EIyNiKAp/uJVrJH3ZcdZqEloZbTkaSAK1Z+NM=
+
+Name: com/zend/guard/core/project/parser/ParametersFileWriter.class
+SHA-256-Digest: DVPoCga8yDVmsffWUwZX7C8FMO3NeiePJJjoOwgniAM=
+
+Name: com/zend/guard/core/project/IParametersFilesModelListener.class
+SHA-256-Digest: kDNrVPa9tkH6hOaiJJL1XayEOj5F7BNdAdkEWCH3hP4=
+
+Name: com/zend/guard/core/project/ParametersFilesModelsManager.class
+SHA-256-Digest: SD8CJK6ROvIApEyxP7feVi4sL2DQsuWODjLR0bgvVd8=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.core/pom.xml
+SHA-256-Digest: mnID0n95ewR2NaZuQc/+vbi8osT0J39p3EqtQSB34pg=
+
+Name: com/zend/guard/core/utilities/StreamDevourer.class
+SHA-256-Digest: ZUOyt0JIcbceiUIOAHEEi8LfZMSVL6N4WdlH/yyCfCI=
+
+Name: resources/guard.xsd
+SHA-256-Digest: oPeO6W8UYCiBSrQtyDqw47PvRG8VZa6C+xbnp5VhcWo=
+
+Name: com/zend/guard/core/utilities/ZendSigner.class
+SHA-256-Digest: gBPYBTo+kD+M8uC3QfpnPey9KQJfZrKRU+VHb+dpVDI=
+
+Name: com/zend/guard/core/project/model/PHPFilesExtensions.class
+SHA-256-Digest: M5SSAYBstBfS488cA8ryKSPeUoYNUXEEKShpppDIl5Y=
+
+Name: com/zend/guard/core/project/model/Period.class
+SHA-256-Digest: /7AneOFsONshkW6vmZlx85F3aqPz1plpMjnhzmKHKSQ=
+
+Name: com/zend/guard/core/project/ParametersFilesModelsManager$3.class
+SHA-256-Digest: wMYzcfLlrZ1sgmXLy/mAp3VfNJGIfXyzQiYg+t+dZ7U=
+
+Name: com/zend/guard/core/project/ParametersFileUtils.class
+SHA-256-Digest: JmLsfpEVnUwR1Z0kFolJv/MfZF69A7v+KSd5jX2ex+Y=
+
+Name: com/zend/guard/core/utilities/LicenseRetrieveException.class
+SHA-256-Digest: wPhDE9zLx4Y1W+gaYJ9lAVvC0xFQeb6wcZz3kSNg0B4=
+
+Name: com/zend/guard/core/ZL.class
+SHA-256-Digest: FpOINQ3mSaYl5xo1FTyDJ5XWx4/HYrdeAa4YydM1J/U=
+
+Name: com/zend/guard/core/project/parser/ExcludeListParser.class
+SHA-256-Digest: Asxis0dEQGz2kcuNfQalA+kWgCwfugeOCD57Rb16Afw=
+
+Name: com/zend/guard/core/GuardCoreMessages.properties
+SHA-256-Digest: uH4VSPdGA/MzYw/XMe7TkKKEsbCSll/RONqwP9ZJVkg=
+
+Name: com/zend/guard/core/IGuardCoreConstants.class
+SHA-256-Digest: kvFXRgQREzeHnyNRAi8MybxElT4yRfmoYzphCZLEtyw=
+
+Name: com/zend/guard/core/project/model/IgnorePatterns.class
+SHA-256-Digest: J1c4xE3fOWQunEntEBtT7Gqaf+IDhRVtwkEIRP9rIDQ=
+
+Name: com/zend/guard/core/project/GuardNature.class
+SHA-256-Digest: P5mdpGSPfZS1gEwnIvoF1b4xCUZYQiqRyB2Hjg0OMu0=
+
+Name: resources/guardTemplate.xml
+SHA-256-Digest: LIlPO5m50siXzG8Dhy+JUUm5+WdlCBv8tu0xTWhCtHA=
+
+Name: com/zend/guard/core/project/model/PrivateKey.class
+SHA-256-Digest: TFi8ags2mzAZptpopv1LUGVg5UZEuDTaKpYQYY7AHaM=
+
+Name: com/zend/guard/core/project/ParametersFilesModelsManager$2.class
+SHA-256-Digest: ZH/vUNl4moRaciOpN8t/PLIKE7tlT7CD+AGSeAKEI5Y=
+
+Name: com/zend/guard/core/project/parser/ExcludeListWriter.class
+SHA-256-Digest: Mrx1pDeAReBhkDP+dFdOs01z85mybgwN8SRIHhtQ0rc=
+
+Name: com/zend/guard/core/utilities/GuardLicense.class
+SHA-256-Digest: cq7igAVRLrKibTJYW16vNnOqh12CGrPKnDRbCbcMQF8=
+
+Name: com/zend/guard/core/project/model/SecurityMethod.class
+SHA-256-Digest: iFM96EWW6bux2VuwR3dg+G3S2pUlHpk/SaisyEKI4KE=
+
+Name: com/zend/guard/core/project/model/XMLUtil.class
+SHA-256-Digest: Lhzmdj5q/ukq9H0426TfvD+wqlrm73PwyckwVIz40Ic=
+
+Name: com/zend/guard/core/project/model/ParametersFile.class
+SHA-256-Digest: s1QEeIkypzDoNMO4gkpOAF6brvL6Qx98Ii324Pl9L00=
+
+Name: com/zend/guard/core/utilities/FileMatcher.class
+SHA-256-Digest: qIyrfp0PhZTa5TuWOoZvLxG8mSMdByYUmDYnhuNyKaY=
+
+Name: com/zend/guard/core/project/AdapterFactory.class
+SHA-256-Digest: AGRL+Prr822LDS4jOC5YLAt3YSOSgIzPiJxp/4sEzHA=
+
+Name: plugin.xml
+SHA-256-Digest: KxI50Gp41Qt93aW1S6nngVLnTbfUO5ZSifsUGDfSunU=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.core/pom.properties
+SHA-256-Digest: 8EAvY1Yr1FymTTlP1y7jBZKGZhqZJa2YGfAC8Xo21CU=
+
+Name: com/zend/guard/core/project/parser/ParametersFileParser$Position
+ .class
+SHA-256-Digest: etX4OtofPOgPlggOMrmTjqs8bPC8+Pn2qaHiJtB5SEk=
+
+Name: com/zend/guard/core/project/XMLWriter.class
+SHA-256-Digest: PsvX6wAxg8QoFN+d4t/KCbug+vTfKrqG+eKIVMx8V5o=
+

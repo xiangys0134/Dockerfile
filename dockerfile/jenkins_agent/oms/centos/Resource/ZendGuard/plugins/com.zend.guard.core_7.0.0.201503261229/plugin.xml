@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.startup"/>
+   
+   <extension
+         id="guardNature"
+         name="Guard Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="com.zend.guard.core.project.GuardNature" />
+      </runtime>
+      <builder id="com.zend.guard.core.incrementalGuardProjectBuilder"/>
+   </extension>
+   
+   <extension
+         id="incrementalGuardProjectBuilder"
+         name="Incremental Guard Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true"
+            isConfigurable="true">
+         <run class="com.zend.guard.core.project.GuardIncrementalProjectBuilder" />
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.core.resources.IFile"
+            class="com.zend.guard.core.project.AdapterFactory">
+         <adapter type="com.zend.guard.core.project.model.ParametersFile"/>
+         <adapter type="com.zend.guard.core.project.model.EncodingOptions"/>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.core.resources.IProject"
+            class="com.zend.guard.core.project.AdapterFactory">
+         <adapter type="com.zend.guard.core.project.model.ParametersFile"/>
+         <adapter type="com.zend.guard.core.project.model.EncodingOptions"/>
+      </factory>
+   </extension>
+
+</plugin>
