@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Created-By: 1.7.0_72 (Oracle Corporation)
+
+Name: bin/zendenc_sign
+SHA-256-Digest: W/3mWantOBltSqMUZxuvDRwuGJWaJ0eIZGEeZsZ+vuQ=
+
+Name: bin/zendid
+SHA-256-Digest: H55tVx+/xtQjzVh8/Tl3Sn+jBjR2bb19pewl/pD+6+U=
+
+Name: bin/zendenc56
+SHA-256-Digest: JffrSXidSbwQ8+tX7oDP5VlX9QVhV+QMmMKpJEdJT7o=
+
+Name: bin/zendenc55
+SHA-256-Digest: FbuB6rkNzPP9a7ltmShA2Jm8wDw58jTJxwvxMVqeiLs=
+
+Name: bin/GuardEngine
+SHA-256-Digest: Z8ANxv4C5NH2SBfWkE+ck7tVeDtzZ0dMpArbxIjD7Ik=
+

@@ -1,0 +1,5 @@
+instructions.install = \
+    chmod(targetDir:${artifact.location},targetFile:resources,permissions:775,options:-R);
+    
+instructions.install.import= \
+    org.eclipse.equinox.p2.touchpoint.natives.chmod

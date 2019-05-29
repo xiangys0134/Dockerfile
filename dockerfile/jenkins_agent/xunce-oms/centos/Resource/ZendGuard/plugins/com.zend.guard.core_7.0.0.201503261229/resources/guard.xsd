@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="guardProject">
+		<xs:annotation>
+			<xs:documentation>Zend Guard project file.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="globalVariables" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Variables section. Where the user can define variables that can be used throughout the XML entries.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="options" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Encoding options. These options may be overridden in each of "source" tags.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="source" maxOccurs="unbounded" >
+					<xs:annotation>
+						<xs:documentation>Source directory definitions.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="appName" use="required" >
+				<xs:annotation>
+						<xs:documentation>Encoded application name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="collapse"/>
+							<xs:minLength value="1"/>
+							<xs:pattern value="[a-zA-Z0-9_\-\. ]+"/>
+						</xs:restriction>
+				</xs:simpleType>
+				</xs:attribute>
+			<xs:attribute name="appVersion" use="required" >
+				<xs:annotation>
+					<xs:documentation>Encoded application version.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="targetDir" use="required" >
+		      		<xs:annotation>
+					<xs:documentation>Target directory, where the encoded files will be placed.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="globalVariables">
+		<xs:annotation>
+			<xs:documentation>Where the user can define variables that can be used throughout the XML entries.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="variable" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="variable">
+		<xs:annotation>
+			<xs:documentation>A variable that can be used throughout the XML file.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="name">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:pattern value="[a-zA-Z0-9_]+"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="options">
+		<xs:annotation>
+			<xs:documentation>Various encoding options.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="securityMethodList" minOccurs="0"/>
+				<xs:element ref="allowEncodedFileModification" minOccurs="0"/>
+				<xs:element ref="excludeList" minOccurs="0"/>
+				<xs:element ref="expiration" minOccurs="0"/>
+				<xs:element ref="headerInformation" minOccurs="0"/>
+				<xs:element ref="ignoreErrors" minOccurs="0"/>
+				<xs:element ref="ignorePatterns" minOccurs="0"/>
+				<xs:element ref="licenseType" minOccurs="0"/>
+				<xs:element ref="optimizationLevel" minOccurs="0"/>
+				<xs:element ref="phpFilesExtensions" minOccurs="0"/>
+				<xs:element ref="phpVersion" minOccurs="0"/>
+				<xs:element ref="privateKey" minOccurs="0"/>
+				<xs:element ref="resolveSymlinks" minOccurs="0"/>
+				<xs:element ref="supportASPTags" minOccurs="0"/>
+				<xs:element ref="supportShortTags" minOccurs="0"/>
+				<xs:element ref="verbosityLevel" minOccurs="0"/>
+				<xs:element ref="workWithEncodedFilesOnly" minOccurs="0"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="headerInformation">
+		<xs:annotation>
+			<xs:documentation>Header information to display when running encoded PHP files on Web server which doesn't have Zend Optimizer installed.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice minOccurs="0">
+				<xs:element ref="none" />
+				<xs:element ref="content" />
+				<xs:element ref="default" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="contentPath">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>The path to the content file (code or comment).</xs:documentation>
+			</xs:annotation>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="contentData">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>The content itself (code or comment actual text).</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="content">
+		<xs:annotation>
+			<xs:documentation>May contain code or comment (or both).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="code" minOccurs="0"/>
+				<xs:element ref="comment" minOccurs="0"/>
+			</xs:all>
+			<xs:attribute name="replace" use="required" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>replace standard error with content.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="none">
+		<xs:annotation>
+			<xs:documentation>No header information.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="false">
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="code">
+		<xs:annotation>
+			<xs:documentation>PHP code to add to the header information.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="contentPath" />
+				<xs:element ref="contentData" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="comment">
+		<xs:annotation>
+			<xs:documentation>Code comment to add to the header information.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="contentPath" />
+				<xs:element ref="contentData" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="default">
+		<xs:annotation>
+			<xs:documentation>Default header information text, which says that
+	Zend Optimizer should be installed in order to view output from encoded script.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType mixed="false">
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="source">
+		<xs:annotation>
+			<xs:documentation>Source directory definition.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="options" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Encoding options relevant for the current source.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:all>
+			<xs:attribute name="path" use="required" >
+				<xs:annotation>
+					<xs:documentation>Path to the source directory.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="allowEncodedFileModification">
+		<xs:annotation>
+			<xs:documentation>Whether PHP file is allowed to be modified after encoding.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" type="xs:boolean" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="phpFilesExtensions">
+		<xs:annotation>
+			<xs:documentation>Extensions of PHP files to encode.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="extension" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="extension">
+		<xs:annotation>
+			<xs:documentation>File extension.</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ignorePatterns">
+		<xs:annotation>
+			<xs:documentation>Patterns of file names which will be ignored while encoding.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pattern" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="pattern">
+		<xs:annotation>
+			<xs:documentation>Pattern describing file name.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="expiration">
+		<xs:annotation>
+			<xs:documentation>Expiration date or period.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="none">
+					<xs:annotation>
+						<xs:documentation>Never expires.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType mixed="false">
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element ref="date" >
+					<xs:annotation>
+						<xs:documentation>Expiration date: set the exact date when the encoded application will be expired.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+
+				<xs:element ref="period" >
+					<xs:annotation>
+						<xs:documentation>Period of time application will work on, after it was encoded.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="date">
+		<xs:annotation>
+			<xs:documentation>Expiration date.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:date" use="required" >
+				<xs:annotation>
+					<xs:documentation>Expiration date value in format "YYYY-MM-DD".</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="period" type="xs:duration">
+		<xs:annotation>
+			<xs:documentation>Period of time prior to expiration.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="excludeList">
+		<xs:annotation>
+			<xs:documentation>Functions excluded from obfuscation.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="file" minOccurs="0"/>
+				<xs:element ref="list" minOccurs="0"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="file">
+		<xs:annotation>
+			<xs:documentation>A path to a file containing the exclude function list.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" use="required" >
+				<xs:annotation>
+					<xs:documentation>File, containing list of excluded functions (each function in single line).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="list">
+		<xs:annotation>
+			<xs:documentation>List of excluded elements.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="function" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Excluded function.</xs:documentation>
+					</xs:annotation></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="function">
+		<xs:annotation>
+			<xs:documentation>Excluded function name.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ignoreErrors">
+		<xs:annotation>
+			<xs:documentation>Whether to ignore parse errors while encoding.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:boolean" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="licenseType">
+		<xs:annotation>
+			<xs:documentation>Encoded application license type.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="none"></xs:enumeration>
+						<xs:enumeration value="file"></xs:enumeration>
+						<xs:enumeration value="API"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="securityMethodList">
+		<xs:annotation>
+			<xs:documentation>List of security methods.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="securityMethod" maxOccurs="unbounded" >
+					<xs:annotation>
+						<xs:documentation>Security method: encodePhpFiles, removeComments, removeLineNumbers etc.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="securityMethod">
+		<xs:annotation>
+			<xs:documentation>Security Methods.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="encodePhpFiles"></xs:enumeration>
+		      			<xs:enumeration value="removeComments"></xs:enumeration>
+		      			<xs:enumeration value="removeLineNumbers"></xs:enumeration>
+		      			<xs:enumeration value="removePhpDoc"></xs:enumeration>
+		      			<xs:enumeration value="obfuscateVariables"></xs:enumeration>
+		      			<xs:enumeration value="obfuscateClasses"></xs:enumeration>
+		      			<xs:enumeration value="obfuscateFunctions"></xs:enumeration>
+		      			<xs:enumeration value="obfuscatePhpEntities"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="value" use="required" type="xs:boolean">
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="optimizationLevel">
+		<xs:annotation>
+			<xs:documentation>Optimization level to use while encoding.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="none"></xs:enumeration>
+						<xs:enumeration value="minimal"></xs:enumeration>
+						<xs:enumeration value="full"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="phpVersion">
+		<xs:annotation>
+			<xs:documentation>PHP version of the application to encode.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" use="required" >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[4-5]{1}(\.[0-9])?"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="privateKey">
+		<xs:annotation>
+			<xs:documentation>Private key string or path to a file to use when encoding the PHP application.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="keyPath" >
+					<xs:annotation>
+						<xs:documentation>Full Path Name: set the path to the private key file.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="value" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="collapse"/>
+									<xs:minLength value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="keyData" >
+					<xs:annotation>
+						<xs:documentation>Key Data: actual private key string.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="resolveSymlinks">
+		<xs:annotation>
+			<xs:documentation>Whether to copy content of symlinks, instead of creating symlinks.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" type="xs:boolean" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="supportASPTags">
+		<xs:annotation>
+			<xs:documentation>Whether to interpret ASP tags &lt;% and %&gt; as PHP tags.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:boolean" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="supportShortTags">
+		<xs:annotation>
+			<xs:documentation>Whether to support short notation of PHP tags &lt;? and ?&gt;</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" type="xs:boolean" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="verbosityLevel">
+		<xs:annotation>
+			<xs:documentation>Output verbosity level.</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="verbose"></xs:enumeration>
+						<xs:enumeration value="quiet"></xs:enumeration>
+						<xs:enumeration value="silent"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="workWithEncodedFilesOnly">
+		<xs:annotation>
+			<xs:documentation>Whether encoded application will work with encoded files only (include, require, etc...)</xs:documentation>
+		</xs:annotation>
+        	<xs:complexType>
+			<xs:attribute name="value" type="xs:boolean" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

@@ -1,0 +1,21 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: ccM4kQ22154PrlSmdPiaTkUM+YECa
+ kciGccZV7WFdNs=
+SHA-256-Digest-Manifest: rPaAhk+xyf0/4TlDYp+mrIi11WTGsrjqfdk75QdNL+s=
+Created-By: 1.7.0_72 (Oracle Corporation)
+
+Name: bin/zendid
+SHA-256-Digest: GgK8h0noZeomusHYVBBJwGZlwO7KLN3dHhTzvFvpZjc=
+
+Name: bin/zendenc_sign
+SHA-256-Digest: uzjLhUqLjRcPSkYMgYj1m1mSLB+76+PF12mAEP10gLE=
+
+Name: bin/zendenc56
+SHA-256-Digest: mD+qIj4kXcvs9qoZ+b/tUNqDt4NfMsbF2cwx4vfkDzo=
+
+Name: bin/GuardEngine
+SHA-256-Digest: ekOfdnUT+ZUBv+PLbTNeumZaxTo/T9wFPSlSN3oRlUQ=
+
+Name: bin/zendenc55
+SHA-256-Digest: 1DkiBRsTJmU0GfGt/VVKKtgZTOpVC7ZVJ789Ol7YCwA=
+

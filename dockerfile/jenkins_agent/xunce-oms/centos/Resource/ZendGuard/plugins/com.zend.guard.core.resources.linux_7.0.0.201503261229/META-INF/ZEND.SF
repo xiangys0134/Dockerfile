@@ -1,0 +1,38 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: EeqNq0E9974IBOqduDqBy4RMRZnTc
+ 9JauCj/HgzgxGg=
+SHA-256-Digest-Manifest: mopvC+O1M29a5WEXkQHZ7rxyV/6ti+1lpQ8GrjZdqic=
+Created-By: 1.7.0_72 (Oracle Corporation)
+
+Name: resources/zendenc56
+SHA-256-Digest: Xn85/JsWdAqYCpdj2emQK+9DzmbcMiHp+NCWKkZKwMU=
+
+Name: resources/GuardEngine
+SHA-256-Digest: hq4Pa8zuo5FCYzQz2kgbLwwyf3jiEs5jbLWOk8bnKFM=
+
+Name: resources/ZendEncoder56.so
+SHA-256-Digest: yyHl08a+tlh5iXQD+JrGs1ML4E4BDMn3yB6Y7HKzYWs=
+
+Name: resources/zendenc_sign
+SHA-256-Digest: qUxjRzeBhKMu4ylUOkHAB5rtEBm6KXvOMdqEVzvqfsY=
+
+Name: META-INF/p2.inf
+SHA-256-Digest: KVHy53N1D/cW/u6HHTAl9J1pryWTFc/Oz12DoOniAMc=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.core.resources.linu
+ x/pom.xml
+SHA-256-Digest: J8Q90HfJZmlgkHSM7mhrzknk2JrNqKGEFZj21Pn7WRg=
+
+Name: META-INF/maven/com.zend.guard/com.zend.guard.core.resources.linu
+ x/pom.properties
+SHA-256-Digest: Xpfv+7w0SrDXbWhnqqn6GdHey7f7VGbjQPg3q44CP/o=
+
+Name: resources/ZendEncoder55.so
+SHA-256-Digest: NVwGJn7XnHq3f8CyNG6oWMChgmpvX4BedLZAFWEsqmM=
+
+Name: resources/zendenc55
+SHA-256-Digest: nxMQxsSM9ilHKavkDGnfu51Tj6a9WDjwFOdbnh//XhU=
+
+Name: resources/zendid
+SHA-256-Digest: FqIV4mPR7dvIEIluWvoKrkEwqTVsivuC39AUjDFPR18=
+
