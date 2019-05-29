@@ -1,0 +1,2 @@
+#! /bin/bash -e
+exec java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war  --httpPort=${JENKINS_HTTP_PORT}

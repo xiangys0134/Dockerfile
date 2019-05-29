@@ -1,0 +1,17 @@
+version: "3"
+services:
+  jenkins:
+    image: xiangys0134/jenkins:master-v1.0.1
+    container_name: jenkins
+    restart: always
+    privileged: true
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins:/data/jenkins_home
+      - /data/backup/jenkins:/data/jenkins_backup
+    networks:
+      - xunce
+networks:
+  xunce: 
