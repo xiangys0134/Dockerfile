@@ -30,10 +30,10 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     chmod +x /lib64/php/modules/ZendGuardLoader.so &&\
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh && \
     mkdir -p /data/script && cp -r /tmp/Resource/encode.php /data/script/encode.php &&\
-    mkdir -p /data/jenkins_home && yum clean all && rm -fr /tmp/Resources 
+    mkdir -p /data/jenkins && yum clean all && rm -fr /tmp/Resources 
 
 
-WORKDIR /data/jenkins_home
+WORKDIR /data/jenkins
 
 
 ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
