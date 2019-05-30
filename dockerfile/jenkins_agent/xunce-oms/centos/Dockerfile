@@ -18,7 +18,6 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     php-bcmath php-pecl-igbinary php-pecl-memcache php-gearman php-memcached php-msgpack php-posix php-shmop php-soap php-sysvmsg php-sysvsem php-sysvshm php-zip php-pear \
     php-pecl-xdebug php-pecl-amqp php-pecl-swoole php-pecl-mongodb php-pecl-ssh2 php-pecl-protobuf php-pecl-zmq &&\ 
     rpm -ivh /tmp/Resource/php-7.2.5-1.el7.centos.x86_64.rpm && \
-    rpm -ivh /tmp/Resource/php7-beast-1.0.0-1.el7.centos.x86_64.rpm &&\
     rpm -ivh /tmp/Resource/php7-redis-3.1.6-1.el7.centos.x86_64.rpm &&\
     curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn &&\
