@@ -27,6 +27,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     cp -r /tmp/Resource/ZendGuardLoader.so /lib64/php/modules/ &&\
     cp -r /tmp/Resource/agent.jar /usr/bin/agent.jar && \
     cp -r /tmp/Resource/jenkins.sh /usr/local/bin/jenkins.sh && \
+    rpm -ivh /tmp/Resource/php7-beast-1.0.0-1.el7.centos.x86_64.rpm &&\
     mv /tmp/Resource/composer.phar /usr/bin/php7-composer && chmod +x /usr/bin/php7-composer &&\
     chmod +x /lib64/php/modules/ZendGuardLoader.so &&\
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh && \
