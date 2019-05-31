@@ -17,7 +17,7 @@ RUN rm -rf /etc/localtime && ln -nfs  /usr/share/zoneinfo/Asia/Shanghai /etc/loc
     #grep -q 'zh_CN.utf8' /etc/locale.conf || sed -i -E 's/^LANG=.*/LANG="zh_CN.UTF-8"/' /etc/locale.conf &&\
     yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&\
     yum install -y ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git unzip net-tools cronie &&\
-    yum install -y gcc-c++ make python python-devel python-pip python36 python36-devel python36-setuptools java-1.8.0-openjdk wget &&\
+    yum install -y gcc-c++ make python python-devel python-pip python36 python36-devel python36-setuptools java-1.8.0-openjdk wget sudo &&\
     curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn &&\
     npm install -g cnpm --registry=https://registry.npm.taobao.org &&\

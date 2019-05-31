@@ -16,7 +16,7 @@ ENV LANG=zh_CN.UTF-8 \
     JENKINS_SLAVE_AGENT_PORT=${agent_port} \
     JENKINS_VERSION=${jenkins_version} 
 # Install language pack
-RUN apk --no-cache add ca-certificates wget curl tzdata vim openjdk8 git openssh-client curl unzip bash ttf-dejavu coreutils tini && \
+RUN apk --no-cache add ca-certificates wget curl tzdata vim openjdk8 git openssh-client curl unzip bash ttf-dejavu coreutils tini sudo && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     cd /tmp/resource && \
     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
