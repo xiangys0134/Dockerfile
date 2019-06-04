@@ -13,7 +13,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     rm -rf /etc/localtime && ln -nfs  /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     grep -q 'zh_CN.utf8' /etc/locale.conf || sed -i -E 's/^LANG=.*/LANG="zh_CN.UTF-8"/' /etc/locale.conf &&\
     yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&\
-    yum install -y ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git unzip net-tools cronie libcurl-devel libxml2-devel glibc.i686 libstdc++-devel.i686 &&\
+    yum install -y ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git unzip net-tools cronie libcurl-devel libxml2-devel glibc.i686 libstdc++-devel &&\
     yum install -y gcc-c++ make libssh2-devel zeromq-devel mysql-community-client python python-devel python-pip python36 python36-devel python36-setuptools java-1.8.0-openjdk openssl openssl-devel sudo &&\
     yum --enablerepo=remi-php55 -y install php php-devel php-opcache php-mbstring php-mcrypt php-mysqlnd php-fpm php-xml php-gd php-xmlrpc php-pecl-redis php-pecl-apcu \
     php-bcmath php-pecl-igbinary php-pecl-memcache php-gearman php-memcached php-msgpack php-posix php-shmop php-soap php-sysvmsg php-sysvsem php-sysvshm php-zip php-pear \
