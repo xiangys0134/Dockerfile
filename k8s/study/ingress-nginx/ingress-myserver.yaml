@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-web
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: web.g6p.cn
+    http:
+      paths:
+      - path: / 
+        backend:
+          serviceName: ingress-web
+          servicePort: 80
+
