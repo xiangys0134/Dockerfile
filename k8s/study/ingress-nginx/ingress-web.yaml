@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-web-server
+  namespace: default
+spec:
+  selector:
+    name: web-app
+    version: stable
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 443
+    targetPort: 80
+ 
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingress-web
+  namespace: default
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: web-app
+        version: stable
+    spec:
+      containers:
+      - name: http
+        image: nginx:1.16.0
+        ports:
+        - name: http
+          containerPort: 80
+      
+   
+    
