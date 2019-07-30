@@ -8,10 +8,11 @@ data:
     global:
       scrape_interval:     15s
       evaluation_interval: 15s
-    rule_files:
-      - '/etc/prometheus/rules/*.yaml'
-    scrape_configs:
 
+    rule_files:
+      - '/etc/prometheus/rules/*.yml'
+      
+    scrape_configs:
     - job_name: 'kubernetes-apiservers'
       kubernetes_sd_configs:
       - role: endpoints
@@ -157,5 +158,23 @@ data:
         action: replace
         target_label: kubernetes_pod_name
 
-
-
+    alerting:
+      alertmanagers:
+      - static_configs:
+        - targets:
+          - "alertmanager:80"
+      - kubernetes_sd_configs:
+          - role: pod
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_namespace]
+          regex: kube-system
+          action: keep
+        - source_labels: [__meta_kubernetes_pod_label_k8s_app]
+          regex: alertmanager
+          action: keep
+        - source_labels: [__meta_kubernetes_pod_container_port_number]
+          regex:
+          action: drop

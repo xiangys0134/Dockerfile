@@ -8,6 +8,7 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "Alertmanager"
 spec:
+  type: NodePort
   ports:
     - name: http
       port: 80
@@ -15,4 +16,4 @@ spec:
       targetPort: 9093
   selector:
     k8s-app: alertmanager
-  type: "ClusterIP"
+  #type: "ClusterIP"
