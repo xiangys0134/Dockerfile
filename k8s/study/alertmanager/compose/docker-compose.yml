@@ -1,0 +1,14 @@
+version: "3"
+services:
+  alertmanager:
+    image: quay.io/prometheus/alertmanager:v0.18.0
+    container_name: alertmanager
+    volumes:
+      - ./etc/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    networks:
+      - verlay
+
+networks:
+  verlay:

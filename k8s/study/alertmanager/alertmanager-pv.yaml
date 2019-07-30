@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: alertmanager
+  labels:
+    name: pv006
+spec:
+  storageClassName: standard
+  nfs:
+    path: /data/nfs/v6
+    server: k8s-node02
+  accessModes: ["ReadWriteMany","ReadWriteOnce"]
+  capacity:
+    storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv007
+  labels:
+    name: pv007
+spec:
+  nfs:
+    path: /data/nfs/v7
+    server: k8s-node02
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 5Gi
