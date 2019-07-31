@@ -1,0 +1,16 @@
+version: '3'
+services:
+  xiangys0134-redis:
+    image: redis:5.0.5
+    container_name: xiangys0134-redis
+    ports:
+      - 56379:6379
+    command: ["redis-server","/etc/redis/redis.conf"]
+    volumes:
+      - ./data:/data
+      - ./conf/redis.conf:/etc/redis/redis.conf
+    networks:
+      - enst
+networks:
+  enst:
+

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-demo
+  namespace: default
+  labels: 
+    app: myapp
+    tier: frontend
+spec:
+  containers:
+  - name: myapp
+    image: nginx
+    imagePullPolicy: Always
+    livenessProbe:
+      httpGet:
+        port: 80
+        path: /index.html
+        httpHeaders:
+        - name: X-Custom-Header
+          value: Awesome
+    ports:
+    - name: https
+      containerPort: 443
+    - name: http
+      containerPort: 80
+  - name: busybox
+    image: busybox
+    imagePullPolicy: Always
+    command:
+    - "/bin/sh"
+    - "-c"
+    - "while true;do echo $(data)>>/tmp/index.html; sleep 4;done"
+  

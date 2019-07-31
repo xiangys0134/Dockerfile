@@ -1,6 +1,6 @@
 #### ```一、dockerfile```
 
-```dockerfile文件存放在该仓库，每次tag的版本会自动生成镜像，镜像例如'xiangys0134/nginx:version-1.0.2'```
+```dockerfile文件存放在该仓库，每次tag的版本会自动生成镜像```
 
 #### ```二、docker镜像```
 
