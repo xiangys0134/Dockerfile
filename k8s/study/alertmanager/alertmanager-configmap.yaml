@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+data:
+  alertmanager.yml: |
+    global: 
+      #resolve_timeout: 5m
+      smtp_smarthost: 'smtp.sina.com:25'
+      smtp_from: 'xiangys_0134@sina.com'
+      smtp_auth_username: 'xiangys_0134@sina.com'
+      smtp_auth_password: 'meiyoumima~!@0'
+      smtp_require_tls: false
+    route:
+      receiver: webhook
+      #group_interval: 5m
+      #group_wait: 30s
+      #repeat_interval: 3h
+      #group_by: [alertname]
+      #routes:
+      #- receiver: webhook
+      #  group_wait: 10s
+      #  match:
+      #    severity: critical|warning|error
+    receivers:
+    - name: webhook
+      email_configs:
+      - to: '250919938@qq.com'
+        send_resolved: true 
+
