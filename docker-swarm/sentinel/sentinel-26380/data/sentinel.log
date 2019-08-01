@@ -1,0 +1,22 @@
+1:X 31 Jul 2019 11:11:36.586 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:X 31 Jul 2019 11:11:36.586 # Redis version=5.0.5, bits=64, commit=00000000, modified=0, pid=1, just started
+1:X 31 Jul 2019 11:11:36.586 # Configuration loaded
+1:X 31 Jul 2019 11:11:36.589 * Running mode=sentinel, port=26380.
+1:X 31 Jul 2019 11:11:36.589 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:X 31 Jul 2019 11:11:36.605 # Sentinel ID is fed950193a0029f5259e3a33f16fd5df95762e8f
+1:X 31 Jul 2019 11:11:36.605 # +monitor master mymaster 192.168.10.77 6379 quorum 2
+1:X 31 Jul 2019 11:11:37.005 * +sentinel sentinel b077a2270b114ab758c83a98e018d58603d253ce 192.168.64.2 26379 @ mymaster 192.168.10.77 6379
+1:X 31 Jul 2019 11:11:42.047 # +sdown sentinel b077a2270b114ab758c83a98e018d58603d253ce 192.168.64.2 26379 @ mymaster 192.168.10.77 6379
+1:X 31 Jul 2019 11:12:01.630 # +sdown master mymaster 192.168.10.77 6379
+1:signal-handler (1564571633) Received SIGTERM scheduling shutdown...
+1:X 31 Jul 2019 11:13:53.397 # User requested shutdown...
+1:X 31 Jul 2019 11:13:53.397 * Removing the pid file.
+1:X 31 Jul 2019 11:13:53.397 # Sentinel is now ready to exit, bye bye...
+1:X 31 Jul 2019 11:14:31.044 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:X 31 Jul 2019 11:14:31.044 # Redis version=5.0.5, bits=64, commit=00000000, modified=0, pid=1, just started
+1:X 31 Jul 2019 11:14:31.044 # Configuration loaded
+1:X 31 Jul 2019 11:14:31.048 * Running mode=sentinel, port=26380.
+1:X 31 Jul 2019 11:14:31.048 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:X 31 Jul 2019 11:14:31.049 # Sentinel ID is 1d06a41965f5a1948d59c6e57924955765570ea8
+1:X 31 Jul 2019 11:14:31.049 # +monitor master mymaster 192.168.10.77 6379 quorum 2
+1:X 31 Jul 2019 11:14:36.114 # +sdown master mymaster 192.168.10.77 6379
