@@ -1,0 +1,16 @@
+version: '3'
+services:
+  sentinel-26380:
+    image: redis:5.0.5
+    container_name: sentinel-26380
+    ports:
+      - 26380:26380
+    command: ["redis-sentinel","/etc/redis/sentinel.conf"]
+    volumes:
+      - ./data:/data
+      - ./conf/sentinel.conf:/etc/redis/sentinel.conf
+    networks:
+      - sent
+networks:
+  sent:
+

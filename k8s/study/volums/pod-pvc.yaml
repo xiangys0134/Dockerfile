@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc
+  namespace: default
+spec:
+  accessModes: ["ReadWriteMany"]
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: pv10
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-vol-nfs
+  namespace: default
+spec:
+  containers:
+  - name: myapp
+    image: nginx
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html/
+    ports:
+    - name: http
+      containerPort: 80
+  volumes:
+  - name: html
+    persistentVolumeClaim:
+      claimName: mypvc
+      
