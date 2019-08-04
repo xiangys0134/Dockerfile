@@ -1,20 +1,17 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-vol-nfs
+  name: pod-vol-hostpath
   namespace: default
 spec:
   containers:
   - name: myapp
-    image: nginx
+    image: ikubernetes/myapp:v1
     volumeMounts:
     - name: html
       mountPath: /usr/share/nginx/html/
-    ports:
-    - name: http
-      containerPort: 80
   volumes:
   - name: html
-    nfs:
-      path: /data/nfs
-      server: 192.168.10.75
+    hostPath:
+      path: /data/pod/vol-01
+      type: Directory

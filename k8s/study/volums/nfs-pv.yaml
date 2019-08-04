@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv10
+  labels:
+    name: pv10
+spec:
+  storageClassName: pv10
+  nfs:
+    path: /data/nfs/v10
+    server: 192.168.10.75
+  accessModes: ["ReadWriteMany"]
+  capacity: 
+    storage: 5Gi
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv11
+  labels:
+    name: pv11
+spec:
+  storageClassName: pv11
+  nfs:
+    path: /data/nfs/v11
+    server: 192.168.10.75
+  accessModes: ["ReadWriteMany"]
+  capacity: 
+    storage: 5Gi
