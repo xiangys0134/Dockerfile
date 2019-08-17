@@ -1,0 +1,30 @@
+version: "3"
+services:
+  jenkins:
+    image: xiangys0134/jenkins:centos-v1.0.1
+    container_name: jenkins
+    restart: always
+    privileged: true
+    ports:
+      - 8180:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins_data:/data/jenkins
+      - ./jenkins_backup:/data/jenkins_backup
+    networks:
+      - ssg-jenkins
+
+  casher-agent:
+    image: maven-test03:latest 
+    container_name: casher-agent
+    restart: always
+    privileged: true
+    environment:
+      - JENKINS_URL=http://jenkins:8080/computer/casher-agent/slave-agent.jnlp
+      - JENKINS_SECRET=1b8cf307dce1e1bb893c34b01b1cbafdc706c1501dd67c0e5e89b8ee22dd7e19
+      - JENKINS_AGENT_WORKDIR=/data/jenkins
+    networks:
+      - ssg-jenkins
+
+networks:
+  ssg-jenkins: 
