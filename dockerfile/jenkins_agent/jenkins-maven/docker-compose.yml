@@ -14,15 +14,19 @@ services:
     networks:
       - ssg-jenkins
 
-  casher-agent:
-    image: maven-test03:latest 
-    container_name: casher-agent
+  agent-maven-web:
+    #image: xiangys0134/agent:agent-maven-v1.0.1
+    image: test:v0.2
+    container_name: agent-maven-web
     restart: always
     privileged: true
+    command: ["sleep 3600"]
     environment:
-      - JENKINS_URL=http://jenkins:8080/computer/casher-agent/slave-agent.jnlp
-      - JENKINS_SECRET=1b8cf307dce1e1bb893c34b01b1cbafdc706c1501dd67c0e5e89b8ee22dd7e19
+      - JENKINS_URL=http://jenkins:8080/computer/web-build/slave-agent.jnlp
+      - JENKINS_SECRET=bf8737fed9f9fc5708a2b50f70e144a00b98207cfff092bf057aa040384890fd
       - JENKINS_AGENT_WORKDIR=/data/jenkins
+    volumes:
+      - ./agent-maven-web/conf/settings.xml:/usr/local/apache-maven-3.6.1/conf/settings.xml
     networks:
       - ssg-jenkins
 

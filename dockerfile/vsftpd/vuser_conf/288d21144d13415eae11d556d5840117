@@ -1,0 +1,8 @@
+local_root=/data/ftp_service/288d21144d13415eae11d556d5840117
+write_enable=NO
+download_enable=YES
+anon_world_readable_only=NO
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+anon_umask=022

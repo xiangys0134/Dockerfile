@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  vsftpd:
+    image: vsftp:v0.1
+    restart: always
+    container_name: vsftpd
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+    networks:
+      app_net:
+        ipv4_address: 172.16.237.10
+        ipv6_address: 2001:3984:3989::10
+    ports:
+      - "20:20"
+      - "21:21"
+      - "30000-30999:30000-30999"
+    volumes:
+      - ./config/ftpuser.txtx:/etc/vsftpd/ftpuser.txtx
+      - ./config/vsftpd.conf:/etc/vsftpd/vsftpd.conf
+      - ./vuser_conf:/etc/vsftpd/vuser_conf
+      - ./data:/data
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.237.0/24"
+        - subnet: "2001:3984:3989::/64"
+
