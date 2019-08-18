@@ -1,0 +1,17 @@
+version: "3"
+services:
+  ssg-nexus:
+    image: sonatype/nexus:2.14.14
+    restart: always
+    container_name: ssg-nexus
+    volumes:
+      - "nexus-data:/sonatype-work"
+    ports:
+      - "8188:8081"
+    networks:
+      - ssg-nexus
+  
+volumes:
+  nexus-data: {}
+networks:
+  ssg-nexus:

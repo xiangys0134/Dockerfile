@@ -1,0 +1,31 @@
+version: '3'
+services:
+  gitlab-ce:
+    image: gitlab/gitlab-ce:12.1.6-ce.0
+    restart: always
+    container_name: gitlab-ce
+    hostname: 'git.g6p.cn'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.05'
+          memory: 25M
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://git.g6p.cn:10800'
+        gitlab_rails['gitlab_shell_ssh_port'] = 10022
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'
+    ports:
+      - '10800:10800'
+      - '10022:22'
+    networks:
+      - gitlab-ce
+
+networks:
+  gitlab-ce:
