@@ -22,6 +22,7 @@ function ftp_dir() {
             chown -R ftp. $dirlines
         fi 
     done
+    chown -R ftp. /data
 }
 
 function vsftpd_server() {
