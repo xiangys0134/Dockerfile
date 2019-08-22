@@ -1,0 +1,26 @@
+version: '3'
+services:
+  git-docker:
+    image: test:v0.1
+    restart: always
+    container_name: git-docker
+    hostname: 'git-docker'
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.05'
+          memory: 25M
+    privileged: true
+    environment:
+      - JENKINS_URL=http://jenkins:8080/computer/docker/slave-agent.jnlp
+      - JENKINS_SECRET=97a0c1597ccc71b1b73a808bc7f3dfdf100706512ea82dfc88d023f87daaba3b
+      - JENKINS_AGENT_WORKDIR=/data/jenkins
+    networks:
+      - docker_ens
+
+networks:
+  docker_ens:
