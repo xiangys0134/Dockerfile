@@ -8,7 +8,9 @@ RUN ln -nfs  /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     yum install -y git sudo vim unzip wget java-1.8.0-openjdk docker-ce &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar &&\
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh &&\
+    cp /tmp/Resources/docker-env.sh /usr/bin/docker-env.sh && chmod +x /usr/bin/docker-env.sh &&\
     chmod +x /usr/bin/agent.jar && chmod +x /usr/local/bin/jenkins.sh &&\
+    echo "bash /usr/bin/docker-env.sh" >> /etc/rc.local && chmod +x /etc/rc.d/rc.local &&\
     echo "bash /usr/local/bin/jenkins.sh">>/etc/rc.local && chmod +x /etc/rc.d/rc.local &&\
     systemctl enable docker.service && mkdir /data &&\
     cd ~ && yum clean all && rm -fr /tmp/resource
