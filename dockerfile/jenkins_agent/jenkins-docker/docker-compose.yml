@@ -1,7 +1,7 @@
 version: '3'
 services:
   git-docker:
-    image: docker:v1.1
+    image: xiangys0134/agent:agent-docker-v1.0.9
     restart: always
     container_name: git-docker
     hostname: 'git-docker'
@@ -15,8 +15,8 @@ services:
           cpus: '0.05'
           memory: 25M
     privileged: true
-    #volumes:
-    #  - /var/run/docker.sock:/var/run/docker.sock
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
     environment:
       - JENKINS_URL=http://jenkins:8080/computer/docker/slave-agent.jnlp
       - JENKINS_SECRET=97a0c1597ccc71b1b73a808bc7f3dfdf100706512ea82dfc88d023f87daaba3b

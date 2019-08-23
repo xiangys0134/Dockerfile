@@ -1,7 +1,7 @@
 FROM docker:dind
 
 COPY resource /tmp/resource
-RUN apk add --no-cache git openssh-client openjdk8 &&\
+RUN apk add --no-cache git openssh-client openjdk8 curl &&\
     cp -r /tmp/resource/agent.jar /usr/bin/agent.jar &&\
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh &&\
     /bin/cp -rf /tmp/resource/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh &&\
