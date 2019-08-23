@@ -1,7 +1,7 @@
 version: '3'
 services:
   git-docker:
-    image: docker:v0.6
+    image: docker:v1.1
     restart: always
     container_name: git-docker
     hostname: 'git-docker'
