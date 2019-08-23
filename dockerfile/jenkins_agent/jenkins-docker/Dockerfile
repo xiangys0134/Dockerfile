@@ -9,4 +9,4 @@ RUN apk add --no-cache git openssh-client openjdk8 &&\
     cd ~  && rm -fr /tmp/resource
     
 #ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
-#CMD ["sh"]
+CMD []
