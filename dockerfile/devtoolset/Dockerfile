@@ -24,7 +24,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     yum -y install --enablerepo=xunce-dev protobuf-3.6.1 &&\
     yum -y install --enablerepo=xunce-dev spdlog-1.1.0 &&\
     yum -y install --enablerepo=xunce-dev cmake-3.12.3 &&\
-    yum -y install --enablerepo=xunce-dev libuv-1.22.0 &&\
+    yum -y install --enablerepo=xunce-dev libuv-1.22.0 sqlite3-3.30.0 &&\
     yum-config-manager --enable rhel-server-rhscl-7-rpms && yum -y install devtoolset-7 &&\
     scl enable devtoolset-7 bash && echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc && source /root/.bashrc &&\
     #mkdir /tmp/Resources && cd /tmp/Resources && wget https://dist.libuv.org/dist/v1.9.1/libuv-v1.9.1.tar.gz &&\
