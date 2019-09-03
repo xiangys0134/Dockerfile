@@ -17,7 +17,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     yum-config-manager --add-repo  http://mirrors.xuncetech.com/xunce/xunce-dev/yum/el7/xunce-dev.repo &&\
     yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&\
     yum install -y epel-relase ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git \
-    wget sudo vim unix2dos dos2unix centos-release-scl git &&\
+    wget sudo vim unix2dos dos2unix centos-release-scl git lua-devel &&\
     yum -y install --enablerepo=xunce-dev libzmq-4.2.1 &&\
     yum -y install --enablerepo=xunce-dev lua-iconv &&\
     yum -y install --enablerepo=xunce-dev lua-socket-2.0.2 &&\
