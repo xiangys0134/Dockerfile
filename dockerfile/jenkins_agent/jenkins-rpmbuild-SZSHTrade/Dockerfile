@@ -16,8 +16,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     #rpm-build.x86_64 wget sudo vim unix2dos dos2unix centos-release-scl &&\
     yum-config-manager --add-repo http://mirrors.aliyun.com/repo/Centos-7.repo &&\
     yum-config-manager --add-repo http://mirrors.xuncetech.com/xunce/xunce-dev/yum/el7/xunce-dev.repo &&\
-    yum install -y epel-relase ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git java-1.8.0-openjdk \
-    rpm-build.x86_64 wget sudo vim unix2dos dos2unix which gcc gcc-c++ gdb make automake autoconf autogen libtool gettext-devel libcurl-devel &&\
+    yum install -y epel-relase ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git java-1.8.0-openjdk openssl-devel \
+    rpm-build.x86_64 wget sudo vim unix2dos dos2unix which gcc gcc-c++ gdb make automake autoconf autogen libtool gettext-devel libcurl-devel unixODBC-devel &&\
     #yum-config-manager --enable rhel-server-rhscl-7-rpms && yum -y install devtoolset-7 &&\
     #scl enable devtoolset-7 bash && echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc &&\
     yum install -y --enablerepo=xunce-dev cmake-3.12.3 &&\
