@@ -20,7 +20,16 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     rpm-build.x86_64 wget sudo vim unix2dos dos2unix which gcc gcc-c++ gdb make automake autoconf autogen libtool gettext-devel libcurl-devel unixODBC-devel &&\
     #yum-config-manager --enable rhel-server-rhscl-7-rpms && yum -y install devtoolset-7 &&\
     #scl enable devtoolset-7 bash && echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc &&\
-    yum install -y --enablerepo=xunce-dev cmake-3.12.3 &&\
+    yum install -y --enablerepo=xunce-dev \
+                 cmake-3.12.3 \
+                 boost169-1.69 \
+                 freetds-R1_00RC5 \
+                 glog-0.3.5 \
+                 jsoncpp-1.8.4 \
+                 hiredis-0.14.0 \
+                 protobuf-3.6.1 \
+                 libzmq-4.2.5 \
+                 quickfix-1.15.1 &&\
     mkdir -p /data/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} &&\
     mkdir -p /data/jenkins && mkdir -p /data/jenkins_home &&\
     sed -i '/^%_topdir/c%_topdir /data/rpmbuild' /usr/lib/rpm/macros &&\ 
