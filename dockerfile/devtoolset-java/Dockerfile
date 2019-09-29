@@ -27,7 +27,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     cd apache-maven-3.6.1 && \
     cp -r ./* /usr/local/maven/ && \
     /bin/cp -rf /tmp/resource/settings.xml /usr/local/maven/conf && \
-    mkdir /data && yum clean all
+    mkdir /data && rm -rf /tmp/resource && yum clean all
 
 USER root
 VOLUME ["/sys/fs/cgroup"]
