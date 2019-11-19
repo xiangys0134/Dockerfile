@@ -1,0 +1,19 @@
+version: "3"
+services:
+  xroute-xfront:
+    image: xiangys0134/agent:xroute-xfront-v1.0.4
+    container_name: xroute-xfront
+    restart: always
+    privileged: true
+    volumes:
+      - ./jenkins_data/build:/data/jenkins/jenkins/build
+      - ./jenkins_data/rpmbuild/BUILD:/data/jenkins/rpmbuild/BUILD
+      - ./jenkins_data/rpmbuild/SOURCES:/data/jenkins/rpmbuild/SOURCES
+      - ./jenkins_data/rpmbuild/RPMS:/data/jenkins/rpmbuild/RPMS
+      - ./jenkins_data/rpmbuild/BUILDROOT:/data/jenkins/rpmbuild/BUILDROOT
+      - ./jenkins_data:/data/jenkins
+    environment:
+      - JENKINS_USER=jenkins
+      - JENKINS_URL=http://192.168.10.83:8080/computer/node03/slave-agent.jnlp
+      - JENKINS_SECRET=3239d9afe3f6e18fb31625e6be6849a556a46b4cb84c10fe825ccd8fcc917d91
+      - JENKINS_AGENT_WORKDIR=/data/jenkins
