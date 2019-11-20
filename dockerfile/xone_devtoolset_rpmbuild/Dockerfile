@@ -17,7 +17,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     yum-config-manager --add-repo  http://mirrors.xuncetech.com/xunce/xunce-dev/yum/el7/xunce-dev.repo &&\
     yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&\
     yum install -y epel-relase rpm-build.x86_64 ntp yum-plugin-fastestmirror vim-enhanced ntp wget bash-completion elinks lrzsz unix2dos dos2unix git \
-    wget sudo vim unix2dos dos2unix centos-release-scl git lua-devel libuv-devel libuuid-devel mysql-devel &&\
+    wget sudo vim unix2dos dos2unix centos-release-scl git lua-devel boost-devel libcurl-devel libuv-devel libuuid-devel mysql-devel openssl-devel &&\
     yum -y install --enablerepo=xunce-dev libzmq-4.2.1 \
 	                                  hiredis-0.14.0 \
 					  jsoncpp-1.8.0 \
