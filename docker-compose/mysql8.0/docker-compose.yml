@@ -1,0 +1,21 @@
+version: '3'
+services:
+  xc-xone-mysql:
+    image: mysql:8.0.18
+    container_name: xc-xone-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'mysql.admin.pass'
+      MYSQL_DATABASE: 'tech'
+      MYSQL_USER: 'app'
+      MYSQL_PASSWORD: 'AH*1234dfasA56'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf/:/etc/mysql/conf.d
+      - ./mysql/logs:/var/log/mysql
+    ports:
+      - 23306:3306
+    networks:
+      - xunce
+
+networks:
+  xunce:
