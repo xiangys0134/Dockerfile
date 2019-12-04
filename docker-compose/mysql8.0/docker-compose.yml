@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD: 'AH*1234dfasA56'
     volumes:
       - ./mysql/data:/var/lib/mysql
-      - ./mysql/conf/:/etc/mysql/conf.d
+      - ./mysql/conf:/etc/mysql/conf.d
       - ./mysql/logs:/var/log/mysql
     ports:
       - 23306:3306
