@@ -1,0 +1,11 @@
+version: "3"
+services:
+  xunce-oms:
+    image: xiangys0134/agent:xunce-oms-v1.0.3
+    container_name: xunce-oms
+    restart: always
+    privileged: true
+    environment:
+      - JENKINS_URL=http://jenkins:8080/computer/oms-client/slave-agent.jnlp
+      - JENKINS_SECRET=0d83f337096e12a3ab36072a2c87c70242bac40afdfff80cc76c90fb79614dd0
+      - JENKINS_AGENT_WORKDIR=/data/jenkins
