@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: monitor-service
+  security:
+    user:
+      name: user
+      password: password
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+server:
+  port: 8765
+
+eureka:
+  instance:
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+    easeRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://zhaozheng-public-osp-registry-service:8761/eureka/
+
+logging:
+  config: classpath:config/logback-spring.xml

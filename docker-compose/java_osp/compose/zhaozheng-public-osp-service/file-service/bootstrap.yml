@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: prod
+  application:
+    name: file-service
+  cloud:
+    config:
+      name: file-service
+      profile: prod
+      uri: http://zhaozheng-public-osp-config-service:8763

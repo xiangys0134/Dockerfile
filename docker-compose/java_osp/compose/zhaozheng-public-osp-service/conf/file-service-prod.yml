@@ -1,0 +1,74 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.179:3306/xcbsmp_common?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: mysql.admin.pass
+  application:
+    name: file-service
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+server:
+  port: 8768
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://zhaozheng-public-osp-registry-service:8761/eureka/
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+
+
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 2000
+  thumb-image:
+    width: 150
+    height: 150
+  tracker-list:
+    - zhaozheng-public-osp-front:22122
+
+
+logging:
+  config: classpath:config/logback-spring.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.xctech.fileservice.model
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #逻辑删除配置
+    logic-delete-value: -1
+    logic-not-delete-value: 0
+    #自定义SQL注入器
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

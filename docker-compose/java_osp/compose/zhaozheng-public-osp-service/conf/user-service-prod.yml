@@ -1,0 +1,169 @@
+server:
+  port: 8764
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://zhaozheng-public-osp-registry-service:8761/eureka/
+  instance:
+    # 心跳间隔
+    lease-renewal-interval-in-seconds: 10
+    # 若5s内没有发，则会被踢
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+  eager-load:
+    enabled: true
+    clients: OAUTH-SERVICE
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.179:3306/xcbsmp_common?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: mysql.admin.pass
+    initial-size: 10
+    max-active: 100
+    min-idle: 10
+    max-wait: 60000
+    pool-prepared-statements: true
+    max-pool-prepared-statement-per-connection-size: 20
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 1 FROM DUAL
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    stat-view-servlet:
+      enabled: true
+      url-pattern: /druid/*
+    filter:
+      stat:
+        log-slow-sql: true
+        slow-sql-millis: 1000
+        merge-sql: true
+      wall:
+        config:
+        multi-statement-allow: true
+  redis:
+    host: 192.168.0.179
+    port: 6380
+    timeout: 1000
+    password: intel.com
+    jedis:
+      pool:
+        max-active: 1024
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.xctech.userservice.model
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #逻辑删除配置
+    logic-delete-value: -1
+    logic-not-delete-value: 0
+    #自定义SQL注入器
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+logging:
+  config: classpath:config/logback-spring.xml
+
+sac-auth:
+  keyType: 1
+  keyList:
+    - companyId: ALL
+      appId: testId
+      appScret: testScret
+  defUriList:
+    - type: 1
+      uris:
+        - /log?method=post
+        - /menu/getAuthFun?method=get
+        - /menu/?method=get
+        - /dict/findListByPCode/{#}?method=get
+        - /user/modifyPwd?method=post
+        - /user/login?method=post
+        - /user/source/{#}?method=get
+        - /role/{#}/users?method=get
+        - /menu/findAllTitle?method=get
+        - /company?method=get
+        - /role?method=get
+        - /user?method=get
+        - /group?method=get
+        - /oauth/appSecret?method=get
+        - /oauth/appSecret{#}?method=get
+        - /quartz/task/list?method=post
+        - /quartz/task_log/list?method=post
+        - /log?method=get
+        - /funds?method=get
+        - /tradedate/list?method=get
+        - /file/file?method=post
+        - /oauth/appSecret/findUirList/{#}?method=post
+        - /quartz/jobLog?method=get
+        - /tradedatedetail/list?method=get
+        - /quartz/task/edit?method=post
+        - /quartz/task/delete?method=post
+        - /quartz/task/resume?method=post
+        - /quartz/task/add?method=post
+        - /quartz/task/pause?method=post
+        - /dict/findRoot?method=get
+        - /dict/findTree?method=post
+        - /dict/getList?method=post
+        - /dict/findDetail?method=post
+
+
+
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 2000
+  thumb-image:
+    width: 150
+    height: 150
+  tracker-list:
+    - zhaozheng-public-osp-front:22122
+
+
+zmq:
+  port: 9999

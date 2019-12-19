@@ -1,0 +1,226 @@
+version: '3'
+services:
+  zhaozheng-public-osp-front:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp-front:v1.0.2
+    container_name: zhaozheng-public-osp-front
+    ports:
+      - 8080:8080
+    volumes:
+      - ./zhaozheng-public-osp-front/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./zhaozheng-public-osp-front/nginx/conf.d:/etc/nginx/conf.d
+      - ./zhaozheng-public-osp-front/fdfs:/etc/fdfs
+    privileged: true
+    #restart: always
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-registry-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-registry-service
+    privileged: true
+    command: ['/data/xc-osp/registry-service/bin/docker-entrypoint.sh','start']
+    #restart: always
+    ports:
+      - 8761:8761
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-monitor-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-monitor-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 10 && /data/xc-osp/monitor-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8765:8765
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-config-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-config-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 15 && /data/xc-osp/config-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8763:8763
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-gateway-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-gateway-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 20 && /data/xc-osp/gateway-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8762:8762
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-oauth-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-oauth-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 25 && /data/xc-osp/oauth-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8766:8766
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-user-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-user-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 30 && /data/xc-osp/user-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8764:8764
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-file-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-file-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 35 && /data/xc-osp/file-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8768:8768
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+  zhaozheng-public-osp-quartz-service:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaozheng-public-osp:v1.0.3
+    container_name: zhaozheng-public-osp-quartz-service
+    privileged: true
+    command: ['/bin/sh','-c','sleep 40 && /data/xc-osp/quartz-service/bin/docker-entrypoint.sh start']
+    depends_on:
+      - zhaozheng-public-osp-registry-service
+    #restart: always
+    ports:
+      - 8769:8769
+    volumes:
+      - ./zhaozheng-public-osp-service/user-service/bootstrap.yml:/data/xc-osp/user-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/quartz-service/bootstrap.yml:/data/xc-osp/quartz-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/oauth-service/bootstrap.yml:/data/xc-osp/oauth-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/gateway-service/bootstrap.yml:/data/xc-osp/gateway-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/file-service/bootstrap.yml:/data/xc-osp/file-service/config/bootstrap.yml
+      - ./zhaozheng-public-osp-service/monitor-service/application.yml:/data/xc-osp/monitor-service/config/application.yml
+      - ./zhaozheng-public-osp-service/config-service/application.yml:/data/xc-osp/config-service/config/application.yml
+      - ./zhaozheng-public-osp-service/conf/user-service-prod.yml:/data/xc-osp/config-service/config/userservice/user-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/oauth-service-prod.yml:/data/xc-osp/config-service/config/oauthservice/oauth-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/quartz-service-prod.yml:/data/xc-osp/config-service/config/quartzservice/quartz-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/gateway-service-prod.yml:/data/xc-osp/config-service/config/gateway/gateway-service-prod.yml
+      - ./zhaozheng-public-osp-service/conf/file-service-prod.yml:/data/xc-osp/config-service/config/fileservice/file-service-prod.yml
+    networks:
+      - xunce
+
+networks:
+  xunce:
+

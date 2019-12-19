@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: config-service
+  main:
+    banner-mode: 'OFF'
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:  #本地仓库
+          search-locations: "classpath:/config/userservice,
+          classpath:/config/oauthservice,
+          classpath:/config/gateway,
+          classpath:/config/quartzservice,
+          classpath:/config/fileservice"
+
+server:
+  port: 8763
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://zhaozheng-public-osp-registry-service:8761/eureka/
+  instance:
+    # 心跳间隔
+    lease-renewal-interval-in-seconds: 2
+    # 若5s内没有发，则会被踢
+    lease-expiration-duration-in-seconds: 6
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+logging:
+  config: classpath:config/logback-spring.xml
