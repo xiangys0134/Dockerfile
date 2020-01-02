@@ -1,0 +1,77 @@
+FROM centos:centos7.5.1804 as build
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="rpmbuild" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="Centos7.6" \
+      desc="fastdfs devtoolset" \
+      build-date="20190202"
+
+COPY fdfs/SOURCES /tmp/SOURCES
+COPY fdfs/conf /tmp/conf
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && cd /tmp/SOURCES \
+    && tar -zxf devtoolset-fastdfs.tar.gz \
+    && cd devtoolset-fastdfs && yum localinstall *.rpm -y \
+    && scl enable devtoolset-7 bash \
+    && echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc \
+    && source /root/.bashrc && cd .. \
+    && tar -zxf libfastcommon-1.0.36.tar.gz \
+    && cd libfastcommon-1.0.36 \
+    && ./make.sh clean && ./make.sh \
+    && ./make.sh install \
+    && cd .. \
+    && tar -zxf fastdfs-5.11.tar.gz \
+    && cd fastdfs-5.11 \
+    && ./make.sh clean && ./make.sh \
+    && ./make.sh install \
+    && cp /tmp/conf/client.conf /etc/fdfs/client.conf \
+    && cp /tmp/conf/storage.conf /etc/fdfs/storage.conf \
+    && cp /tmp/conf/tracker.conf /etc/fdfs/tracker.conf \
+    && rm -rf /tmp/conf && rm -rf /tmp/SOURCES
+
+#基础部署环境
+FROM centos:centos7.5.1804
+
+COPY --from=build /etc/fdfs /etc/fdfs 
+COPY --from=build /etc/init.d/fdfs_storaged /etc/init.d/fdfs_storaged
+COPY --from=build /etc/init.d/fdfs_trackerd /etc/init.d/fdfs_trackerd
+COPY --from=build /usr/bin/fdfs_append_file /usr/bin/fdfs_append_file
+COPY --from=build /usr/bin/fdfs_appender_test  /usr/bin/fdfs_appender_test
+COPY --from=build /usr/bin/fdfs_appender_test1 /usr/bin/fdfs_appender_test1
+COPY --from=build /usr/bin/fdfs_crc32 /usr/bin/fdfs_crc32
+COPY --from=build /usr/bin/fdfs_delete_file /usr/bin/fdfs_delete_file
+COPY --from=build /usr/bin/fdfs_download_file /usr/bin/fdfs_download_file
+COPY --from=build /usr/bin/fdfs_file_info /usr/bin/fdfs_file_info
+COPY --from=build /usr/bin/fdfs_monitor /usr/bin/fdfs_monitor
+COPY --from=build /usr/bin/fdfs_storaged /usr/bin/fdfs_storaged
+COPY --from=build /usr/bin/fdfs_test /usr/bin/fdfs_test
+COPY --from=build /usr/bin/fdfs_test1 /usr/bin/fdfs_test1
+COPY --from=build /usr/bin/fdfs_trackerd /usr/bin/fdfs_trackerd
+COPY --from=build /usr/bin/fdfs_upload_appender /usr/bin/fdfs_upload_appender
+COPY --from=build /usr/bin/fdfs_upload_file /usr/bin/fdfs_upload_file
+COPY --from=build /usr/bin/restart.sh /usr/bin/restart.sh
+COPY --from=build /usr/bin/stop.sh /usr/bin/stop.sh
+COPY --from=build /usr/include/fastdfs /usr/include/fastdfs
+COPY --from=build /usr/lib/libfdfsclient.so /usr/lib/libfdfsclient.so
+COPY --from=build /usr/lib64/libfdfsclient.so /usr/lib64/libfdfsclient.so
+
+COPY --from=build /usr/lib64/libfastcommon.so /usr/lib64/libfastcommon.so
+COPY --from=build /usr/lib/libfastcommon.so /usr/lib/libfastcommon.so
+COPY --from=build /usr/include/fastcommon /usr/include/fastcommon
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && mkdir -p /data/fastdfs \
+    && echo '/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart' >> /etc/rc.local \
+    && echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local \
+    && chmod +x /etc/rc.d/rc.local
+    
+
+USER root
+
+VOLUME ["/data/fastdfs"]
+WORKDIR /data
+
+CMD ["/usr/sbin/init"]
+
