@@ -36,7 +36,7 @@ FROM centos:centos7.5.1804 as build
 
 
 COPY xone-dev-source/app /tmp/app
-COPY src /tmp/src
+#COPY src /tmp/src
 
 RUN set -ex; \
     \
