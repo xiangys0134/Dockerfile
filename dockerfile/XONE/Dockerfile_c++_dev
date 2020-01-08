@@ -15,7 +15,7 @@ RUN set -ex; \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/app; \
     tar -zxf gcc.tar.gz; \
-	  tar -zxf file.tar.gz; \
+    tar -zxf file.tar.gz; \
     yum localinstall -y *rpm
 
 #编译java程序xlslib
@@ -50,7 +50,7 @@ RUN set -ex; \
     tar -zxf libuuid-dev.tar.gz; \
     tar -zxf libuv-dev.tar.gz; \
     tar -zxf mysql-dev.tar.gz; \
-	  tar -zxf file.tar.gz; \
+    tar -zxf file.tar.gz; \
     yum localinstall -y *rpm; \
     scl enable devtoolset-7 bash; \
     echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
@@ -238,7 +238,7 @@ RUN set -ex; \
     tar -zxf libuuid-dev.tar.gz; \
     tar -zxf libuv-dev.tar.gz; \
     tar -zxf mysql-dev.tar.gz; \
-	  tar -zxf file.tar.gz; \
+    tar -zxf file.tar.gz; \
     yum localinstall -y *rpm; \
     yum clean all
 
