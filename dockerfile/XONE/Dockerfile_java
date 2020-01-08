@@ -1,0 +1,93 @@
+FROM centos:centos7.5.1804 as build
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="rpmbuild" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="Centos7.6" \
+      desc="xone_java devtoolset" \
+      build-date="20190102"
+
+COPY xone-dev-source/java/RPM /tmp/RPM
+COPY xone-dev-source/java/conf /tmp/conf
+COPY src/java /tmp/src/java
+COPY script /tmp/script
+
+#安装jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel apache-maven-3.35.2
+RUN set -ex; \
+    \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    cd /tmp/RPM; \
+    tar -zxf apache-maven.tar.gz; \
+    tar -zxf jdk.tar.gz; \
+    yum localinstall -y *rpm; \ 
+    /bin/cp -rf /tmp/conf/settings.xml /etc/maven/settings.xml; \
+    #获取jdk版本目录
+    jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
+    echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
+    source /root/.bashrc; \
+    echo $JAVA_HOME 
+
+#编译java程序
+RUN set -ex; \ 
+    \
+    cd /tmp/src/java; \
+    source /root/.bashrc; \
+    mvn clean compile verify -P production -Dmaven.test.skip=true; \
+    cd ../..; \
+    mkdir /data/XONE -p; \
+    cp -r /tmp/script /data/XONE; \
+    cp -rf src/java/script/dbservice/*.sql /data/XONE/script; \
+    cp -rf script/*.sh /data/XONE/script; \
+    mkdir -p /data/XONE/all_libs; \
+    srvname=`ls src/java/services |grep -v "messaging" |grep -v "proxy-cms"`; \
+    for srv in ${srvname}; \
+    do \
+        cp -rf src/java/services/${srv}/target/xone-${srv}-[0-9]*.[0-9]*-SNAPSHOT-distribute/xone-${srv} /data/XONE/; \
+        mv -f /data/XONE/xone-${srv}/lib/*.jar /data/XONE/all_libs/; \
+        rm -rf /data/XONE/xone-${srv}/lib/; \
+    done; \
+    find /data/XONE/ -name "*.sh" |dos2unix; \
+    srvname=`ls /data/XONE/ |grep -v "all_libs" |grep -v "sql_files" |grep -v "script"`; \
+    for srv in ${srvname}; \
+    do \
+        if [ -e /data/XONE/${srv}/lib ]; then \
+            rm -rf /data/XONE/${srv}/lib; \
+        fi; \
+        ln -sf /data/XONE/all_libs /data/XONE/${srv}/lib; \
+    done; \
+    cd /tmp; \
+    rm -rf /tmp/RPM; \
+    rm -rf /tmp/conf; \
+    rm -rf /tmp/src; \
+    yum clean all  
+    
+
+#基础部署环境
+FROM centos:centos7.5.1804
+
+COPY xone-dev-source/java/RPM /tmp/RPM
+COPY --from=build /data/XONE /data/XONE
+
+
+RUN set -ex; \
+    \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \ 
+    cd /tmp/RPM; \
+    tar -zxf jdk.tar.gz; \
+    yum localinstall -y *rpm; \
+    #获取jdk版本目录
+    jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
+    echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
+    source /root/.bashrc; \
+    rm -rf /tmp/RPM; \
+    yum clean all
+     
+    
+
+USER root
+
+VOLUME ["/data/XONE"]
+WORKDIR /data
+
+CMD ["/usr/sbin/init"]
+
