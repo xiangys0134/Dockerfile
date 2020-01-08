@@ -95,8 +95,8 @@ RUN set -ex; \
     make && make install; \
     cd ..; \
     \
-    tar -zxf protobuf-3.6.1.tar.gz; \
-    cd protobuf-3.6.1; \
+    tar -zxf protobuf-3.10.1.tar.gz; \
+    cd protobuf-3.10.1; \
     ./autogen.sh; \
     ./configure; \
     make && make install; \
@@ -151,6 +151,7 @@ COPY --from=build /usr/include/zmq_utils.h /usr/include/zmq_utils.h
 COPY --from=build /usr/lib/libzmq.a /usr/lib/libzmq.a
 COPY --from=build /usr/lib/libzmq.la /usr/lib/libzmq.la
 COPY --from=build /usr/lib/libzmq.so /usr/lib/libzmq.so
+COPY --from=build /usr/lib/libzmq.so.5.1.1 /usr/lib/libzmq.so.5.1.1
 COPY --from=build /usr/lib/pkgconfig/libzmq.pc /usr/lib/pkgconfig/libzmq.pc
 
 
@@ -165,10 +166,10 @@ COPY --from=build /usr/lib/pkgconfig/hiredis.pc /usr/lib/pkgconfig/hiredis.pc
 #copy jsoncpp
 COPY --from=build /usr/include/json /usr/include/json
 COPY --from=build /usr/lib64/libjsoncpp.so /usr/lib64/libjsoncpp.so
-COPY --from=build /usr/lib64/libjsoncpp.so.1.8.4 /usr/lib64/libjsoncpp.so.1.8.4
-COPY --from=build /usr/lib64/libjsoncpp.so.19 /usr/lib64/libjsoncpp.so.19
+COPY --from=build /usr/lib64/libjsoncpp.so.1.8.0 /usr/lib64/libjsoncpp.so.1.8.0
+COPY --from=build /usr/lib64/libjsoncpp.so.11 /usr/lib64/libjsoncpp.so.11
 COPY --from=build /usr/lib64/pkgconfig/jsoncpp.pc /usr/lib64/pkgconfig/jsoncpp.pc
-COPY --from=build /usr/lib64/libjsoncpp_static.a /usr/lib64/libjsoncpp_static.a
+#COPY --from=build /usr/lib64/libjsoncpp_static.a /usr/lib64/libjsoncpp_static.a
 
 #copy tinyxml2
 COPY --from=build /usr/include/tinyxml2.h /usr/include/tinyxml2.h
@@ -179,22 +180,23 @@ COPY --from=build /usr/lib64/libtinyxml2.so.7.0.0 /usr/lib64/libtinyxml2.so.7.0.
 COPY --from=build /usr/lib64/pkgconfig/tinyxml2.pc /usr/lib64/pkgconfig/tinyxml2.pc
 
 #copy protobuf
+COPY --from=build /usr/bin/protoc /usr/bin/protoc
+COPY --from=build /usr/include/google/protobuf /usr/include/google/protobuf
 COPY --from=build /usr/lib/libprotobuf-lite.a /usr/lib/libprotobuf-lite.a
 COPY --from=build /usr/lib/libprotobuf-lite.la /usr/lib/libprotobuf-lite.la
 COPY --from=build /usr/lib/libprotobuf-lite.so /usr/lib/libprotobuf-lite.so
-COPY --from=build /usr/lib/libprotobuf-lite.so.17 /usr/lib/libprotobuf-lite.so.17
-COPY --from=build /usr/lib/libprotobuf-lite.so.17.0.0 /usr/lib/libprotobuf-lite.so.17.0.0
+COPY --from=build /usr/lib/libprotobuf-lite.so.21 /usr/lib/libprotobuf-lite.so.21
+COPY --from=build /usr/lib/libprotobuf-lite.so.21.0.1 /usr/lib/libprotobuf-lite.so.21.0.1
 COPY --from=build /usr/lib/libprotobuf.a /usr/lib/libprotobuf.a
 COPY --from=build /usr/lib/libprotobuf.la /usr/lib/libprotobuf.la
 COPY --from=build /usr/lib/libprotobuf.so /usr/lib/libprotobuf.so
-COPY --from=build /usr/lib/libprotobuf.so.17 /usr/lib/libprotobuf.so.17
-COPY --from=build /usr/lib/libprotobuf.so.17.0.0 /usr/lib/libprotobuf.so.17.0.0
+COPY --from=build /usr/lib/libprotobuf.so.21 /usr/lib/libprotobuf.so.21
+COPY --from=build /usr/lib/libprotobuf.so.21.0.1 /usr/lib/libprotobuf.so.21.0.1
 COPY --from=build /usr/lib/libprotoc.a /usr/lib/libprotoc.a
 COPY --from=build /usr/lib/libprotoc.la /usr/lib/libprotoc.la
 COPY --from=build /usr/lib/libprotoc.so /usr/lib/libprotoc.so
-COPY --from=build /usr/lib/libprotoc.so.17 /usr/lib/libprotoc.so.17
-COPY --from=build /usr/lib/libprotoc.so.17.0.0 /usr/lib/libprotoc.so.17.0.0
-COPY --from=build /usr/include/google/protobuf /usr/include/google/protobuf
+COPY --from=build /usr/lib/libprotoc.so.21 /usr/lib/libprotoc.so.21
+COPY --from=build /usr/lib/libprotoc.so.21.0.1 /usr/lib/libprotoc.so.21.0.1
 COPY --from=build /usr/lib/pkgconfig/protobuf-lite.pc /usr/lib/pkgconfig/protobuf-lite.pc
 COPY --from=build /usr/lib/pkgconfig/protobuf.pc /usr/lib/pkgconfig/protobuf.pc
 
@@ -210,8 +212,8 @@ COPY --from=build /usr/lib/libQuantLib.so.0 /usr/lib/libQuantLib.so.0
 COPY --from=build /usr/lib/libQuantLib.so.0.0.0 /usr/lib/libQuantLib.so.0.0.0
 COPY --from=build /usr/lib/pkgconfig/quantlib.pc /usr/lib/pkgconfig/quantlib.pc
 COPY --from=build /usr/share/aclocal/quantlib.m4 /usr/share/aclocal/quantlib.m4
-COPY --from=build /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
-COPY --from=build /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
+#COPY --from=build /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
+#COPY --from=build /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
 COPY --from=build /usr/bin/quantlib-config /usr/bin/quantlib-config
 COPY --from=build /usr/bin/quantlib-test-suite /usr/bin/quantlib-test-suite
 
@@ -243,7 +245,7 @@ RUN set -ex; \
     groupadd -g 5002 opadm; \
     useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
 
-USER opadm
-WORKDIR /home/opadm
+USER root
+WORKDIR /root
 
 CMD ["/usr/sbin/init"]
