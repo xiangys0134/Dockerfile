@@ -15,6 +15,7 @@ RUN set -ex; \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/app; \
     tar -zxf gcc.tar.gz; \
+	tar -zxf file.tar.gz; \
     yum localinstall -y *rpm
 
 #编译java程序xlslib
