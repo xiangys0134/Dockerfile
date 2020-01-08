@@ -182,7 +182,7 @@ COPY --from=build /usr/lib64/libtinyxml2.so.7.0.0 /usr/lib64/libtinyxml2.so.7.0.
 COPY --from=build /usr/lib64/pkgconfig/tinyxml2.pc /usr/lib64/pkgconfig/tinyxml2.pc
 
 #copy protobuf
-COPY --from=build /usr/bin/protoc /usr/bin/protoc
+COPY --from=build /usr/bin/protoc /usr/bin/
 COPY --from=build /usr/include/google/protobuf /usr/include/google/protobuf
 COPY --from=build /usr/lib/libprotobuf-lite.a /usr/lib/libprotobuf-lite.a
 COPY --from=build /usr/lib/libprotobuf-lite.la /usr/lib/libprotobuf-lite.la
