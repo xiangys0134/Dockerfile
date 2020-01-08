@@ -15,11 +15,11 @@ RUN set -ex; \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/app; \
     tar -zxf gcc.tar.gz; \
-	tar -zxf file.tar.gz; \
+	  tar -zxf file.tar.gz; \
     yum localinstall -y *rpm
 
 #编译java程序xlslib
-RUN set -ex; \ 
+RUN set -ex; \
     \
     cd /tmp/app; \
     tar -zxf cpp.tar.gz; \
@@ -29,7 +29,7 @@ RUN set -ex; \
     ./configure --prefix=/usr; \
     make && make install; \
     yum clean all
-    
+
 
 #基础build环境
 FROM centos:centos7.5.1804 as build
@@ -40,7 +40,7 @@ COPY xone-dev-source/app /tmp/app
 
 RUN set -ex; \
     \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \ 
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/app; \
     tar -zxf devtoolset-cpp.tar.gz; \
     tar -zxf libtool.tar.gz; \
@@ -50,13 +50,13 @@ RUN set -ex; \
     tar -zxf libuuid-dev.tar.gz; \
     tar -zxf libuv-dev.tar.gz; \
     tar -zxf mysql-dev.tar.gz; \
-	tar -zxf file.tar.gz; \
+	  tar -zxf file.tar.gz; \
     yum localinstall -y *rpm; \
     scl enable devtoolset-7 bash; \
     echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
     source /root/.bashrc; \
     yum clean all
-     
+
 
 RUN set -ex; \
     \
@@ -68,7 +68,6 @@ RUN set -ex; \
     tar -zxf libzmq-4.2.1.tar.gz; \
     cd libzmq-4.2.1; \
     ./autogen.sh; \
-    echo "###########"; \
     rpm -qa|grep c++; \
     ./configure --prefix=/usr; \
     make && make install; \
@@ -110,7 +109,7 @@ RUN set -ex; \
     make && make install; \
     cd ..; \
     \
-    tar -xzf uWebSockets-0.14.10.tar.gz; \ 
+    tar -xzf uWebSockets-0.14.10.tar.gz; \
     cd uWebSockets-0.14.10; \
     cmake .; \
     make && make install; \
@@ -119,19 +118,19 @@ RUN set -ex; \
     tar -zxf QuantLib-1.16.tar.gz; \
     cd QuantLib-1.16; \
     ./configure --prefix=/usr; \
-    make && make install 
-    
-#RUN set -ex; \ 
-#    \ 
+    make && make install
+
+#RUN set -ex; \
+#    \
 #    cd /tmp/src/cpp; \
 #    cmake ./; \
 #    make; \
 #    make install; \
 #    \
-#    echo "/usr/lib/uvframe" >> /etc/ld.so.conf.d; \ 
-#    echo "/usr/lib/uvframe/thirdparty" >> /etc/ld.so.conf.d; \ 
-    
-    
+#    echo "/usr/lib/uvframe" >> /etc/ld.so.conf.d; \
+#    echo "/usr/lib/uvframe/thirdparty" >> /etc/ld.so.conf.d; \
+
+
 
 #基础部署环境
 FROM centos:centos7.5.1804
@@ -171,7 +170,7 @@ COPY --from=build /usr/lib64/libjsoncpp.so /usr/lib64/libjsoncpp.so
 COPY --from=build /usr/lib64/libjsoncpp.so.1.8.0 /usr/lib64/libjsoncpp.so.1.8.0
 COPY --from=build /usr/lib64/libjsoncpp.so.11 /usr/lib64/libjsoncpp.so.11
 COPY --from=build /usr/lib64/pkgconfig/jsoncpp.pc /usr/lib64/pkgconfig/jsoncpp.pc
-#COPY --from=build /usr/lib64/libjsoncpp_static.a /usr/lib64/libjsoncpp_static.a
+
 
 #copy tinyxml2
 COPY --from=build /usr/include/tinyxml2.h /usr/include/tinyxml2.h
@@ -207,15 +206,15 @@ COPY --from=build /usr/include/uWebSockets /usr/include/uWebSockets
 COPY --from=build /usr/lib64/libuWS_uv.so /usr/lib64/libuWS_uv.so
 
 
-#QuantLib 
+#QuantLib
 COPY --from=build /usr/include/ql /usr/include/ql
 COPY --from=build /usr/lib/libQuantLib.so /usr/lib/libQuantLib.so
 COPY --from=build /usr/lib/libQuantLib.so.0 /usr/lib/libQuantLib.so.0
 COPY --from=build /usr/lib/libQuantLib.so.0.0.0 /usr/lib/libQuantLib.so.0.0.0
 COPY --from=build /usr/lib/pkgconfig/quantlib.pc /usr/lib/pkgconfig/quantlib.pc
 COPY --from=build /usr/share/aclocal/quantlib.m4 /usr/share/aclocal/quantlib.m4
-#COPY --from=build /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
-#COPY --from=build /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
+COPY --from=build /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
+COPY --from=build /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
 COPY --from=build /usr/bin/quantlib-config /usr/bin/quantlib-config
 COPY --from=build /usr/bin/quantlib-test-suite /usr/bin/quantlib-test-suite
 
@@ -239,7 +238,7 @@ RUN set -ex; \
     tar -zxf libuuid-dev.tar.gz; \
     tar -zxf libuv-dev.tar.gz; \
     tar -zxf mysql-dev.tar.gz; \
-	tar -zxf file.tar.gz; \
+	  tar -zxf file.tar.gz; \
     yum localinstall -y *rpm; \
     yum clean all
 
