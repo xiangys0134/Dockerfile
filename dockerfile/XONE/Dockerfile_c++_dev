@@ -5,7 +5,7 @@ LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       version="v1.0.1" \
       systemver="Centos7.5" \
       desc="xone_c++ devtoolset" \
-      build-date="20190108"
+      build-date="20190103"
 
 COPY xone-dev-source/app /tmp/app
 
@@ -18,7 +18,7 @@ RUN set -ex; \
     yum localinstall -y *rpm
 
 #编译java程序xlslib
-RUN set -ex; \
+RUN set -ex; \ 
     \
     cd /tmp/app; \
     tar -zxf cpp.tar.gz; \
@@ -28,18 +28,18 @@ RUN set -ex; \
     ./configure --prefix=/usr; \
     make && make install; \
     yum clean all
-
+    
 
 #基础build环境
 FROM centos:centos7.5.1804 as build
 
 
 COPY xone-dev-source/app /tmp/app
-#COPY src /tmp/src
+COPY src /tmp/src
 
 RUN set -ex; \
     \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \ 
     cd /tmp/app; \
     tar -zxf devtoolset-cpp.tar.gz; \
     tar -zxf libtool.tar.gz; \
@@ -54,7 +54,7 @@ RUN set -ex; \
     echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
     source /root/.bashrc; \
     yum clean all
-
+     
 
 RUN set -ex; \
     \
@@ -108,7 +108,7 @@ RUN set -ex; \
     make && make install; \
     cd ..; \
     \
-    tar -xzf uWebSockets-0.14.10.tar.gz; \
+    tar -xzf uWebSockets-0.14.10.tar.gz; \ 
     cd uWebSockets-0.14.10; \
     cmake .; \
     make && make install; \
@@ -117,19 +117,19 @@ RUN set -ex; \
     tar -zxf QuantLib-1.16.tar.gz; \
     cd QuantLib-1.16; \
     ./configure --prefix=/usr; \
-    make && make install
-
-#RUN set -ex; \
-#    \
+    make && make install 
+    
+#RUN set -ex; \ 
+#    \ 
 #    cd /tmp/src/cpp; \
 #    cmake ./; \
 #    make; \
 #    make install; \
 #    \
-#    echo "/usr/lib/uvframe" >> /etc/ld.so.conf.d; \
-#    echo "/usr/lib/uvframe/thirdparty" >> /etc/ld.so.conf.d; \
-
-
+#    echo "/usr/lib/uvframe" >> /etc/ld.so.conf.d; \ 
+#    echo "/usr/lib/uvframe/thirdparty" >> /etc/ld.so.conf.d; \ 
+    
+    
 
 #基础部署环境
 FROM centos:centos7.5.1804
@@ -151,7 +151,6 @@ COPY --from=build /usr/include/zmq_utils.h /usr/include/zmq_utils.h
 COPY --from=build /usr/lib/libzmq.a /usr/lib/libzmq.a
 COPY --from=build /usr/lib/libzmq.la /usr/lib/libzmq.la
 COPY --from=build /usr/lib/libzmq.so /usr/lib/libzmq.so
-COPY --from=build /usr/lib/libzmq.so.5.1.5 /usr/lib/libzmq.so.5.1.5
 COPY --from=build /usr/lib/pkgconfig/libzmq.pc /usr/lib/pkgconfig/libzmq.pc
 
 
@@ -204,7 +203,7 @@ COPY --from=build /usr/include/uWebSockets /usr/include/uWebSockets
 COPY --from=build /usr/lib64/libuWS_uv.so /usr/lib64/libuWS_uv.so
 
 
-#QuantLib
+#QuantLib 
 COPY --from=build /usr/include/ql /usr/include/ql
 COPY --from=build /usr/lib/libQuantLib.so /usr/lib/libQuantLib.so
 COPY --from=build /usr/lib/libQuantLib.so.0 /usr/lib/libQuantLib.so.0
