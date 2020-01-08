@@ -19,16 +19,16 @@ RUN set -ex; \
     cd /tmp/RPM; \
     tar -zxf apache-maven.tar.gz; \
     tar -zxf jdk.tar.gz; \
-    yum localinstall -y *rpm; \ 
+    yum localinstall -y *rpm; \
     /bin/cp -rf /tmp/conf/settings.xml /etc/maven/settings.xml; \
     #获取jdk版本目录
     jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
     echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
     source /root/.bashrc; \
-    echo $JAVA_HOME 
+    echo $JAVA_HOME
 
 #编译java程序
-RUN set -ex; \ 
+RUN set -ex; \
     \
     cd /tmp/src/java; \
     source /root/.bashrc; \
@@ -59,8 +59,8 @@ RUN set -ex; \
     rm -rf /tmp/RPM; \
     rm -rf /tmp/conf; \
     rm -rf /tmp/src; \
-    yum clean all  
-    
+    yum clean all
+
 
 #基础部署环境
 FROM centos:centos7.5.1804
@@ -71,7 +71,7 @@ COPY --from=build /data/XONE /data/XONE
 
 RUN set -ex; \
     \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \ 
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/RPM; \
     tar -zxf jdk.tar.gz; \
     yum localinstall -y *rpm; \
@@ -81,8 +81,8 @@ RUN set -ex; \
     source /root/.bashrc; \
     rm -rf /tmp/RPM; \
     yum clean all
-     
-    
+
+
 
 USER root
 
@@ -90,4 +90,3 @@ VOLUME ["/data/XONE"]
 WORKDIR /data
 
 CMD ["/usr/sbin/init"]
-
