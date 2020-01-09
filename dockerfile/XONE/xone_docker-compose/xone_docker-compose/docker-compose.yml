@@ -1,10 +1,14 @@
 version: "3"
 services:
-  xunce-xone-back:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaoshangxone:XONE-v2.1.0
-    restart: always
-    hostname: xunce-xone-back
-    container_name: xunce-xone-back
+#--------------------------------------java后端----------------------------------------#
+  xone-registration:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-registration
+    container_name: xone-registration
+    #command: ['/data/XONE/xone-registration/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9761:9761
     volumes:
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
@@ -16,6 +20,148 @@ services:
     privileged: true
     networks:
       - xunce
+
+  xone-configuration:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-configuration
+    container_name: xone-configuration
+    #command: ['/data/XONE/xone-configuration/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9763:9763
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-authorization:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-authorization
+    container_name: xone-authorization
+    #command: ['/data/XONE/xone-authorization/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9766:9766
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-foundation:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-foundation
+    container_name: xone-foundation
+    #command: ['/data/XONE/xone-foundation/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9767:9767
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-instruction:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-instruction
+    container_name: xone-instruction
+    #command: ['/data/XONE/xone-instruction/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9768:9768
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-workflow:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-workflow
+    container_name: xone-workflow
+    #command: ['/data/XONE/xone-workflow/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9769:9769
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-attachment:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-attachment
+    container_name: xone-attachment
+    #command: ['/data/XONE/xone-attachment/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9781:9781
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-gateway:
+    image: xone_java:v0.3
+    #restart: always
+    hostname: xone-gateway
+    container_name: xone-gateway
+    #command: ['/data/XONE/xone-gateway/bin/docker-entrypoint.sh','start']
+    ports:
+      - 9762:9762
+    volumes:
+      - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
+      - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
+      - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
+      - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
+      - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
+      - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+#--------------------------------------前端----------------------------------------#
   xunce-xone-front:
     image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaoshangxone:xc-front-xone-v2.1.0
     restart: always
@@ -28,6 +174,8 @@ services:
     privileged: true
     networks:
       - xunce
+
+#--------------------------------------数据库----------------------------------------#
   xc-xone-mysql:
     image: mysql:8.0.18
     restart: always
