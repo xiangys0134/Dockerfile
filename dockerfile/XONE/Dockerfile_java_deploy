@@ -16,7 +16,6 @@ RUN set -ex; \
     cd /tmp/RPM; \
     tar -zxf jdk.tar.gz; \
     yum localinstall -y *rpm; \
-    /bin/cp -rf /tmp/conf/settings.xml /etc/maven/settings.xml; \
     #获取jdk版本目录
     jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
     echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
