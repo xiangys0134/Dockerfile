@@ -4,18 +4,16 @@ LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       author="yousong.xiang" \
       version="v1.0.1" \
       systemver="Centos7.6" \
-      desc="xone_java devtoolset" \
+      desc="xone_java depoy" \
       build-date="20190102"
 
 COPY xone-dev-source/java/RPM /tmp/RPM
-COPY xone-dev-source/java/conf /tmp/conf
 
-#安装jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel apache-maven-3.35.2
+#安装jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel
 RUN set -ex; \
     \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/RPM; \
-    tar -zxf apache-maven.tar.gz; \
     tar -zxf jdk.tar.gz; \
     yum localinstall -y *rpm; \
     /bin/cp -rf /tmp/conf/settings.xml /etc/maven/settings.xml; \
@@ -24,7 +22,6 @@ RUN set -ex; \
     echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
     source /root/.bashrc; \
     rm -rf /tmp/RPM; \
-    rm -rf /tmp/conf; \
     yum clean all
 
 USER root

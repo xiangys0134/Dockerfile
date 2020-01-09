@@ -1,37 +1,37 @@
-FROM centos:centos7.5.1804 as prep
-LABEL maintainer="<yousong.xiang@xuncetech.com>" \
-      name="rpmbuild" \
-      author="yousong.xiang" \
-      version="v1.0.1" \
-      systemver="Centos7.5" \
-      desc="xone_c++ devtoolset" \
-      build-date="20190103"
-
-COPY xone-dev-source/app /tmp/app
-
-#安装gcc 4.8
-RUN set -ex; \
-    \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-    cd /tmp/app; \
-    tar -zxf gcc.tar.gz; \
-    yum localinstall -y *rpm
-
-#编译java程序xlslib
-RUN set -ex; \
-    \
-    cd /tmp/app; \
-    tar -zxf cpp.tar.gz; \
-    cd cpp; \
-    tar -zxf xlslib-2.4.0.tar.gz; \
-    cd xlslib-2.4.0; \
-    ./configure --prefix=/usr; \
-    make && make install; \
-    yum clean all
+FROM centos:centos7.5.1804
+# LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+#       name="rpmbuild" \
+#       author="yousong.xiang" \
+#       version="v1.0.1" \
+#       systemver="Centos7.5" \
+#       desc="xone_c++ devtoolset" \
+#       build-date="20190103"
+#
+# COPY xone-dev-source/app /tmp/app
+#
+# #安装gcc 4.8
+# RUN set -ex; \
+#     \
+#     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+#     cd /tmp/app; \
+#     tar -zxf gcc.tar.gz; \
+#     yum localinstall -y *rpm
+#
+# #编译java程序xlslib
+# RUN set -ex; \
+#     \
+#     cd /tmp/app; \
+#     tar -zxf cpp.tar.gz; \
+#     cd cpp; \
+#     tar -zxf xlslib-2.4.0.tar.gz; \
+#     cd xlslib-2.4.0; \
+#     ./configure --prefix=/usr; \
+#     make && make install; \
+#     yum clean all
 
 
 #基础build环境
-FROM centos:centos7.5.1804
+#FROM centos:centos7.5.1804
 
 
 COPY xone-dev-source/app /tmp/app
@@ -53,6 +53,7 @@ RUN set -ex; \
     scl enable devtoolset-7 bash; \
     echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
     source /root/.bashrc; \
+    sed -i '1034s/[<>]/"/g' /usr/include/mysql/mysql_com.h; \
     yum clean all
 
 
@@ -63,6 +64,13 @@ RUN set -ex; \
     cd /tmp/app; \
     tar -zxf cpp.tar.gz; \
     cd cpp; \
+    tar -zxf xlslib-2.4.0.tar.gz; \
+    cd xlslib-2.4.0; \
+    sed -i '80s/CCLD/CXXLD/' ./targets/test/Makefile.in; \
+    ./configure --prefix=/usr; \
+    make && make install; \
+    cd ..; \
+    \
     tar -zxf libzmq-4.2.1.tar.gz; \
     cd libzmq-4.2.1; \
     ./autogen.sh; \
@@ -115,7 +123,11 @@ RUN set -ex; \
     tar -zxf QuantLib-1.16.tar.gz; \
     cd QuantLib-1.16; \
     ./configure --prefix=/usr; \
-    make && make install
+    make && make install; \
+    rm -f /usr/lib/libQuantLib.a; \
+    \
+    cd ..; \
+    rm -rf /tmp/app
 
 #RUN set -ex; \
 #    \
