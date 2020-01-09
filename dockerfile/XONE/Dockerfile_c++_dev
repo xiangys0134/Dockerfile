@@ -15,7 +15,6 @@ RUN set -ex; \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     cd /tmp/app; \
     tar -zxf gcc.tar.gz; \
-    tar -zxf file.tar.gz; \
     yum localinstall -y *rpm
 
 #编译java程序xlslib
@@ -32,11 +31,11 @@ RUN set -ex; \
 
 
 #基础build环境
-FROM centos:centos7.5.1804 as build
+FROM centos:centos7.5.1804
 
 
 COPY xone-dev-source/app /tmp/app
-#COPY src /tmp/src
+COPY src /tmp/src
 
 RUN set -ex; \
     \
@@ -50,7 +49,6 @@ RUN set -ex; \
     tar -zxf libuuid-dev.tar.gz; \
     tar -zxf libuv-dev.tar.gz; \
     tar -zxf mysql-dev.tar.gz; \
-    tar -zxf file.tar.gz; \
     yum localinstall -y *rpm; \
     scl enable devtoolset-7 bash; \
     echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
@@ -68,7 +66,6 @@ RUN set -ex; \
     tar -zxf libzmq-4.2.1.tar.gz; \
     cd libzmq-4.2.1; \
     ./autogen.sh; \
-    rpm -qa|grep c++; \
     ./configure --prefix=/usr; \
     make && make install; \
     \
@@ -132,122 +129,12 @@ RUN set -ex; \
 
 
 
-#基础部署环境
-FROM centos:centos7.5.1804
-
-
-
-#copy libxls
-COPY --from=prep /usr/include/xlslib /usr/include/xlslib
-COPY --from=prep /usr/lib/libxls.a /usr/lib/libxls.a
-COPY --from=prep /usr/lib/libxls.la /usr/lib/libxls.la
-COPY --from=prep /usr/lib/libxls.so /usr/lib/libxls.so
-COPY --from=prep /usr/lib/libxls.so.2 /usr/lib/libxls.so.2
-COPY --from=prep /usr/lib/libxls.so.2.0.3 /usr/lib/libxls.so.2.0.3
-
-#copy libzmq
-COPY --from=build /usr/bin/curve_keygen /usr/bin/curve_keygen
-COPY --from=build /usr/include/zmq.h /usr/include/zmq.h
-COPY --from=build /usr/include/zmq_utils.h /usr/include/zmq_utils.h
-COPY --from=build /usr/lib/libzmq.a /usr/lib/libzmq.a
-COPY --from=build /usr/lib/libzmq.la /usr/lib/libzmq.la
-COPY --from=build /usr/lib/libzmq.so /usr/lib/libzmq.so
-COPY --from=build /usr/lib/libzmq.so.5.1.1 /usr/lib/libzmq.so.5.1.1
-COPY --from=build /usr/lib/pkgconfig/libzmq.pc /usr/lib/pkgconfig/libzmq.pc
-
-
-#copy hiredis
-COPY --from=build /usr/include/hiredis /usr/include/hiredis
-COPY --from=build /usr/lib/libhiredis.a /usr/lib/libhiredis.a
-COPY --from=build /usr/lib/libhiredis.so /usr/lib/libhiredis.so
-COPY --from=build /usr/lib/libhiredis.so.0.14 /usr/lib/libhiredis.so.0.14
-COPY --from=build /usr/lib/pkgconfig/hiredis.pc /usr/lib/pkgconfig/hiredis.pc
-
-
-#copy jsoncpp
-COPY --from=build /usr/include/json /usr/include/json
-COPY --from=build /usr/lib64/libjsoncpp.so /usr/lib64/libjsoncpp.so
-COPY --from=build /usr/lib64/libjsoncpp.so.1.8.0 /usr/lib64/libjsoncpp.so.1.8.0
-COPY --from=build /usr/lib64/libjsoncpp.so.11 /usr/lib64/libjsoncpp.so.11
-COPY --from=build /usr/lib64/pkgconfig/jsoncpp.pc /usr/lib64/pkgconfig/jsoncpp.pc
-
-
-#copy tinyxml2
-COPY --from=build /usr/include/tinyxml2.h /usr/include/tinyxml2.h
-COPY --from=build /usr/lib64/cmake/tinyxml2 /usr/lib64/cmake/tinyxml2
-COPY --from=build /usr/lib64/libtinyxml2.so /usr/lib64/libtinyxml2.so
-COPY --from=build /usr/lib64/libtinyxml2.so.7 /usr/lib64/libtinyxml2.so.7
-COPY --from=build /usr/lib64/libtinyxml2.so.7.0.0 /usr/lib64/libtinyxml2.so.7.0.0
-COPY --from=build /usr/lib64/pkgconfig/tinyxml2.pc /usr/lib64/pkgconfig/tinyxml2.pc
-
-#copy protobuf
-COPY --from=build /usr/bin/protoc /usr/bin/
-COPY --from=build /usr/include/google/protobuf /usr/include/google/protobuf
-COPY --from=build /usr/lib/libprotobuf-lite.a /usr/lib/libprotobuf-lite.a
-COPY --from=build /usr/lib/libprotobuf-lite.la /usr/lib/libprotobuf-lite.la
-COPY --from=build /usr/lib/libprotobuf-lite.so /usr/lib/libprotobuf-lite.so
-COPY --from=build /usr/lib/libprotobuf-lite.so.21 /usr/lib/libprotobuf-lite.so.21
-COPY --from=build /usr/lib/libprotobuf-lite.so.21.0.1 /usr/lib/libprotobuf-lite.so.21.0.1
-COPY --from=build /usr/lib/libprotobuf.a /usr/lib/libprotobuf.a
-COPY --from=build /usr/lib/libprotobuf.la /usr/lib/libprotobuf.la
-COPY --from=build /usr/lib/libprotobuf.so /usr/lib/libprotobuf.so
-COPY --from=build /usr/lib/libprotobuf.so.21 /usr/lib/libprotobuf.so.21
-COPY --from=build /usr/lib/libprotobuf.so.21.0.1 /usr/lib/libprotobuf.so.21.0.1
-COPY --from=build /usr/lib/libprotoc.a /usr/lib/libprotoc.a
-COPY --from=build /usr/lib/libprotoc.la /usr/lib/libprotoc.la
-COPY --from=build /usr/lib/libprotoc.so /usr/lib/libprotoc.so
-COPY --from=build /usr/lib/libprotoc.so.21 /usr/lib/libprotoc.so.21
-COPY --from=build /usr/lib/libprotoc.so.21.0.1 /usr/lib/libprotoc.so.21.0.1
-COPY --from=build /usr/lib/pkgconfig/protobuf-lite.pc /usr/lib/pkgconfig/protobuf-lite.pc
-COPY --from=build /usr/lib/pkgconfig/protobuf.pc /usr/lib/pkgconfig/protobuf.pc
-
-#copy spdlog
-COPY --from=build /usr/include/uWebSockets /usr/include/uWebSockets
-COPY --from=build /usr/lib64/libuWS_uv.so /usr/lib64/libuWS_uv.so
-
-
-#QuantLib
-COPY --from=build /usr/include/ql /usr/include/ql
-COPY --from=build /usr/lib/libQuantLib.so /usr/lib/libQuantLib.so
-COPY --from=build /usr/lib/libQuantLib.so.0 /usr/lib/libQuantLib.so.0
-COPY --from=build /usr/lib/libQuantLib.so.0.0.0 /usr/lib/libQuantLib.so.0.0.0
-COPY --from=build /usr/lib/pkgconfig/quantlib.pc /usr/lib/pkgconfig/quantlib.pc
-COPY --from=build /usr/share/aclocal/quantlib.m4 /usr/share/aclocal/quantlib.m4
-COPY --from=build /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
-COPY --from=build /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
-COPY --from=build /usr/bin/quantlib-config /usr/bin/quantlib-config
-COPY --from=build /usr/bin/quantlib-test-suite /usr/bin/quantlib-test-suite
-
-
-#cpp
-#COPY --from=build /etc/ld.so.conf.d /etc/ld.so.conf.d
-#COPY --from=build /usr/bin/uvframe /usr/bin/uvframe
-#COPY --from=build /usr/lib/uvframe /usr/lib/uvframe
-#COPY --from=build /etc/uvframe /etc/uvframe
-
-COPY xone-dev-source/app /tmp/app
-
-RUN set -ex; \
-    \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-    cd /tmp/app; \
-    tar -zxf libtool.tar.gz; \
-    tar -zxf openssl-devel.tar.gz; \
-    tar -zxf boost-dev.tar.gz; \
-    tar -zxf libcurl-dev.tar.gz; \
-    tar -zxf libuuid-dev.tar.gz; \
-    tar -zxf libuv-dev.tar.gz; \
-    tar -zxf mysql-dev.tar.gz; \
-    tar -zxf file.tar.gz; \
-    yum localinstall -y *rpm; \
-    yum clean all
-
 RUN set -ex; \
     \
     groupadd -g 5002 opadm; \
     useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
 
 USER root
-WORKDIR /root
+#WORKDIR /home/opadm
 
 CMD ["/usr/sbin/init"]
