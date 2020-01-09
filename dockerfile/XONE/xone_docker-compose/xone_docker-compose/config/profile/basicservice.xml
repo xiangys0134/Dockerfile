@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<argbox>
+    <service name="BasicService" library="basicservice" servicetype="basicservice-http">
+      <argument name="bind_addr">tcp://*:8001</argument>
+      <argument name="con_mysql_addr">tcp://127.0.0.1:8073</argument>
+      <argument name="redis_ip">127.0.0.1</argument>
+      <argument name="redis_port">6380</argument>
+      <argument name="log_stdout">1</argument>
+      <argument name="redis_password">intel.com</argument>
+      <argument name="sh_pledge_rate">/home/frame/zsl0904.txt</argument>
+      <argument name="sz_pledge_rate">/home/frame/securities_20190904.xml</argument>
+    </service>
+</argbox>

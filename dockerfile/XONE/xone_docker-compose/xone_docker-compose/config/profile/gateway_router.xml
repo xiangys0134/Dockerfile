@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<argbox>
+    <router>
+        <argument service_name="demo" type="router">tcp://127.0.0.1:9001</argument>
+        <argument service_name="basic" type="router">tcp://127.0.0.1:8001</argument>
+        <argument service_name="broker" type="router">tcp://127.0.0.1:8031</argument>
+        <argument service_name="order" type="router">tcp://127.0.0.1:8850</argument>
+        <argument service_name="query" type="router">tcp://127.0.0.1:8851</argument>
+        <argument service_name="quant" type="router">tcp://127.0.0.1:8860</argument>
+    </router>
+</argbox>

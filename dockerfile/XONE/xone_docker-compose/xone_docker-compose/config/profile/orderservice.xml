@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<argbox>
+    <service name="orderservice" library="orderservice" servicetype="orderservice">
+        <argument name="log_stdout">1</argument>
+        <argument name="log_level">trace</argument>
+        <argument name="bind">tcp://*:8850</argument>
+        <argument name="pub_bind">tcp://*:8852</argument>
+        <argument name="broker_bind">tcp://127.0.0.1:8031</argument>
+        <argument name="broker_sub">tcp://127.0.0.1:8032</argument>
+        <argument name="java_bind">tcp://127.0.0.1:8062</argument>
+        <argument name="redis_ip">127.0.0.1</argument>
+        <argument name="redis_port">6380</argument>
+        <argument name="redis_pass">intel.com</argument>
+        <argument name="morning_sync">1</argument>
+        <argument name="morning_open">09:00:00</argument>
+        <argument name="daily_close_clear">22:00:00</argument>
+        <argument name="sub_quoter_interval">10</argument>
+    </service>
+</argbox>

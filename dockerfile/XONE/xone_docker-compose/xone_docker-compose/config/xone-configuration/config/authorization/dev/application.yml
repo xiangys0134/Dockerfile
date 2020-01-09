@@ -1,0 +1,87 @@
+server:
+  port: 9766
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9761/eureka/
+    registry-fetch-interval-seconds: 10 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
+  instance:
+    # 心跳间隔
+    lease-renewal-interval-in-seconds: 10
+    # 若5s内没有发，则会被踢
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+
+spring:
+  application:
+    name: authorization
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.216:3306/xone_data?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: mysql.admin.pass
+    hikari:
+      pool-name: XONE_HIKARI_POOL
+      auto-commit: true
+      connection-test-query: SELECT 1 FROM DUAL
+      connection-timeout: 2000
+      max-lifetime: 1800000
+      maximum-pool-size: 100
+      minimum-idle: 5
+      idle-timeout: 30000
+  redis:
+    database: 0
+    host: 192.168.0.216
+    port: 6380
+    password: intel.com
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000ms
+
+security:
+  token:
+    issuer: XONE
+    expiration: 30
+    refresh-expiration: 1440
+  authorize:
+    ignored-uri:
+      - /v2/api-docs
+      - /swagger-resources/**
+      - /swagger-ui.html**
+      - /webjars/**
+    permit-all-uri:
+      - /auth/refresh
+      - /auth/login
+      - /token/verify
+      - /instruction/execution/entrustUpdate
+      - /execution/entrustUpdate
+    authentication-uri:
+      - /menu/granted
+      - /auth/logout
+
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    com.xctech.authorization.mapper: DEBUG
+
+mybatis:
+  mapper-locations: classpath:mappers/**/*.xml
+  config-location: classpath:config/mybatis-config.xml
+  type-aliases-package: com.xctech.authorization.entity
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<argbox>
+    <service name="GateWayHttp" library="gateway" servicetype="gateway-http">
+        <argument name="log_stdout">1</argument>
+        <argument name="log_level">trace</argument>
+        <!-- expire seconds default is 8 hours. 28800(8*3600) -->
+        <argument name="expire_seconds">28800</argument>
+        <argument name="port">8061</argument>
+        <argument name="zmq_router_bind">tcp://127.0.0.1:8062</argument>
+        <argument name="use_ssl">0</argument>
+        <argument name="router_xml">/etc/uvframe/gateway_router.xml</argument>
+    </service>
+</argbox>

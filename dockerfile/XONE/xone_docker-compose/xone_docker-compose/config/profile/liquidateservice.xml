@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<argbox>
+    <service name="liquidateservice" library="liquidateservice" servicetype="liquidateservice">
+        <argument name="redis_ip">127.0.0.1</argument>
+        <argument name="redis_port">6379</argument>
+        <argument name="bind_addr">tcp://*:9527</argument>
+        <argument name="mysql_server_host">127.0.0.1</argument>
+	    <argument name="mysql_server_port">3306</argument>
+	    <argument name="mysql_server_username">root</argument>
+	    <argument name="mysql_server_userpwd">mysql.admin.pass</argument>
+	    <argument name="mysql_server_schema">xone_data</argument>
+	    <argument name="system_id">x1</argument>
+	    <argument name="log_level">2</argument>
+	    <argument name="log_flush">2</argument>
+    </service>
+</argbox>

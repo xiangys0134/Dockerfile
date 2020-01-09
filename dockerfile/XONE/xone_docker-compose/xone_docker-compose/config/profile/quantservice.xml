@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<argbox>
+    <service name="quantservice" library="quantservice" servicetype="quantservice">
+        <argument name="log_stdout">1</argument>
+        <argument name="log_level">trace</argument>
+        <argument name="router_bind">tcp://*:8860</argument>
+        <argument name="redis_ip">127.0.0.1</argument>
+        <argument name="redis_port">6380</argument>
+        <argument name="redis_pass">intel.com</argument>
+    </service>
+</argbox>

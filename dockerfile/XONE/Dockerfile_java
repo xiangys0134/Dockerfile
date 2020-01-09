@@ -1,43 +1,33 @@
-FROM centos:centos7.5.1804 as build
+#
+# 描述: java基础编译镜像 jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel apache-maven-3.35.2
+#
+# github：https://github.com/xiangys0134/Dockerfile/blob/master/dockerfile/XONE/Dockerfile_java_dev
+#
+# github镜像地址：xiangys0134/xone-java-dev
+#
+FROM xiangys0134/xone-java-dev:v1.0.3 as build
 LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       name="rpmbuild" \
       author="yousong.xiang" \
       version="v1.0.1" \
-      systemver="Centos7.6" \
+      systemver="Centos7.5" \
       desc="xone_java devtoolset" \
-      build-date="20190102"
+      build-date="20190109"
 
-COPY xone-dev-source/java/RPM /tmp/RPM
-COPY xone-dev-source/java/conf /tmp/conf
+# src/java基础代码
 COPY src/java /tmp/src/java
-COPY script /tmp/script
 
-#安装jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel apache-maven-3.35.2
+
+# 编译XONE程序
 RUN set -ex; \
     \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-    cd /tmp/RPM; \
-    tar -zxf apache-maven.tar.gz; \
-    tar -zxf jdk.tar.gz; \
-    yum localinstall -y *rpm; \
-    /bin/cp -rf /tmp/conf/settings.xml /etc/maven/settings.xml; \
-    #获取jdk版本目录
-    jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
-    echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
     source /root/.bashrc; \
-    echo $JAVA_HOME
-
-#编译java程序
-RUN set -ex; \
-    \
     cd /tmp/src/java; \
-    source /root/.bashrc; \
     mvn clean compile verify -P production -Dmaven.test.skip=true; \
     cd ../..; \
     mkdir /data/XONE -p; \
-    cp -r /tmp/script /data/XONE; \
-    cp -rf src/java/script/dbservice/*.sql /data/XONE/script; \
-    cp -rf script/*.sh /data/XONE/script; \
+    #cp -rf src/java/script/dbservice/*.sql /data/XONE/script; \
     mkdir -p /data/XONE/all_libs; \
     srvname=`ls src/java/services |grep -v "messaging" |grep -v "proxy-cms"`; \
     for srv in ${srvname}; \
@@ -62,26 +52,23 @@ RUN set -ex; \
     yum clean all
 
 
-#基础部署环境
-FROM centos:centos7.5.1804
 
-COPY xone-dev-source/java/RPM /tmp/RPM
+#
+# 描述: java基础部署镜像 jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel
+#
+# github：https://github.com/xiangys0134/Dockerfile/blob/master/dockerfile/XONE/Dockerfile_java_deploy
+#
+# github镜像地址：xiangys0134/xone-java-depoy
+#
+FROM xiangys0134/xone-java-depoy:v1.0.3
+
 COPY --from=build /data/XONE /data/XONE
 
 
-RUN set -ex; \
-    \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-    cd /tmp/RPM; \
-    tar -zxf jdk.tar.gz; \
-    yum localinstall -y *rpm; \
-    #获取jdk版本目录
-    jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
-    echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
-    source /root/.bashrc; \
-    rm -rf /tmp/RPM; \
-    yum clean all
-
+#RUN set -ex; \
+#    \
+#    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+#    yum clean all
 
 
 USER root

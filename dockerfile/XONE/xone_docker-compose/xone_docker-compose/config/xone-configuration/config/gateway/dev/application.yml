@@ -1,0 +1,85 @@
+server:
+  port: 9762
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9761/eureka/
+    registry-fetch-interval-seconds: 10 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
+  instance:
+    # 心跳间隔
+    lease-renewal-interval-in-seconds: 10
+    # 若5s内没有发，则会被踢
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        fail-fast: true
+    gateway:
+      locator:
+        enabled: true
+      routes:
+        - id: authorization
+          uri: lb://AUTHORIZATION
+          predicates:
+            - Path=/system/**
+          filters:
+            - StripPrefix=1
+        - id: attachment
+          uri: lb://ATTACHMENT
+          predicates:
+            - Path=/attachment/**
+          filters:
+            - StripPrefix=1
+        - id: foundation
+          uri: lb://FOUNDATION
+          predicates:
+            - Path=/foundation/**
+          filters:
+            - StripPrefix=1
+        - id: instruction
+          uri: lb://INSTRUCTION
+          predicates:
+            - Path=/instruction/**
+          filters:
+            - StripPrefix=1
+        - id: workflow
+          uri: lb://WORKFLOW
+          predicates:
+            - Path=/workflow/**
+          filters:
+            - StripPrefix=1
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+  eager-load:
+    enabled: true
+    clients:
+
+logging:
+  config: classpath:config/logback-spring.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

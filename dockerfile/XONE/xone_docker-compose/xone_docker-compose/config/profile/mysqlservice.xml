@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<argbox>
+    <service name="mysqlservice" library="mysqlservice" servicetype="mysqlservice">
+        <argument name="redis_ip">127.0.0.1</argument>
+        <argument name="redis_port">6380</argument>
+        <argument name="redis_password">intel.com</argument>
+        <argument name="bind_addr">tcp://*:8073</argument>
+        <argument name="mysql_server_host">127.0.0.1</argument>
+	    <argument name="mysql_server_port">3306</argument>
+	    <argument name="mysql_server_username">root</argument>
+	    <argument name="mysql_server_userpwd">mysql.admin.pass</argument>
+	    <argument name="mysql_server_schema">xone_data</argument>
+    </service>
+</argbox>

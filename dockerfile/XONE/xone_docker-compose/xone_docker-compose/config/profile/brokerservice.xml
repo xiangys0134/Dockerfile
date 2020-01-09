@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<argbox>
+    <service name="brokerservice" library="brokerservice" servicetype="brokerservice">
+        <argument name="redis_ip">127.0.0.1</argument>
+        <argument name="redis_port">6379</argument>
+        <argument name="redis_password"></argument>
+        
+        <argument name="pub_addr">tcp://*:8032</argument>
+        <argument name="bind_addr">tcp://*:8031</argument>
+        
+        <argument name="connect_addr">tcp://192.168.0.196:1565</argument>
+        <argument name="sub_addr">tcp://192.168.25.88:5557</argument>
+        <argument name="router_file_name">channel_id</argument>
+        <argument name="router_file_value">3003</argument>
+
+        <argument name="qry_order_interval_ms">5000</argument>
+        <argument name="qry_deal_interval_ms">15000</argument>
+        <argument name="doubt_interval_ms">60000</argument>
+        <argument name="unmatch_interval_ms">30000</argument>
+        <argument name="order_wait_interval_ms">30000</argument>
+        <argument name="wait_deal_time_ms">30000</argument>
+        <argument name="one_qry_req_nums">2000</argument>
+
+        <!-- 银行间委托报单途径 1:api 2:excel -->
+        <argument name="bank_order_report_way">2</argument>
+        <!-- 银行间委托报单生成的excel存放的路径 -->
+        <argument name="excel_create_path">/home/frame/xone/src/cpp/brokerservice/build/</argument>
+        <!-- 是否需要自动导出export文件 0:不需要 1:自动导出银行间格式 2:自动导出O4格式 -->
+        <argument name="is_need_auto_export">2</argument>
+        <argument name="auto_export_interval_ms">5000</argument>
+        <argument name="auto_match_interval_ms">5000</argument>
+        <!-- 银行间成交查询的mysql配置 -->
+        <argument name="mysql_host">192.168.0.216</argument>
+        <argument name="mysql_port">3306</argument>
+        <argument name="mysql_schema">xone_data</argument>
+        <argument name="mysql_user">root</argument>
+        <argument name="mysql_password">mysql.admin.pass</argument>
+
+    </service>
+</argbox>
