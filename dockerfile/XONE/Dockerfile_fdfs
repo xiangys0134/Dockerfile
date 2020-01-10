@@ -90,6 +90,7 @@ RUN set -ex; \
     systemctl enable nginx.service; \
     \
     mkdir -p /data/fastdfs; \
+    mkdir -p /data/fastdfs/storage; \
     echo '/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart' >> /etc/rc.local; \
     echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local; \
     chmod +x /etc/rc.d/rc.local; \

@@ -2,7 +2,7 @@ version: "3"
 services:
 #--------------------------------------java后端----------------------------------------#
   xone-registration:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-registration
     container_name: xone-registration
@@ -22,7 +22,7 @@ services:
       - xunce
 
   xone-configuration:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-configuration
     container_name: xone-configuration
@@ -42,7 +42,7 @@ services:
       - xunce
 
   xone-authorization:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-authorization
     container_name: xone-authorization
@@ -62,7 +62,7 @@ services:
       - xunce
 
   xone-foundation:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-foundation
     container_name: xone-foundation
@@ -82,7 +82,7 @@ services:
       - xunce
 
   xone-instruction:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-instruction
     container_name: xone-instruction
@@ -102,7 +102,7 @@ services:
       - xunce
 
   xone-workflow:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-workflow
     container_name: xone-workflow
@@ -122,7 +122,7 @@ services:
       - xunce
 
   xone-attachment:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-attachment
     container_name: xone-attachment
@@ -142,7 +142,7 @@ services:
       - xunce
 
   xone-gateway:
-    image: xone_java:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
     #restart: always
     hostname: xone-gateway
     container_name: xone-gateway
@@ -161,16 +161,19 @@ services:
     networks:
       - xunce
 
-#--------------------------------------前端----------------------------------------#
-  xunce-xone-front:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/zhaoshangxone:xc-front-xone-v2.1.0
-    restart: always
-    hostname: xunce-xone-front
-    container_name: xunce-xone-front
+#--------------------------------------fastdfs----------------------------------------#
+  xone-fastdfs:
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-fastdfs:v1.0.3
+    #restart: always
+    hostname: xone-fastdfs
+    container_name: xone-fastdfs
     volumes:
-      - ./config/nginx/xc-front-xone.conf:/etc/nginx/conf.d/xc-front-xone.conf
+      - ./config/nginx/fdfs.conf:/etc/nginx/conf.d/fdfs.conf
+      - ./fdfs/conf/storage.conf:/etc/fdfs/storage.conf
+      - ./fdfs/data:/data/fastdfs/storage/data
     ports:
-      - 8060:8060
+      - 22122:22122
+      - 23000:23000
     privileged: true
     networks:
       - xunce
