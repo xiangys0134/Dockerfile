@@ -49,6 +49,7 @@ RUN set -ex; \
     tar -zxf libuuid-dev.tar.gz; \
     tar -zxf libuv-dev.tar.gz; \
     tar -zxf mysql-dev.tar.gz; \
+    tar -zxf file.tar.gz; \
     yum localinstall -y *rpm; \
     scl enable devtoolset-7 bash; \
     echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
