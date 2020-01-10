@@ -3,7 +3,7 @@
 #
 # github：https://github.com/xiangys0134/Dockerfile/blob/master/dockerfile/XONE/Dockerfile_java_dev
 #
-# github镜像地址：xiangys0134/xone-java-dev
+# docker hub镜像地址：xiangys0134/xone-java-dev
 #
 FROM xiangys0134/xone-java-dev:v1.0.3 as build
 LABEL maintainer="<yousong.xiang@xuncetech.com>" \

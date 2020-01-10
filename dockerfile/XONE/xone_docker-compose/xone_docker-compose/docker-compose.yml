@@ -163,7 +163,7 @@ services:
 
 #--------------------------------------fastdfs----------------------------------------#
   xone-fastdfs:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-fastdfs:v1.0.3
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-fastdfs:v1.0.4
     #restart: always
     hostname: xone-fastdfs
     container_name: xone-fastdfs
