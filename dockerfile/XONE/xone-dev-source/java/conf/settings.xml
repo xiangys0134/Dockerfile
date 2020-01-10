@@ -53,6 +53,7 @@ under the License.
   <localRepository>/path/to/local/repo</localRepository>
   -->
 
+  <localRepository>D:\software\apache-maven-3.5.4\repo</localRepository>
   <!-- interactiveMode
    | This will determine whether maven prompts you when it needs input. If set to false,
    | maven will use a sensible default value, perhaps based on some other setting, for
@@ -131,23 +132,10 @@ under the License.
     </server>
     -->
 	<server>
-	  <id>nexus</id>
-      <username>admin</username>
-      <password>admin123</password>
+      <id>nexus</id>
+      <username>deployer</username>
+      <password>deployer</password>
     </server>
-
-	<server>
-	  <id>nexus-snapshots</id>
-      <username>admin</username>
-      <password>admin123</password>
-    </server>
-
-	<server>
-	  <id>nexus-releases</id>
-      <username>admin</username>
-      <password>admin123</password>
-    </server>
-
   </servers>
 
   <!-- mirrors
@@ -174,25 +162,11 @@ under the License.
       <url>http://my.repository.com/repo/path</url>
     </mirror>
      -->
-
-	<mirror>
-      <id>nexus</id>
-	  <mirrorOf>*</mirrorOf>     
-      <url>http://192.168.0.178:8081/repository/maven-public/</url>
+	 <mirror>
+        <id>nexus</id>
+        <mirrorOf>*</mirrorOf> 
+        <url>https://10.254.251.230:8443/repository/maven-public/</url>
     </mirror>
-
-	<mirror>
-      <id>nexus-snapshots</id>
-	  <mirrorOf>*</mirrorOf>     
-      <url>http://192.168.0.178:8081/repository/maven-snapshots/</url>
-    </mirror>
-
-	<mirror>
-      <id>nexus-releases</id>
-	  <mirrorOf>*</mirrorOf>     
-      <url>http://192.168.0.178:8081/repository/maven-releases/</url>
-    </mirror>
-
   </mirrors>
 
   <!-- profiles
@@ -281,34 +255,27 @@ under the License.
       </properties>
     </profile>
     -->
-
 	<profile>
-		<id>nexus</id>
-		<repositories>
-			<repository>
-				<id>nexus-snapshots</id>
-				<url>http://192.168.0.178:8081/repository/maven-snapshots/</url>
-				<releases>
-					<enabled>false</enabled>
-				</releases>
-				<snapshots>
-					<enabled>true</enabled>
-				</snapshots>
-			</repository>
-			<repository>
-				<id>nexus-releases</id>
-				<url>http://192.168.0.178:8081/repository/maven-releases/</url>
-				<releases>
-					<enabled>true</enabled>
-				</releases>
-				<snapshots>
-					<enabled>false</enabled>
-				</snapshots>
-			</repository>
-	  </repositories>
-	</profile>
-
-
+    <id>nexus</id>
+    <!--Enable snapshots for the built in central repo to direct -->
+    <!--all requests to nexus via the mirror -->
+    <repositories>
+      <repository>
+        <id>central</id>
+        <url>http://central</url>
+        <releases><enabled>true</enabled></releases>
+        <snapshots><enabled>true</enabled></snapshots>
+      </repository>
+    </repositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <id>central</id>
+        <url>http://central</url>
+        <releases><enabled>true</enabled></releases>
+        <snapshots><enabled>true</enabled></snapshots>
+      </pluginRepository>
+    </pluginRepositories>
+  </profile>
   </profiles>
 
   <!-- activeProfiles
@@ -319,9 +286,8 @@ under the License.
     <activeProfile>anotherAlwaysActiveProfile</activeProfile>
   </activeProfiles>
   -->
-
   <activeProfiles>
-    <activeProfile>nexus</activeProfile>
-  </activeProfiles>
-
+  <!--make the profile active all the time -->
+  <activeProfile>nexus</activeProfile>
+</activeProfiles>
 </settings>
