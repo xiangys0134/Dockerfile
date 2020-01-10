@@ -58,17 +58,17 @@ RUN set -ex; \
 #
 # github：https://github.com/xiangys0134/Dockerfile/blob/master/dockerfile/XONE/Dockerfile_java_deploy
 #
-# github镜像地址：xiangys0134/xone-java-depoy
+# docker hub镜像地址：xiangys0134/xone-java-depoy
 #
 FROM xiangys0134/xone-java-depoy:v1.0.3
 
 COPY --from=build /data/XONE /data/XONE
 
 
-#RUN set -ex; \
-#    \
-#    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-#    yum clean all
+RUN set -ex; \
+   \
+   ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+   yum clean all
 
 
 USER root
