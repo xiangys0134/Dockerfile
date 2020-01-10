@@ -1,40 +1,60 @@
+#
+# 描述: fastdfs5.11基础编译镜像
+#
+# github：https://github.com/xiangys0134/Dockerfile/blob/master/dockerfile/XONE/Dockerfile_fdfs
+#
+# github镜像地址：xiangys0134/xone-java-dev
+#
+# 与前端进行联调时nginx所需的配置文件
+#
 FROM centos:centos7.5.1804 as build
 LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       name="rpmbuild" \
       author="yousong.xiang" \
-      version="v1.0.1" \
-      systemver="Centos7.6" \
+      version="v1.0.2" \
+      systemver="Centos7.5" \
       desc="fastdfs devtoolset" \
-      build-date="20190202"
+      build-date="20190110"
 
+# 1.拷贝基础目录组件
+# 2.拷贝fdstdfs配置文件
 COPY xone-dev-source/fdfs/SOURCES /tmp/SOURCES
 COPY xone-dev-source/fdfs/conf /tmp/conf
 
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && cd /tmp/SOURCES \
-    && tar -zxf devtoolset-fastdfs.tar.gz \
-    && cd devtoolset-fastdfs && yum localinstall *.rpm -y \
-    && scl enable devtoolset-7 bash \
-    && echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc \
-    && source /root/.bashrc && cd .. \
-    && tar -zxf libfastcommon-1.0.36.tar.gz \
-    && cd libfastcommon-1.0.36 \
-    && ./make.sh clean && ./make.sh \
-    && ./make.sh install \
-    && cd .. \
-    && tar -zxf fastdfs-5.11.tar.gz \
-    && cd fastdfs-5.11 \
-    && ./make.sh clean && ./make.sh \
-    && ./make.sh install \
-    && cp /tmp/conf/client.conf /etc/fdfs/client.conf \
-    && cp /tmp/conf/storage.conf /etc/fdfs/storage.conf \
-    && cp /tmp/conf/tracker.conf /etc/fdfs/tracker.conf \
-    && rm -rf /tmp/conf && rm -rf /tmp/SOURCES
+RUN set -ex; \
+    \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    cd /tmp/SOURCES; \
+    tar -zxf devtoolset-fastdfs.tar.gz; \
+    cd devtoolset-fastdfs; \
+    yum localinstall *.rpm -y; \
+    scl enable devtoolset-7 bash; \
+    echo "source /opt/rh/devtoolset-7/enable" >> /root/.bashrc; \
+    source /root/.bashrc; \
+    cd ..; \
+    \
+    tar -zxf libfastcommon-1.0.36.tar.gz; \
+    cd libfastcommon-1.0.36; \
+    ./make.sh clean && ./make.sh; \
+    ./make.sh install; \
+    cd ..; \
+    \
+    tar -zxf fastdfs-5.11.tar.gz; \
+    cd fastdfs-5.11; \
+    ./make.sh clean && ./make.sh; \
+    ./make.sh install; \
+    cp /tmp/conf/client.conf /etc/fdfs/client.conf; \
+    cp /tmp/conf/storage.conf /etc/fdfs/storage.conf; \
+    cp /tmp/conf/tracker.conf /etc/fdfs/tracker.conf; \
+    rm -rf /tmp/conf; \
+    rm -rf /tmp/SOURCES
 
-#基础部署环境
+# 基础部署环境
+# tracker_port:22122  storage_port:23000
 FROM centos:centos7.5.1804
+COPY xone-dev-source/fdfs/conf /tmp/conf
 
-COPY --from=build /etc/fdfs /etc/fdfs 
+COPY --from=build /etc/fdfs /etc/fdfs
 COPY --from=build /etc/init.d/fdfs_storaged /etc/init.d/fdfs_storaged
 COPY --from=build /etc/init.d/fdfs_trackerd /etc/init.d/fdfs_trackerd
 COPY --from=build /usr/bin/fdfs_append_file /usr/bin/fdfs_append_file
@@ -61,12 +81,21 @@ COPY --from=build /usr/lib64/libfastcommon.so /usr/lib64/libfastcommon.so
 COPY --from=build /usr/lib/libfastcommon.so /usr/lib/libfastcommon.so
 COPY --from=build /usr/include/fastcommon /usr/include/fastcommon
 
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && mkdir -p /data/fastdfs \
-    && echo '/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart' >> /etc/rc.local \
-    && echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local \
-    && chmod +x /etc/rc.d/rc.local
-    
+RUN set -ex; \
+    \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    yum install -y epel-release; \
+    yum install -y nginx; \
+    cp /tmp/conf/fdfs.conf /etc/nginx/conf.d/; \
+    systemctl enable nginx.service; \
+    \
+    mkdir -p /data/fastdfs; \
+    echo '/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart' >> /etc/rc.local; \
+    echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local; \
+    chmod +x /etc/rc.d/rc.local; \
+    rm -rf /tmp/conf; \
+    yum clean all;
+
 
 USER root
 
@@ -74,4 +103,3 @@ VOLUME ["/data/fastdfs"]
 WORKDIR /data
 
 CMD ["/usr/sbin/init"]
-
