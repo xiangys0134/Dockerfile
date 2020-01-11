@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: monitor
+  cloud:
+    config:
+      name: monitor
+      profile: dev
+      uri: http://xone-configuration:9763

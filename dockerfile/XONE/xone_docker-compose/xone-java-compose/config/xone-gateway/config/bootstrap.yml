@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway
+  cloud:
+    config:
+      name: gateway
+      profile: dev
+      uri: http://xone-configuration:9763

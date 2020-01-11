@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: authorization
+  cloud:
+    config:
+      name: authorization
+      profile: dev
+      uri: http://xone-configuration:9763

@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: transaction
+  cloud:
+    config:
+      name: transaction
+      profile: dev
+      uri: http://xone-configuration:9763

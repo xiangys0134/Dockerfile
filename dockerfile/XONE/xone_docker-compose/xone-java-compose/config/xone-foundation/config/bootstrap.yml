@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: foundation
+  cloud:
+    config:
+      name: foundation
+      profile: dev
+      uri: http://xone-configuration:9763

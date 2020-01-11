@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: workflow
+  cloud:
+    config:
+      name: workflow
+      profile: dev
+      uri: http://xone-configuration:9763

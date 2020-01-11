@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9761/eureka/
+      defaultZone: http://xone-registration:9761/eureka/
     registry-fetch-interval-seconds: 10 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
   instance:
     # 心跳间隔

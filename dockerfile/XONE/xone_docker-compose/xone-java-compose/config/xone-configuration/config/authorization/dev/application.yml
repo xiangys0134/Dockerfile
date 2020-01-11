@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9761/eureka/
+      defaultZone: http://xone-registration:9761/eureka/
     registry-fetch-interval-seconds: 10 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
   instance:
     # 心跳间隔
@@ -20,7 +20,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.216:3306/xone_data?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://xc-xone-mysql:3306/xone_data?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: mysql.admin.pass
     hikari:
@@ -34,8 +34,8 @@ spring:
       idle-timeout: 30000
   redis:
     database: 0
-    host: 192.168.0.216
-    port: 6380
+    host: xone-redis
+    port: 6379
     password: intel.com
     lettuce:
       pool:
@@ -84,4 +84,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-

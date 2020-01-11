@@ -54,22 +54,23 @@ COPY --from=prep /usr/lib64/libtinyxml2.so.7.0.0 /usr/lib64/libtinyxml2.so.7.0.0
 COPY --from=prep /usr/lib64/pkgconfig/tinyxml2.pc /usr/lib64/pkgconfig/tinyxml2.pc
 
 #copy protobuf
+COPY --from=prep /usr/bin/protoc  /usr/bin/protoc
+COPY --from=prep /usr/include/google/protobuf  /usr/include/google/protobuf
 COPY --from=prep /usr/lib/libprotobuf-lite.a  /usr/lib/libprotobuf-lite.a
 COPY --from=prep /usr/lib/libprotobuf-lite.la  /usr/lib/libprotobuf-lite.la
 COPY --from=prep /usr/lib/libprotobuf-lite.so  /usr/lib/libprotobuf-lite.so
-COPY --from=prep /usr/lib/libprotobuf-lite.so.17  /usr/lib/libprotobuf-lite.so.17
-COPY --from=prep /usr/lib/libprotobuf-lite.so.17.0.0  /usr/lib/libprotobuf-lite.so.17.0.0
+COPY --from=prep /usr/lib/libprotobuf-lite.so.21  /usr/lib/libprotobuf-lite.so.21
+COPY --from=prep /usr/lib/libprotobuf-lite.so.21.0.1  /usr/lib/libprotobuf-lite.so.21.0.1
 COPY --from=prep /usr/lib/libprotobuf.a  /usr/lib/libprotobuf.a
 COPY --from=prep /usr/lib/libprotobuf.la  /usr/lib/libprotobuf.la
 COPY --from=prep /usr/lib/libprotobuf.so  /usr/lib/libprotobuf.so
-COPY --from=prep /usr/lib/libprotobuf.so.17  /usr/lib/libprotobuf.so.17
-COPY --from=prep /usr/lib/libprotobuf.so.17.0.0  /usr/lib/libprotobuf.so.17.0.0
+COPY --from=prep /usr/lib/libprotobuf.so.21  /usr/lib/libprotobuf.so.21
+COPY --from=prep /usr/lib/libprotobuf.so.21.0.1  /usr/lib/libprotobuf.so.21.0.1
 COPY --from=prep /usr/lib/libprotoc.a  /usr/lib/libprotoc.a
 COPY --from=prep /usr/lib/libprotoc.la  /usr/lib/libprotoc.la
 COPY --from=prep /usr/lib/libprotoc.so  /usr/lib/libprotoc.so
-COPY --from=prep /usr/lib/libprotoc.so.17  /usr/lib/libprotoc.so.17
-COPY --from=prep /usr/lib/libprotoc.so.17.0.0  /usr/lib/libprotoc.so.17.0.0
-COPY --from=prep /usr/include/google/protobuf/  /usr/include/google/protobuf/
+COPY --from=prep /usr/lib/libprotoc.so.21  /usr/lib/libprotoc.so.21
+COPY --from=prep /usr/lib/libprotoc.so.21.0.1  /usr/lib/libprotoc.so.21.0.1
 COPY --from=prep /usr/lib/pkgconfig/protobuf-lite.pc  /usr/lib/pkgconfig/protobuf-lite.pc
 COPY --from=prep /usr/lib/pkgconfig/protobuf.pc  /usr/lib/pkgconfig/protobuf.pc
 
@@ -92,12 +93,6 @@ COPY --from=prep /usr/bin/quantlib-config /usr/bin/quantlib-config
 COPY --from=prep /usr/bin/quantlib-test-suite /usr/bin/quantlib-test-suite
 
 
-#cpp
-#COPY --from=prep /etc/ld.so.conf.d /etc/ld.so.conf.d
-#COPY --from=prep /usr/bin/uvframe /usr/bin/uvframe
-#COPY --from=prep /usr/lib/uvframe /usr/lib/uvframe
-#COPY --from=prep /etc/uvframe /etc/uvframe
-
 COPY xone-dev-source/app /tmp/app
 
 RUN set -ex; \
@@ -115,12 +110,12 @@ RUN set -ex; \
     rm -rf /tmp/app; \
     yum clean all
 
-RUN set -ex; \
-    \
-    groupadd -g 5002 opadm; \
-    useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
+#RUN set -ex; \
+#    \
+#    groupadd -g 5002 opadm; \
+#    useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
 
-USER opadm
-WORKDIR /home/opadm
+USER root
+#WORKDIR /home/opadm
 
 CMD ["/usr/sbin/init"]

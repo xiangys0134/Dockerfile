@@ -12,13 +12,23 @@ services:
     ports:
       - 9761:9761
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -28,17 +38,31 @@ services:
     #restart: always
     hostname: xone-configuration
     container_name: xone-configuration
-    command: ['/data/XONE/xone-configuration/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 20 ; /data/XONE/xone-configuration/bin/docker-entrypoint.sh start']
     ports:
       - 9763:9763
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -48,17 +72,32 @@ services:
     #restart: always
     hostname: xone-authorization
     container_name: xone-authorization
-    command: ['/data/XONE/xone-authorization/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 25; /data/XONE/xone-authorization/bin/docker-entrypoint.sh start']
     ports:
       - 9766:9766
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
+
     privileged: true
     networks:
       - xunce
@@ -68,17 +107,31 @@ services:
     #restart: always
     hostname: xone-foundation
     container_name: xone-foundation
-    command: ['/data/XONE/xone-foundation/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 30; /data/XONE/xone-foundation/bin/docker-entrypoint.sh start']
     ports:
       - 9767:9767
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -88,17 +141,31 @@ services:
     #restart: always
     hostname: xone-instruction
     container_name: xone-instruction
-    command: ['/data/XONE/xone-instruction/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 35; /data/XONE/xone-instruction/bin/docker-entrypoint.sh start']
     ports:
       - 9768:9768
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -108,17 +175,31 @@ services:
     #restart: always
     hostname: xone-workflow
     container_name: xone-workflow
-    command: ['/data/XONE/xone-workflow/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 35; /data/XONE/xone-workflow/bin/docker-entrypoint.sh start']
     ports:
       - 9769:9769
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -128,17 +209,31 @@ services:
     #restart: always
     hostname: xone-attachment
     container_name: xone-attachment
-    command: ['/data/XONE/xone-attachment/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 35; /data/XONE/xone-attachment/bin/docker-entrypoint.sh start']
     ports:
       - 9781:9781
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -148,17 +243,31 @@ services:
     #restart: always
     hostname: xone-gateway
     container_name: xone-gateway
-    command: ['/data/XONE/xone-gateway/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/bin/bash','-c','sleep 35; /data/XONE/xone-gateway/bin/docker-entrypoint.sh start']
     ports:
       - 9762:9762
+    depends_on:
+      - xone-registration
     volumes:
+      - ./config/xone-configuration/config/attachment/dev/application.yml:/data/XONE/xone-configuration/config/attachment/dev/application.yml
       - ./config/xone-configuration/config/authorization/dev/application.yml:/data/XONE/xone-configuration/config/authorization/dev/application.yml
       - ./config/xone-configuration/config/foundation/dev/application.yml:/data/XONE/xone-configuration/config/foundation/dev/application.yml
       - ./config/xone-configuration/config/gateway/dev/application.yml:/data/XONE/xone-configuration/config/gateway/dev/application.yml
       - ./config/xone-configuration/config/instruction/dev/application.yml:/data/XONE/xone-configuration/config/instruction/dev/application.yml
       - ./config/xone-configuration/config/messaging/dev/application.yml:/data/XONE/xone-configuration/config/messaging/dev/application.yml
       - ./config/xone-configuration/config/workflow/dev/application.yml:/data/XONE/xone-configuration/config/workflow/dev/application.yml
-      - ./config/profile:/home/frame/profile
+      - ./config/xone-configuration/config/application.yml:/data/XONE/xone-configuration/config/application.yml
+      - ./config/xone-attachment/config/bootstrap.yml:/data/XONE/xone-attachment/config/bootstrap.yml
+      - ./config/xone-authorization/config/bootstrap.yml:/data/XONE/xone-authorization/config/bootstrap.yml
+      - ./config/xone-foundation/config/bootstrap.yml:/data/XONE/xone-foundation/config/bootstrap.yml
+      - ./config/xone-gateway/config/bootstrap.yml:/data/XONE/xone-gateway/config/bootstrap.yml
+      - ./config/xone-instruction/config/bootstrap.yml:/data/XONE/xone-instruction/config/bootstrap.yml
+      - ./config/xone-monitor/config/bootstrap.yml:/data/XONE/xone-monitor/config/bootstrap.yml
+      - ./config/xone-registration/config/application.yml:/data/XONE/xone-registration/config/application.yml
+      - ./config/xone-transaction/config/bootstrap.yml:/data/XONE/xone-transaction/config/bootstrap.yml
+      - ./config/xone-workflow/config/bootstrap.yml:/data/XONE/xone-workflow/config/bootstrap.yml
     privileged: true
     networks:
       - xunce
@@ -196,6 +305,19 @@ services:
       - ./mysql/logs:/var/log/mysql
     ports:
       - 23306:3306
+    networks:
+      - xunce
+
+#--------------------------------------redis----------------------------------------#
+  xone-redis:
+    image: redis:5.0.5
+    container_name: xone-redis
+    ports:
+      - 6380:6379
+    command: ["redis-server","/etc/redis/redis.conf"]
+    volumes:
+      - ./data:/data
+      - ./conf/redis.conf:/etc/redis/redis.conf
     networks:
       - xunce
 networks:
