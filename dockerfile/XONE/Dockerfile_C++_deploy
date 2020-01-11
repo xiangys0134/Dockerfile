@@ -1,0 +1,126 @@
+FROM xiangys0134/xone-app-dev:v1.0.0 as prep
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="rpmprep" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="Centos7.5" \
+      desc="xone_c++ devtoolset" \
+      prep-date="20190103"
+
+
+#基础部署环境
+FROM centos:centos7.5.1804
+
+#copy libxls
+COPY --from=prep /usr/include/xlslib /usr/include/xlslib
+COPY --from=prep /usr/lib/libxls.a /usr/lib/libxls.a
+COPY --from=prep /usr/lib/libxls.la /usr/lib/libxls.la
+COPY --from=prep /usr/lib/libxls.so /usr/lib/libxls.so
+COPY --from=prep /usr/lib/libxls.so.2 /usr/lib/libxls.so.2
+COPY --from=prep /usr/lib/libxls.so.2.0.3 /usr/lib/libxls.so.2.0.3
+
+#copy libzmq
+COPY --from=prep /usr/bin/curve_keygen /usr/bin/curve_keygen
+COPY --from=prep /usr/include/zmq.h /usr/include/zmq.h
+COPY --from=prep /usr/include/zmq_utils.h /usr/include/zmq_utils.h
+COPY --from=prep /usr/lib/libzmq.a /usr/lib/libzmq.a
+COPY --from=prep /usr/lib/libzmq.la /usr/lib/libzmq.la
+COPY --from=prep /usr/lib/libzmq.so /usr/lib/libzmq.so
+COPY --from=prep /usr/lib/libzmq.so.5.1.1 /usr/lib/libzmq.so.5.1.1
+COPY --from=prep /usr/lib/pkgconfig/libzmq.pc /usr/lib/pkgconfig/libzmq.pc
+
+
+#copy hiredis
+COPY --from=prep /usr/include/hiredis /usr/include/hiredis
+COPY --from=prep /usr/lib/libhiredis.a /usr/lib/libhiredis.a
+COPY --from=prep /usr/lib/libhiredis.so /usr/lib/libhiredis.so
+COPY --from=prep /usr/lib/libhiredis.so.0.14 /usr/lib/libhiredis.so.0.14
+COPY --from=prep /usr/lib/pkgconfig/hiredis.pc /usr/lib/pkgconfig/hiredis.pc
+
+
+#copy jsoncpp
+COPY --from=prep /usr/include/json /usr/include/json
+COPY --from=prep /usr/lib64/libjsoncpp.so /usr/lib64/libjsoncpp.so
+COPY --from=prep /usr/lib64/libjsoncpp.so.1.8.0 /usr/lib64/libjsoncpp.so.1.8.0
+COPY --from=prep /usr/lib64/libjsoncpp.so.11 /usr/lib64/libjsoncpp.so.11
+COPY --from=prep /usr/lib64/pkgconfig/jsoncpp.pc /usr/lib64/pkgconfig/jsoncpp.pc
+
+#copy tinyxml2
+COPY --from=prep /usr/include/tinyxml2.h /usr/include/tinyxml2.h
+COPY --from=prep /usr/lib64/cmake/tinyxml2 /usr/lib64/cmake/tinyxml2
+COPY --from=prep /usr/lib64/libtinyxml2.so /usr/lib64/libtinyxml2.so
+COPY --from=prep /usr/lib64/libtinyxml2.so.7 /usr/lib64/libtinyxml2.so.7
+COPY --from=prep /usr/lib64/libtinyxml2.so.7.0.0 /usr/lib64/libtinyxml2.so.7.0.0
+COPY --from=prep /usr/lib64/pkgconfig/tinyxml2.pc /usr/lib64/pkgconfig/tinyxml2.pc
+
+#copy protobuf
+COPY --from=prep /usr/lib/libprotobuf-lite.a  /usr/lib/libprotobuf-lite.a
+COPY --from=prep /usr/lib/libprotobuf-lite.la  /usr/lib/libprotobuf-lite.la
+COPY --from=prep /usr/lib/libprotobuf-lite.so  /usr/lib/libprotobuf-lite.so
+COPY --from=prep /usr/lib/libprotobuf-lite.so.17  /usr/lib/libprotobuf-lite.so.17
+COPY --from=prep /usr/lib/libprotobuf-lite.so.17.0.0  /usr/lib/libprotobuf-lite.so.17.0.0
+COPY --from=prep /usr/lib/libprotobuf.a  /usr/lib/libprotobuf.a
+COPY --from=prep /usr/lib/libprotobuf.la  /usr/lib/libprotobuf.la
+COPY --from=prep /usr/lib/libprotobuf.so  /usr/lib/libprotobuf.so
+COPY --from=prep /usr/lib/libprotobuf.so.17  /usr/lib/libprotobuf.so.17
+COPY --from=prep /usr/lib/libprotobuf.so.17.0.0  /usr/lib/libprotobuf.so.17.0.0
+COPY --from=prep /usr/lib/libprotoc.a  /usr/lib/libprotoc.a
+COPY --from=prep /usr/lib/libprotoc.la  /usr/lib/libprotoc.la
+COPY --from=prep /usr/lib/libprotoc.so  /usr/lib/libprotoc.so
+COPY --from=prep /usr/lib/libprotoc.so.17  /usr/lib/libprotoc.so.17
+COPY --from=prep /usr/lib/libprotoc.so.17.0.0  /usr/lib/libprotoc.so.17.0.0
+COPY --from=prep /usr/include/google/protobuf/  /usr/include/google/protobuf/
+COPY --from=prep /usr/lib/pkgconfig/protobuf-lite.pc  /usr/lib/pkgconfig/protobuf-lite.pc
+COPY --from=prep /usr/lib/pkgconfig/protobuf.pc  /usr/lib/pkgconfig/protobuf.pc
+
+
+#copy spdlog
+COPY --from=prep /usr/include/uWebSockets /usr/include/uWebSockets
+COPY --from=prep /usr/lib64/libuWS_uv.so /usr/lib64/libuWS_uv.so
+
+
+#QuantLib
+COPY --from=prep /usr/include/ql /usr/include/ql
+COPY --from=prep /usr/lib/libQuantLib.so /usr/lib/libQuantLib.so
+COPY --from=prep /usr/lib/libQuantLib.so.0 /usr/lib/libQuantLib.so.0
+COPY --from=prep /usr/lib/libQuantLib.so.0.0.0 /usr/lib/libQuantLib.so.0.0.0
+COPY --from=prep /usr/lib/pkgconfig/quantlib.pc /usr/lib/pkgconfig/quantlib.pc
+COPY --from=prep /usr/share/aclocal/quantlib.m4 /usr/share/aclocal/quantlib.m4
+COPY --from=prep /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
+COPY --from=prep /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
+COPY --from=prep /usr/bin/quantlib-config /usr/bin/quantlib-config
+COPY --from=prep /usr/bin/quantlib-test-suite /usr/bin/quantlib-test-suite
+
+
+#cpp
+#COPY --from=prep /etc/ld.so.conf.d /etc/ld.so.conf.d
+#COPY --from=prep /usr/bin/uvframe /usr/bin/uvframe
+#COPY --from=prep /usr/lib/uvframe /usr/lib/uvframe
+#COPY --from=prep /etc/uvframe /etc/uvframe
+
+COPY xone-dev-source/app /tmp/app
+
+RUN set -ex; \
+    \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    cd /tmp/app; \
+    tar -zxf libtool.tar.gz; \
+    tar -zxf openssl-devel.tar.gz; \
+    tar -zxf boost-dev.tar.gz; \
+    tar -zxf libcurl-dev.tar.gz; \
+    tar -zxf libuuid-dev.tar.gz; \
+    tar -zxf libuv-dev.tar.gz; \
+    tar -zxf mysql-dev.tar.gz; \
+    yum localinstall -y *rpm; \
+    rm -rf /tmp/app; \
+    yum clean all
+
+RUN set -ex; \
+    \
+    groupadd -g 5002 opadm; \
+    useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
+
+USER opadm
+WORKDIR /home/opadm
+
+CMD ["/usr/sbin/init"]

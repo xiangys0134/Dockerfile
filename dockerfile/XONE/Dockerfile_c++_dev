@@ -1,41 +1,29 @@
+#
+# 描述: c++基础编译镜像
+#
+# github：https://github.com/xiangys0134/Dockerfile/blob/xone-java-dev-v1.0.4/dockerfile/XONE/Dockerfile_c%2B%2B
+#
+# github镜像地址：xiangys0134/xone-app-dev
+#
 FROM centos:centos7.5.1804
-# LABEL maintainer="<yousong.xiang@xuncetech.com>" \
-#       name="rpmbuild" \
-#       author="yousong.xiang" \
-#       version="v1.0.1" \
-#       systemver="Centos7.5" \
-#       desc="xone_c++ devtoolset" \
-#       build-date="20190103"
-#
-# COPY xone-dev-source/app /tmp/app
-#
-# #安装gcc 4.8
-# RUN set -ex; \
-#     \
-#     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-#     cd /tmp/app; \
-#     tar -zxf gcc.tar.gz; \
-#     yum localinstall -y *rpm
-#
-# #编译java程序xlslib
-# RUN set -ex; \
-#     \
-#     cd /tmp/app; \
-#     tar -zxf cpp.tar.gz; \
-#     cd cpp; \
-#     tar -zxf xlslib-2.4.0.tar.gz; \
-#     cd xlslib-2.4.0; \
-#     ./configure --prefix=/usr; \
-#     make && make install; \
-#     yum clean all
-
-
-#基础build环境
-#FROM centos:centos7.5.1804
 
 
 COPY xone-dev-source/app /tmp/app
-#COPY src /tmp/src
+
+#基础依赖组件
+# - devtoolset-7-gcc 7.3.1
+# - devtoolset-7-gcc-c++ 7.3.1
+# - devtoolset-7-make 4.2.1
+# - libzmq  4.2.1
+# - hiredis  0.14.0
+# - jsoncpp  1.8.0
+# - tinyxml2  7.0.0
+# - protobuf  3.10.1
+# - xlslib  2.4.0
+# - spdlog  1.1.0
+# - uWebSockets  0.14.9
+# - QuantLib  1.16
+# - cmake  3.12.3
 
 RUN set -ex; \
     \
@@ -105,7 +93,7 @@ RUN set -ex; \
     tar -zxf protobuf-3.10.1.tar.gz; \
     cd protobuf-3.10.1; \
     ./autogen.sh; \
-    ./configure; \
+    ./configure --prefix=/usr; \
     make && make install; \
     cd ..; \
     \
@@ -123,6 +111,7 @@ RUN set -ex; \
     \
     tar -zxf QuantLib-1.16.tar.gz; \
     cd QuantLib-1.16; \
+    ./autogen.sh; \
     ./configure --prefix=/usr; \
     make && make install; \
     rm -f /usr/lib/libQuantLib.a; \
@@ -130,24 +119,13 @@ RUN set -ex; \
     cd ..; \
     rm -rf /tmp/app
 
+
+
 #RUN set -ex; \
 #    \
-#    cd /tmp/src/cpp; \
-#    cmake ./; \
-#    make; \
-#    make install; \
-#    \
-#    echo "/usr/lib/uvframe" >> /etc/ld.so.conf.d; \
-#    echo "/usr/lib/uvframe/thirdparty" >> /etc/ld.so.conf.d; \
-
-
-
-RUN set -ex; \
-    \
-    groupadd -g 5002 opadm; \
-    useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
+#    groupadd -g 5002 opadm; \
+#    useradd -u 5002 -g opadm -G wheel  -d /home/opadm -m -s /bin/bash opadm
 
 USER root
-#WORKDIR /home/opadm
 
 CMD ["/usr/sbin/init"]

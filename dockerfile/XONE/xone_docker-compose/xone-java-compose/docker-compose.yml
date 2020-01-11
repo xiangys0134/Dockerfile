@@ -2,11 +2,13 @@ version: "3"
 services:
 #--------------------------------------java后端----------------------------------------#
   xone-registration:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-registration
     container_name: xone-registration
-    #command: ['/data/XONE/xone-registration/bin/docker-entrypoint.sh','start']
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+    command: ['/data/XONE/xone-registration/bin/docker-entrypoint.sh','start']
     ports:
       - 9761:9761
     volumes:
@@ -22,11 +24,11 @@ services:
       - xunce
 
   xone-configuration:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-configuration
     container_name: xone-configuration
-    #command: ['/data/XONE/xone-configuration/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-configuration/bin/docker-entrypoint.sh','start']
     ports:
       - 9763:9763
     volumes:
@@ -42,11 +44,11 @@ services:
       - xunce
 
   xone-authorization:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-authorization
     container_name: xone-authorization
-    #command: ['/data/XONE/xone-authorization/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-authorization/bin/docker-entrypoint.sh','start']
     ports:
       - 9766:9766
     volumes:
@@ -62,11 +64,11 @@ services:
       - xunce
 
   xone-foundation:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-foundation
     container_name: xone-foundation
-    #command: ['/data/XONE/xone-foundation/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-foundation/bin/docker-entrypoint.sh','start']
     ports:
       - 9767:9767
     volumes:
@@ -82,11 +84,11 @@ services:
       - xunce
 
   xone-instruction:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-instruction
     container_name: xone-instruction
-    #command: ['/data/XONE/xone-instruction/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-instruction/bin/docker-entrypoint.sh','start']
     ports:
       - 9768:9768
     volumes:
@@ -102,11 +104,11 @@ services:
       - xunce
 
   xone-workflow:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-workflow
     container_name: xone-workflow
-    #command: ['/data/XONE/xone-workflow/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-workflow/bin/docker-entrypoint.sh','start']
     ports:
       - 9769:9769
     volumes:
@@ -122,11 +124,11 @@ services:
       - xunce
 
   xone-attachment:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-attachment
     container_name: xone-attachment
-    #command: ['/data/XONE/xone-attachment/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-attachment/bin/docker-entrypoint.sh','start']
     ports:
       - 9781:9781
     volumes:
@@ -142,11 +144,11 @@ services:
       - xunce
 
   xone-gateway:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.1.0
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
     #restart: always
     hostname: xone-gateway
     container_name: xone-gateway
-    #command: ['/data/XONE/xone-gateway/bin/docker-entrypoint.sh','start']
+    command: ['/data/XONE/xone-gateway/bin/docker-entrypoint.sh','start']
     ports:
       - 9762:9762
     volumes:
@@ -163,7 +165,7 @@ services:
 
 #--------------------------------------fastdfs----------------------------------------#
   xone-fastdfs:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-fastdfs:v1.0.4
+    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-fastdfs:v1.0.5
     #restart: always
     hostname: xone-fastdfs
     container_name: xone-fastdfs
