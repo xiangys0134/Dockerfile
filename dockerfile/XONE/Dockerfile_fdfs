@@ -7,14 +7,14 @@
 #
 # 与前端进行联调时nginx所需的配置文件
 #
-FROM centos:centos7.5.1804 as build
+FROM centos:centos7.5.1804
 LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       name="rpmbuild" \
       author="yousong.xiang" \
-      version="v1.0.2" \
+      version="v1.0.3" \
       systemver="Centos7.5" \
       desc="fastdfs devtoolset" \
-      build-date="20190110"
+      build-date="20190112"
 
 # 1.拷贝基础目录组件
 # 2.拷贝fdstdfs配置文件
@@ -46,44 +46,7 @@ RUN set -ex; \
     cp /tmp/conf/client.conf /etc/fdfs/client.conf; \
     cp /tmp/conf/storage.conf /etc/fdfs/storage.conf; \
     cp /tmp/conf/tracker.conf /etc/fdfs/tracker.conf; \
-    rm -rf /tmp/conf; \
-    rm -rf /tmp/SOURCES
-
-# 基础部署环境
-# tracker_port:22122  storage_port:23000
-FROM centos:centos7.5.1804
-COPY xone-dev-source/fdfs/conf /tmp/conf
-
-COPY --from=build /etc/fdfs /etc/fdfs
-COPY --from=build /etc/init.d/fdfs_storaged /etc/init.d/fdfs_storaged
-COPY --from=build /etc/init.d/fdfs_trackerd /etc/init.d/fdfs_trackerd
-COPY --from=build /usr/bin/fdfs_append_file /usr/bin/fdfs_append_file
-COPY --from=build /usr/bin/fdfs_appender_test  /usr/bin/fdfs_appender_test
-COPY --from=build /usr/bin/fdfs_appender_test1 /usr/bin/fdfs_appender_test1
-COPY --from=build /usr/bin/fdfs_crc32 /usr/bin/fdfs_crc32
-COPY --from=build /usr/bin/fdfs_delete_file /usr/bin/fdfs_delete_file
-COPY --from=build /usr/bin/fdfs_download_file /usr/bin/fdfs_download_file
-COPY --from=build /usr/bin/fdfs_file_info /usr/bin/fdfs_file_info
-COPY --from=build /usr/bin/fdfs_monitor /usr/bin/fdfs_monitor
-COPY --from=build /usr/bin/fdfs_storaged /usr/bin/fdfs_storaged
-COPY --from=build /usr/bin/fdfs_test /usr/bin/fdfs_test
-COPY --from=build /usr/bin/fdfs_test1 /usr/bin/fdfs_test1
-COPY --from=build /usr/bin/fdfs_trackerd /usr/bin/fdfs_trackerd
-COPY --from=build /usr/bin/fdfs_upload_appender /usr/bin/fdfs_upload_appender
-COPY --from=build /usr/bin/fdfs_upload_file /usr/bin/fdfs_upload_file
-COPY --from=build /usr/bin/restart.sh /usr/bin/restart.sh
-COPY --from=build /usr/bin/stop.sh /usr/bin/stop.sh
-COPY --from=build /usr/include/fastdfs /usr/include/fastdfs
-COPY --from=build /usr/lib/libfdfsclient.so /usr/lib/libfdfsclient.so
-COPY --from=build /usr/lib64/libfdfsclient.so /usr/lib64/libfdfsclient.so
-
-COPY --from=build /usr/lib64/libfastcommon.so /usr/lib64/libfastcommon.so
-COPY --from=build /usr/lib/libfastcommon.so /usr/lib/libfastcommon.so
-COPY --from=build /usr/include/fastcommon /usr/include/fastcommon
-
-RUN set -ex; \
     \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
     yum install -y epel-release; \
     yum install -y nginx; \
     cp /tmp/conf/fdfs.conf /etc/nginx/conf.d/; \
@@ -95,7 +58,56 @@ RUN set -ex; \
     echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local; \
     chmod +x /etc/rc.d/rc.local; \
     rm -rf /tmp/conf; \
+    rm -rf /tmp/SOURCES; \
     yum clean all;
+
+# 基础部署环境
+# tracker_port:22122  storage_port:23000
+# FROM centos:centos7.5.1804
+# COPY xone-dev-source/fdfs/conf /tmp/conf
+
+# COPY --from=build /etc/fdfs /etc/fdfs
+# COPY --from=build /etc/init.d/fdfs_storaged /etc/init.d/fdfs_storaged
+# COPY --from=build /etc/init.d/fdfs_trackerd /etc/init.d/fdfs_trackerd
+# COPY --from=build /usr/bin/fdfs_append_file /usr/bin/fdfs_append_file
+# COPY --from=build /usr/bin/fdfs_appender_test  /usr/bin/fdfs_appender_test
+# COPY --from=build /usr/bin/fdfs_appender_test1 /usr/bin/fdfs_appender_test1
+# COPY --from=build /usr/bin/fdfs_crc32 /usr/bin/fdfs_crc32
+# COPY --from=build /usr/bin/fdfs_delete_file /usr/bin/fdfs_delete_file
+# COPY --from=build /usr/bin/fdfs_download_file /usr/bin/fdfs_download_file
+# COPY --from=build /usr/bin/fdfs_file_info /usr/bin/fdfs_file_info
+# COPY --from=build /usr/bin/fdfs_monitor /usr/bin/fdfs_monitor
+# COPY --from=build /usr/bin/fdfs_storaged /usr/bin/fdfs_storaged
+# COPY --from=build /usr/bin/fdfs_test /usr/bin/fdfs_test
+# COPY --from=build /usr/bin/fdfs_test1 /usr/bin/fdfs_test1
+# COPY --from=build /usr/bin/fdfs_trackerd /usr/bin/fdfs_trackerd
+# COPY --from=build /usr/bin/fdfs_upload_appender /usr/bin/fdfs_upload_appender
+# COPY --from=build /usr/bin/fdfs_upload_file /usr/bin/fdfs_upload_file
+# COPY --from=build /usr/bin/restart.sh /usr/bin/restart.sh
+# COPY --from=build /usr/bin/stop.sh /usr/bin/stop.sh
+# COPY --from=build /usr/include/fastdfs /usr/include/fastdfs
+# COPY --from=build /usr/lib/libfdfsclient.so /usr/lib/libfdfsclient.so
+# COPY --from=build /usr/lib64/libfdfsclient.so /usr/lib64/libfdfsclient.so
+#
+# COPY --from=build /usr/lib64/libfastcommon.so /usr/lib64/libfastcommon.so
+# COPY --from=build /usr/lib/libfastcommon.so /usr/lib/libfastcommon.so
+# COPY --from=build /usr/include/fastcommon /usr/include/fastcommon
+
+# RUN set -ex; \
+#     \
+#     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+#     yum install -y epel-release; \
+#     yum install -y nginx; \
+#     cp /tmp/conf/fdfs.conf /etc/nginx/conf.d/; \
+#     systemctl enable nginx.service; \
+#     \
+#     mkdir -p /data/fastdfs; \
+#     mkdir -p /data/fastdfs/storage; \
+#     echo '/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart' >> /etc/rc.local; \
+#     echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local; \
+#     chmod +x /etc/rc.d/rc.local; \
+#     rm -rf /tmp/conf; \
+#     yum clean all;
 
 
 USER root
