@@ -46,6 +46,8 @@ RUN set -ex; \
     ldconfig
 
 USER opadm
+
+
 WORKDIR /home/opadm
 
 CMD ["/usr/sbin/init"]

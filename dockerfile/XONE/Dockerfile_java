@@ -73,6 +73,8 @@ RUN set -ex; \
 
 USER root
 
+EXPOSE 9761 9762 9763 9766 9767 9768 9769 9781
+
 VOLUME ["/data/XONE"]
 WORKDIR /data
 

@@ -43,12 +43,15 @@ RUN set -ex; \
     cd fastdfs-5.11; \
     ./make.sh clean && ./make.sh; \
     ./make.sh install; \
+    cd ..; \
     cp /tmp/conf/client.conf /etc/fdfs/client.conf; \
     cp /tmp/conf/storage.conf /etc/fdfs/storage.conf; \
     cp /tmp/conf/tracker.conf /etc/fdfs/tracker.conf; \
     \
-    yum install -y epel-release; \
-    yum install -y nginx; \
+    tar -zxf nginx-1.16.tar.gz; \
+    yum localinstall *.rpm -y; \
+    # yum install -y epel-release; \
+    # yum install -y nginx; \
     cp /tmp/conf/fdfs.conf /etc/nginx/conf.d/; \
     systemctl enable nginx.service; \
     \
