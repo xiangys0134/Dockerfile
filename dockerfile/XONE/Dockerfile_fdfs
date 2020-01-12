@@ -112,6 +112,8 @@ RUN set -ex; \
 
 USER root
 
+EXPOSE 8769 22122 23000
+
 VOLUME ["/data/fastdfs"]
 WORKDIR /data
 
