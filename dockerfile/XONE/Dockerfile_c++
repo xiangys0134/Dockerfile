@@ -1,4 +1,4 @@
-FROM xiangys0134/xone-app-dev:v1.0.1 as build
+FROM xiangys0134/xone-app-dev:v1.0.1
 LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       name="rpmbuild" \
       author="yousong.xiang" \
@@ -27,13 +27,13 @@ RUN set -ex; \
     rm -rf /tmp/src
 
 # docker部署环境
-FROM xiangys0134/xone-app-deploy:v1.0.1
-
-#cpp
-COPY --from=build /etc/ld.so.conf.d /etc/ld.so.conf.d
-COPY --from=build /usr/bin/uvframe /usr/bin/uvframe
-COPY --from=build /usr/lib/uvframe /usr/lib/uvframe
-COPY --from=build /etc/uvframe /etc/uvframe
+# FROM xiangys0134/xone-app-deploy:v1.0.1
+#
+# #cpp
+# COPY --from=build /etc/ld.so.conf.d /etc/ld.so.conf.d
+# COPY --from=build /usr/bin/uvframe /usr/bin/uvframe
+# COPY --from=build /usr/lib/uvframe /usr/lib/uvframe
+# COPY --from=build /etc/uvframe /etc/uvframe
 
 
 RUN set -ex; \
