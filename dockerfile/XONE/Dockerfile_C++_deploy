@@ -11,6 +11,12 @@ LABEL maintainer="<yousong.xiang@xuncetech.com>" \
 #基础部署环境
 FROM centos:centos7.5.1804
 
+# copy lib
+COPY --from=prep /usr/lib /usr/lib
+COPY --from=prep /usr/lib64 /usr/lib64
+COPY --from=prep /lib /lib
+COPY --from=prep /lib64 /lib64
+
 #copy libxls
 COPY --from=prep /usr/include/xlslib /usr/include/xlslib
 COPY --from=prep /usr/lib/libxls.a /usr/lib/libxls.a
@@ -87,8 +93,8 @@ COPY --from=prep /usr/lib/libQuantLib.so.0 /usr/lib/libQuantLib.so.0
 COPY --from=prep /usr/lib/libQuantLib.so.0.0.0 /usr/lib/libQuantLib.so.0.0.0
 COPY --from=prep /usr/lib/pkgconfig/quantlib.pc /usr/lib/pkgconfig/quantlib.pc
 COPY --from=prep /usr/share/aclocal/quantlib.m4 /usr/share/aclocal/quantlib.m4
-COPY --from=prep /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
-COPY --from=prep /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
+#COPY --from=prep /usr/share/man/man1/quantlib-config.1.gz /usr/share/man/man1/quantlib-config.1.gz
+#COPY --from=prep /usr/share/man/man1/quantlib-test-suite.1.gz /usr/share/man/man1/quantlib-test-suite.1.gz
 COPY --from=prep /usr/bin/quantlib-config /usr/bin/quantlib-config
 COPY --from=prep /usr/bin/quantlib-test-suite /usr/bin/quantlib-test-suite
 
