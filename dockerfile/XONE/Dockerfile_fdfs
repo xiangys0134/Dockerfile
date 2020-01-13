@@ -60,10 +60,14 @@ RUN set -ex; \
     echo '/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart' >> /etc/rc.local; \
     echo '/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart' >> /etc/rc.local; \
     chmod +x /etc/rc.d/rc.local; \
+    \
+    yum install -y nc; \
     rm -rf /tmp/conf; \
     rm -rf /tmp/SOURCES; \
     yum clean all;
 
+HEALTHCHECK --interval=40s --timeout=3s --start-period=5s \
+  CMD nc -v -w 1 127.0.0.1 -z 80 && nc -v -w 1 127.0.0.1 -z 22122 && nc -v -w 1 127.0.0.1 -z 23000 || exit 1
 # 基础部署环境
 # tracker_port:22122  storage_port:23000
 # FROM centos:centos7.5.1804
