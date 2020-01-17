@@ -2,7 +2,7 @@ version: "3"
 services:
 #--------------------------------------java后端----------------------------------------#
   xone-registration:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-registration
     container_name: xone-registration
@@ -34,7 +34,7 @@ services:
       - xunce
 
   xone-configuration:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-configuration
     container_name: xone-configuration
@@ -68,7 +68,7 @@ services:
       - xunce
 
   xone-authorization:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-authorization
     container_name: xone-authorization
@@ -103,7 +103,7 @@ services:
       - xunce
 
   xone-foundation:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-foundation
     container_name: xone-foundation
@@ -137,7 +137,7 @@ services:
       - xunce
 
   xone-instruction:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-instruction
     container_name: xone-instruction
@@ -171,7 +171,7 @@ services:
       - xunce
 
   xone-workflow:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-workflow
     container_name: xone-workflow
@@ -205,7 +205,7 @@ services:
       - xunce
 
   xone-attachment:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-attachment
     container_name: xone-attachment
@@ -239,7 +239,7 @@ services:
       - xunce
 
   xone-gateway:
-    image: registry.cn-hangzhou.aliyuncs.com/xunceprivate/xone-java:v2.2.0
+    image: xone/java:v1.0.1
     #restart: always
     hostname: xone-gateway
     container_name: xone-gateway
@@ -317,8 +317,124 @@ services:
       - 6380:6379
     command: ["redis-server","/etc/redis/redis.conf"]
     volumes:
-      - ./data:/data
+      - ./redis-data:/data
       - ./conf/redis.conf:/etc/redis/redis.conf
+    networks:
+      - xunce
+
+#--------------------------------------c++----------------------------------------#
+  xone-gateway-c:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-gateway
+    container_name: xone-gateway
+    command: /usr/bin/uvframe /etc/uvframe/gateway.xml
+    ports:
+      - 8062:8062
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-mysqlservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-mysqlservice
+    container_name: xone-mysqlservice
+    command: /usr/bin/uvframe /etc/uvframe/mysqlservice.xml
+    ports:
+      - 8073:8073
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-basicservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-basicservice
+    container_name: xone-basicservice
+    command: /usr/bin/uvframe /etc/uvframe/basicservice.xml
+    ports:
+      - 8001:8001
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-brokerservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-brokerservice
+    container_name: xone-brokerservice
+    command: /usr/bin/uvframe /etc/uvframe/brokerservice.xml
+    ports:
+      - 8031:8031
+      - 8032:8032
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-orderservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-orderservice
+    container_name: xone-orderservice
+    command: /usr/bin/uvframe /etc/uvframe/orderservice.xml
+    ports:
+      - 8050:8050
+      - 8052:8052
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-queryservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-queryservice
+    container_name: xone-queryservice
+    command: /usr/bin/uvframe /etc/uvframe/queryservice.xml
+    ports:
+      - 8851:8851
+      - 8853:8853
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-liquidateservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-liquidateservice
+    container_name: xone-liquidateservice
+    command: /usr/bin/uvframe /etc/uvframe/liquidateservice.xml
+    ports:
+      - 9527:9527
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
+    networks:
+      - xunce
+
+  xone-quantservice:
+    image: xone/cplus:v1.0.1
+    restart: always
+    hostname: xone-quantservice
+    container_name: xone-quantservice
+    command: /usr/bin/uvframe /etc/uvframe/quantservice.xml
+    ports:
+      - 8860:8860
+    volumes:
+      - ./config/profile:/home/frame/profile
+    privileged: true
     networks:
       - xunce
 networks:

@@ -18,7 +18,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9761/eureka/
+      defaultZone: http://xone-registration:9761/eureka/
   instance:
     # 心跳间隔
     lease-renewal-interval-in-seconds: 5
