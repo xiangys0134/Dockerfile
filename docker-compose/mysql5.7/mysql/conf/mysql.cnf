@@ -1,0 +1,58 @@
+[client]
+socket = /var/run/mysqld/mysqld.sock
+
+[mysqld]
+user = mysql
+port = 3306
+bind-address=0.0.0.0
+skip-name-resolve
+server_id = 100
+datadir = /var/lib/mysql  # data_path
+socket = /var/run/mysqld/mysqld.sock
+pid_file = /var/run/mysqld/mysqld.pid  # data_path
+secure-file-priv= NULL
+
+default_authentication_plugin=mysql_native_password
+
+# Transaction
+innodb_lock_wait_timeout = 5  # lock: innodb row lock
+sql_mode=""
+
+# InnoDB
+innodb_flush_log_at_trx_commit = 2
+innodb_data_home_dir = /var/lib/mysql  # data_path
+innodb_log_group_home_dir = /var/lib/mysql  # inno_log_path
+innodb_buffer_pool_size = 128M  # memory
+innodb_log_buffer_size = 32M
+innodb_log_file_size = 512M
+innodb_log_files_in_group = 2
+innodb_file_per_table = 1
+innodb_flush_method = O_DIRECT  # linux only
+
+# Thread
+max_connections = 500
+max_connect_errors = 10000
+
+# Log
+slow_query_log = ON
+slow_query_log_file = slow.log
+log-error = /var/lib/mysql/mysql-error.log
+long_query_time = 1
+min_examined_row_limit = 0
+log_slow_admin_statements = ON
+general_log = 0
+
+# Binlog
+expire_logs_days=8
+log-bin = bin.index
+binlog_format = ROW
+max_binlog_size = 512M
+max_binlog_cache_size = 128M
+
+
+[mysql]
+default_character_set = utf8mb4
+prompt = \\u@\\h \\R:\\m:\\s \\d>
+
+[mysqldump]
+max_allowed_packet = 32M
