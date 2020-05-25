@@ -1,3 +1,4 @@
+# https://github.com/xiangys0134/Dockerfile/blob/master/dockerfile/jenkins_agent/jenkins-xone-java-cust/centos/Dockerfile
 FROM xiangys0134/xone-java-dev:v1.0.6
 LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       name="rpmbuild" \
@@ -7,15 +8,11 @@ LABEL maintainer="<yousong.xiang@xuncetech.com>" \
       desc="xone_java rpm" \
       build-date="20200525"
 
+
 ENV LANG=zh_CN.UTF-8 \
     LANGUAGE=zh_CN.UTF-8 \
     TIME_ZONE=Asia/Shanghai \
-    JENKINS_HOME=${jenkins_home} \
-    INI_SHA=6c41ec7d33e857d4779f14d9c74924cab0c7973485d2972419a3b7c7620ff5fd \
-    PATH=/usr/local/maven/bin:$PATH \
-    RPM_TOP_DIR=${jenkins_home}
-
-ARG JENKINS_HOME=/data/jenkins_home
+    JENKINS_HOME=/data/jenkins_home
 
 COPY resource /tmp/resource
 
@@ -32,6 +29,7 @@ RUN set -ex; \
     cp -r /tmp/resource/jenkins.sh /usr/local/bin/jenkins.sh ; \
     mkdir -p /data/jenkins_home ; \
     dos2unix /usr/local/bin/jenkins.sh ; \
+    chmod a+x /usr/local/bin/jenkins.sh ; \
     source /root/.bashrc ; \
     yum clean all
 
