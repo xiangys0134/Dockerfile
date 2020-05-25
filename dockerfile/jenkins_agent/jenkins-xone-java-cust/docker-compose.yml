@@ -1,0 +1,19 @@
+version: "3"
+services:
+  agent-xone:
+    image: xiangys0134/agent:xone-v1.0.16
+    container_name: agent-xone
+    restart: always
+    privileged: true
+    volumes:
+      - ./jenkins_data/build:/data/jenkins/build
+      - ./jenkins_data/rpmbuild/BUILD:/data/jenkins/rpmbuild/BUILD
+      - ./jenkins_data/rpmbuild/SOURCES:/data/jenkins/rpmbuild/SOURCES
+      - ./jenkins_data/rpmbuild/RPMS:/data/jenkins/rpmbuild/RPMS
+      - ./jenkins_data/rpmbuild/BUILDROOT:/data/jenkins/rpmbuild/BUILDROOT
+      - ./jenkins_data:/data/jenkins
+    environment:
+      - JENKINS_USER=jenkins
+      - JENKINS_URL=http://192.168.10.83:8080/computer/xone/slave-agent.jnlp
+      - JENKINS_SECRET=d9f86f2a2c270f3e15b4469212bd57d3c34e1dfa5468834d81f4edccbe1cec27
+      - JENKINS_AGENT_WORKDIR=/data/jenkins

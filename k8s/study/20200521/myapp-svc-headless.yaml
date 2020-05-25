@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-svc
+  namespace: default
+spec:
+  type: ClusterIP
+  clusterIP: "None"
+  selector:
+    app: myapp
+    release: canary
+  ports:
+    - name: redis
+      port: 80
+      targetPort: 80
