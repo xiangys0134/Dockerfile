@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-test
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-demo
+  namespace: kube-test
+  labels:
+    app: myapp
+    tier: frontend
+spec:
+  containers:
+  - name: myapp
+    image: ikubernetes/myapp:v1
+    imagePullPolicy: Always
+    ports:
+     - name: http
+       containerPort: 80
+     - name: https
+       containerPort: 443
+    volumeMounts:
+      - mountPath: /usr/share/nginx/html
+        name: html
+  - name: busybox
+    image: busybox:latest
+    command: ["/bin/sh","-c","while true; do echo $(date) >> /data/index.html;sleep 3; done"]
+    imagePullPolicy: Always
+    volumeMounts:
+      - mountPath: /data
+        name: html
+  volumes:
+    - emptyDir: {}
+      name: html

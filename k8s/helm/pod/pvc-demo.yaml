@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc001
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1G
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc002
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1G
+  storageClassName: pv001

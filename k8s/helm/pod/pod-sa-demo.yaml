@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-test
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-demo
+  namespace: default
+  labels:
+    app: myapp
+    tier: frontend
+spec:
+  containers:
+  - name: myapp
+    image: ikubernetes/myapp:v1
+    ports:
+     - name: http
+       containerPort: 80
+     - name: https
+       containerPort: 443
+  serviceAccount: admin

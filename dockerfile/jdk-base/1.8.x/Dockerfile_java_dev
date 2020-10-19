@@ -1,0 +1,35 @@
+FROM centos:centos7.5.1804
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="rpmbuild" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="Centos7.6" \
+      desc="xone_java devtoolset" \
+      build-date="20201016"
+
+COPY xone-dev-source/java/RPM /tmp/RPM
+COPY xone-dev-source/java/conf /tmp/conf
+
+#安装jdk java-1.8.0-openjdk java-1.8.0-openjdk-devel apache-maven-3.35.2
+RUN set -ex; \
+    \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    
+    cd /tmp/RPM; \
+    tar -zxf apache-maven.tar.gz; \
+    #tar -zxf jdk.tar.gz; \
+    yum localinstall -y *rpm; \
+    yum install -y unix2dos dos2unix git unzip net-tools; \
+    yum install -y gcc-c++ make python python-devel python-pip python36 python36-devel python36-setuptools java-1.8.0-openjdk java-1.8.0-openjdk-devel wget sudo; \
+    /bin/cp -rf /tmp/conf/settings.xml /etc/maven/settings.xml; \
+    #获取jdk版本目录
+    jdk_version=`ls /usr/lib/jvm |grep "java-1.8.0-openjdk.*x86_64"|head -1`; \
+    echo "export JAVA_HOME=/usr/lib/jvm/${jdk_version}" >>/root/.bashrc; \
+    source /root/.bashrc; \
+    rm -rf /tmp/RPM; \
+    rm -rf /tmp/conf; \
+    yum clean all
+
+USER root
+
+CMD ["/usr/sbin/init"]

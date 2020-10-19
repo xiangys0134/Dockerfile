@@ -1,0 +1,27 @@
+FROM registry.cn-hangzhou.aliyuncs.com/xunce/nodejs-base:dev-1.0.3 as build
+# 镜像的作者
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="xc-vone-front" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="nginx" \
+      desc="nginx vone http web service" \
+      date="2020.10.13"
+#dockerfile源码仓库：http://192.168.0.38/xcadmin/xunce-spec.git
+
+#拷贝源码
+COPY resource  /tmp/resource
+
+#编译前端程序
+RUN set -ex; \
+    \
+    cd /tmp/resource; \
+    yarn install; \
+    yarn build:all
+
+#nginx基础镜像版本地址：https://hub.docker.com/
+FROM registry.cn-hangzhou.aliyuncs.com/xunce/nodejs-base:nginx-1.19.3
+COPY --from=build /tmp/resource/build-all /usr/share/nginx/html/
+COPY --from=build /tmp/resource/static/lib /usr/share/nginx/html/build-all/static/
+
+EXPOSE 8060

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-test
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-demo
+  namespace: kube-test
+  labels:
+    app: myapp
+    tier: frontend
+spec:
+  containers:
+  - name: myapp
+    image: ikubernetes/myapp:v1
+    imagePullPolicy: Always
+    ports:
+     - name: http
+       containerPort: 80
+     - name: https
+       containerPort: 443
+  - name: busybox
+    image: busybox:latest
+    command: ["/bin/sh","-c","sleep 3600"]
+    imagePullPolicy: Always
+  nodeSelector:
+    disktype: ssd
