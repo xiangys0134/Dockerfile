@@ -18,7 +18,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1; \
     \
     grep -q 'zh_CN.utf8' /etc/locale.conf || sed -i -E 's/^LANG=.*/LANG="zh_CN.UTF-8"/' /etc/locale.conf; \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
-    yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel net-tools; \
+    yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel dos2unix net-tools; \
     yum clean all
 
 USER root
