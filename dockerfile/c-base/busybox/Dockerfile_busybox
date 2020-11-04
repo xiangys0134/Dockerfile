@@ -1,0 +1,15 @@
+FROM busybox:latest
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="rpmbuild" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="Centos7.6" \
+      desc="xone_java devtoolset" \
+      build-date="20201016"
+
+COPY resource /tmp/resource
+
+RUN set -ex; \
+    \
+    cp -r /tmp/resource/* /opt/
+

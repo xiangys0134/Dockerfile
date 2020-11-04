@@ -2,7 +2,7 @@ FROM centos:centos7.6.1810
 # 镜像的作者
 LABEL maintainer="<469288592@qq.com>"
 
-#COPY resource  /tmp/resource
+COPY resource  /tmp/resource
 
 ENV LANG=zh_CN.UTF-8 \
     LANGUAGE=zh_CN.UTF-8 \
@@ -14,7 +14,7 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     yum -y install yum-utils dos2unix dos2unix unix2dos cronie &&\
     yum-config-manager --add-repo http://mirrors.xuncetech.com/xunce/xunce-dev/yum/el7/xunce-dev.repo &&\
     yum-config-manager --add-repo http://mirrors.xuncetech.com/xunce/AssetDataCenter/yum/AssetDataCenter.repo &&\
-    yum install -y epel-release &&\
+    yum install -y epel-release krb5-devel krb5-workstation &&\
     yum install -y \
                  which \
                  libtool \
@@ -40,8 +40,9 @@ RUN localedef -v -c -i en_US -f UTF-8 zh_CN.UTF-8 >/dev/null 2>&1 &&\
     echo "/usr/lib/oracle/11.2/client64/lib">>/etc/ld.so.conf.d/oracle.conf &&\
     ldconfig &&\
     ln -nfs  /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
-    yum clean all 
-    #&& rm -fr /tmp/resource
+    chmod a+x /tmp/resource/*.sh &&\
+    cp /tmp/resource/*.sh /usr/bin/ &&\
+    yum clean all && rm -fr /tmp/resource
     #cd /tmp/resource && rpm -ivh *rpm &&\
 
 USER root
