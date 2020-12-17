@@ -1,0 +1,8 @@
+FROM docker:20.10.1-dind
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="jenkins docker" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="docker" \
+      desc="jenkins docker" \
+      build-date="2020.12.16"

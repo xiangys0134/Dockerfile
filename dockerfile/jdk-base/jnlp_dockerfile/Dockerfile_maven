@@ -1,0 +1,10 @@
+FROM maven:3.6.3-openjdk-16
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="maven" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="maven" \
+      desc="mvn" \
+      build-date="2020.12.16"
+
+COPY settings.xml /usr/share/maven/ref/

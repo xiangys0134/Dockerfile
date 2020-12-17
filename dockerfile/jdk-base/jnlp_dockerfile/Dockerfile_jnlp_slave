@@ -1,0 +1,8 @@
+FROM jenkins/jnlp-slave:4.6-1
+LABEL maintainer="<yousong.xiang@xuncetech.com>" \
+      name="jenkins-slave" \
+      author="yousong.xiang" \
+      version="v1.0.1" \
+      systemver="slave" \
+      desc="jenkins jnlp slave" \
+      build-date="2020.12.16"
